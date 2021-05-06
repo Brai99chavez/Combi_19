@@ -14,4 +14,5 @@ class publicController extends Controller
     public function publicHome(){
         return view('public.publicHome');
     } //
+    
 }
