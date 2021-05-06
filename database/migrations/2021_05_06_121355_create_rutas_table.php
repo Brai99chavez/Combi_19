@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMembresiaTable extends Migration
+class CreateRutasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateMembresiaTable extends Migration
      */
     public function up()
     {
-        Schema::create('membresia', function (Blueprint $table) {
-            $table->bigIncrements('id_membresia');
-            $table->string('nombre',50);
-            $table->double('descuento');
+        Schema::create('rutas', function (Blueprint $table) {
+            $table->bigIncrements('id_ruta');
+            $table->integer('id_ciudadOrigen');
+            $table->integer('id_ciudadDestino');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateMembresiaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('membresia');
+        Schema::dropIfExists('rutas');
     }
 }
