@@ -18,6 +18,7 @@ class CreateCiudadesTable extends Migration
             $table->string('nombre',50);
             $table->string('direccion',100);
             $table->boolean('disponible');
+            $table->timestamps();
         });
     }
 

@@ -24,7 +24,6 @@ class CreateUsuariosTable extends Migration
             $table->integer('id_permiso');
         });
     }
-
     /**
      * Reverse the migrations.
      *

@@ -19,6 +19,7 @@ class CreateInsumosTable extends Migration
             $table->double('precio');
             $table->text('descripcion');
             $table->boolean('disponible');
+            $table->timestamps();
         });
     }
 

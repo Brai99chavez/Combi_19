@@ -19,6 +19,7 @@ class CreateTarjetasTable extends Migration
             $table->integer('cod_seguridad');
             $table->string('vencimiento');
             $table->integer('id_usuario');
+            $table->timestamps();
         });
     }
 

@@ -17,6 +17,7 @@ class CreateViajeInsumoTable extends Migration
             $table->id();
             $table->integer('id_viaje');
             $table->integer('id_insumo');
+            $table->timestamps();
         });
     }
 

@@ -17,6 +17,7 @@ class CreateRutasTable extends Migration
             $table->bigIncrements('id_ruta');
             $table->integer('id_ciudadOrigen');
             $table->integer('id_ciudadDestino');
+            $table->timestamps();
         });
     }
 

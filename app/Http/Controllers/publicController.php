@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Caso;
 use Illuminate\Http\Request;
 
 class publicController extends Controller
 {   
     
+
+
     public function login(){
         return view('public.login');
     } //
 
     public function publicHome(){
+
+        
         return view('public.publicHome');
     } //
     

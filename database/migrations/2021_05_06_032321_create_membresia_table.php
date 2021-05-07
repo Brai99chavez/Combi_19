@@ -17,6 +17,7 @@ class CreateMembresiaTable extends Migration
             $table->bigIncrements('id_membresia');
             $table->string('nombre',50);
             $table->double('descuento');
+            $table->timestamps();
         });
     }
 

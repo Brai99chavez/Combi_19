@@ -17,7 +17,7 @@ class CreatePasajesTable extends Migration
             $table->bigIncrements('id_pasaje');
             $table->integer('id_usuario');
             $table->integer('id_viaje');
-            $table->date('fecha');
+            $table->timestamps();
         });
     }
 
