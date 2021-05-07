@@ -24,5 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(usuariosSeeder::class);
         $this->call(insumosSeeder::class);
         $this->call(ciudadesSeeder::class);
+        $this->call(tarjetasSeeder::class);
+        $this->call(viajesSeeder::class);
+        $this->call(rutasSeeder::class);
     }
 }
