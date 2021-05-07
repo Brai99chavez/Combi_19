@@ -18,7 +18,6 @@ class CreateCombisTable extends Migration
             $table->string('patente')->unique();
             $table->string('modelo',50);
             $table->text('color',15);
-            $table->text('descripcion');
             $table->integer('cant_asientos');
             $table->integer('id_categoria');
             $table->boolean('disponible');
