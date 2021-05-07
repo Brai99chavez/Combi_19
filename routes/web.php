@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\publicController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,5 +18,3 @@ use App\Http\Controllers\publicController;
 Route::get('/', [publicController::class,'publicHome']);
 
 Route::get('login', [publicController::class,'login']);
-
-
