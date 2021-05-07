@@ -15,12 +15,12 @@ class membresiaSeeder extends Seeder
     public function run()
     {
         $membresia = new Membresias();
-        $membresia->nombre = 'golden';
+        $membresia->nombre = 'GOLDEN';
         $membresia->descuento= 23.5;
         $membresia->save();
 
         $membresia = new Membresias();
-        $membresia->nombre = 'normal';
+        $membresia->nombre = 'BASIC';
         $membresia->descuento= 0;
         $membresia->save();
     }
