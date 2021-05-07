@@ -22,6 +22,7 @@ class CreateUsuariosTable extends Migration
             $table->string('contraseña');
             $table->integer('id_membresia');
             $table->integer('id_permiso');
+            $table->timestamps();
         });
     }
     /**

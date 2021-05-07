@@ -21,5 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(pasajesSeeder::class);
         $this->call(combisSeeder::class);
         $this->call(categoriasSeeder::class);
+        $this->call(usuariosSeeder::class);
+        $this->call(insumosSeeder::class);
+        $this->call(ciudadesSeeder::class);
     }
 }
