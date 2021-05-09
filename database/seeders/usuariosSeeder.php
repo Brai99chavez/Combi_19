@@ -31,7 +31,6 @@ class usuariosSeeder extends Seeder
         $usu2->dni = 126789;
         $usu2->email = 'tomas@gmail.com';
         $usu2->contraseña = 'tomas123';
-        $usu2->tarjeta = 0;
         $usu2->id_membresia = 2;
         $usu2->id_permiso = 1; 
         $usu2->save();
@@ -53,7 +52,6 @@ class usuariosSeeder extends Seeder
         $usu4->dni = 4845123;
         $usu4->email = 'marcelo@gmail.com';
         $usu4->contraseña = 'marcelo123';
-        $usu4->tarjeta = 0;
         $usu4->id_membresia = 2;
         $usu4->id_permiso = 2;
         $usu4->save();

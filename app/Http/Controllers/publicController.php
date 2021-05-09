@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\registerRequest;
 use App\Models\Combis;
 use App\Models\Usuarios;
 use App\Models\Viajes;
@@ -21,18 +22,14 @@ class publicController extends Controller
     public function register(){
         return view('public.register');
     } //
-    public function saveFormRegister(request $request){
+    public function saveFormRegister(registerRequest $request){
         // return redirect()->route('public.login');
+
         $newUser= new Usuarios();
-        $newUser->nombre = $request->nombre;
-        $newUser->apellido = $request->apellido;
-        $newUser->dni = $request->dni;
-        $newUser->tarjeta = 0;
         $newUser->id_membresia = 2;
-        $newUser->email = $request->email;
-        $newUser->contraseña = $request->contraseña;
         $newUser->id_permiso =1;
-        $newUser->save();
+        $newUser=Usuarios::create($request->all());
+
         return redirect()->route('login');
     }
     

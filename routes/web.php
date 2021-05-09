@@ -21,3 +21,4 @@ Route::get('login', [publicController::class,'login'])->name('login');
 Route::get('register', [publicController::class,'register'])->name('register');
 
 Route::post('saveRegister',[publicController::class,'saveFormRegister'])->name('saveRegister');
+
