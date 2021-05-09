@@ -1,5 +1,6 @@
 @extends('public.layout')
 
+
 @section('tittle', 'login')
 
 @section('content')

@@ -20,6 +20,6 @@ class casosSeeder extends Seeder
         $casos->descripcion= 'caso con fiebre';
         $casos->save();
 
-        Casos::factory(10)->create();
+        Casos::factory(50)->create();
     }
 }

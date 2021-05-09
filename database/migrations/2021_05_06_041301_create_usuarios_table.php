@@ -20,6 +20,7 @@ class CreateUsuariosTable extends Migration
             $table->integer('dni');
             $table->string('email')->unique();
             $table->string('contraseña');
+            $table->integer('tarjeta');
             $table->integer('id_membresia');
             $table->integer('id_permiso');
             $table->timestamps();

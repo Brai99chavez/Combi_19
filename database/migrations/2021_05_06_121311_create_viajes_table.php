@@ -17,7 +17,7 @@ class CreateViajesTable extends Migration
             $table->bigIncrements('id_viaje');
             $table->integer('id_chofer');
             $table->integer('id_combi');
-            $table->string('id_ruta');
+            $table->integer('id_ruta');
             $table->double('precio');
             $table->timestamps();
         });
