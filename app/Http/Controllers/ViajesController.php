@@ -16,14 +16,23 @@ class ViajesController extends Controller
         ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
-        ->select("categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
+        ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
         "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino")
         ->get();
         return view("admin.viajes.homeViajes", compact('viajes'));
     }
-    public function updateViaje($id_viaje){
-        $ciudades = Ciudades::all();
-        return view('admin.viajes.updateViajes',compact('id_viaje','ciudades'));
+    public function updateviajes($id_viaje){
+        $viaje = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
+        ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
+        ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
+        ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
+        ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
+        ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
+        ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
+        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino")
+        ->where("viajes.id_viaje", "=", $id_viaje)
+        ->get();
+        return view('admin.viajes.updateViajes',compact('viaje'));
     }
     public function createviaje(){
         $ciudades = Ciudades::all();

@@ -38,7 +38,7 @@ Route::post('createviajeshow',[ViajesController::class,'showviaje'])->name(('cre
 
 Route::get('homeviajes',[ViajesController::class,'homeviajes'])->name(('homeviajes'));
 
-Route::get('updateviajes',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
+Route::get('updateviajes/{id_viaje}',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
 
 Route::get('deleteviajes',[ViajesController::class,'deleteviajes'])->name(('deleteviajes'));
 
