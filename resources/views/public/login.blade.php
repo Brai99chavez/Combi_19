@@ -5,6 +5,6 @@
 
 @section('content')
     <h1>
-        soy el login padre
+        soy el login padre !!!!!
     </h1>
 @endsection
