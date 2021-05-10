@@ -19,6 +19,8 @@ class CreateViajesTable extends Migration
             $table->integer('id_combi');
             $table->integer('id_ruta');
             $table->double('precio');
+            $table->date('fecha');
+            $table->time('hora');
             $table->timestamps();
         });
     }

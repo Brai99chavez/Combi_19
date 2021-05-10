@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\publicController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ViajesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +26,14 @@ Route::get('register', [publicController::class,'register'])->name('register');
 Route::post('saveRegister',[publicController::class,'saveFormRegister'])->name('saveRegister');
 
 Route::get('homeadmin', [AdminController::class,'homeadmin'])->name('homeadmin');
+
+Route::get('createviaje',[ViajesController::class,'createviaje'])->name(('createviaje'));
+
+Route::post('createviajeshow',[ViajesController::class,'showviaje'])->name(('createviajeshow'));
+
+Route::get('homeviajes',[ViajesController::class,'homeviajes'])->name(('homeviajes'));
+
+Route::get('updateviajes',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
+
+Route::get('deleteviajes',[ViajesController::class,'deleteviajes'])->name(('deleteviajes'));
+

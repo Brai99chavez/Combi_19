@@ -4,23 +4,10 @@
 @section('content')
 <h2>HOME DEL ADMINISTRADOR</h2>    
 <div>
-    <a href="">CARGAR VIAJE |</a>
+    <a href="{{route('homeviajes')}}">VIAJES</a>
     <a href="">CARGAR MEMBRESIA |</a>
     <a href="">CARGAR CHOFER |</a>
     <a href="">CARGAR COMBI </a>
-    <p>VIAJES</p>
-    <ul>
-        @foreach($viajes as $viaje)
-            <li>
-                {{$viaje->chofer}}
-                {{$viaje->patente}}
-                {{$viaje->categoria}}
-                {{$viaje->origen}}
-                {{$viaje->destino}}
-                {{$viaje->precio}}
-            </li>
-        @endforeach
-    </ul>
     <P>MEMBRESIAS</P>
     <ul>
         @foreach($membresias as $membresia)
