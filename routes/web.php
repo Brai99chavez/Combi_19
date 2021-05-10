@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\publicController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +23,4 @@ Route::get('register', [publicController::class,'register'])->name('register');
 
 Route::post('saveRegister',[publicController::class,'saveFormRegister'])->name('saveRegister');
 
+Route::get('homeadmin', [AdminController::class,'homeadmin'])->name('homeadmin');
