@@ -1,4 +1,4 @@
-@extends('public.layout')
+@extends('public.publicLayout')
 
 @section('title', 'registro')
 
@@ -8,12 +8,17 @@
     <h1>
         soy el registro padre
     </h1>
+    <p>
+        si ingresa tarjeta sera usuario golden y
+        tendra acceso a descuentos
+    </p>
     <form action="{{route('saveRegister')}}" method="POST">
         @csrf
 
 
         <label>
-            Nombre:
+            Nombre:*
+            <br>
             <input type="text" name="nombre" value="{{old('nombre')}}">
         </label>
         @error('nombre')
@@ -25,7 +30,8 @@
 
 
         <label>
-            Apellido:
+            Apellido:*
+            <br>
             <input type="text" name="apellido" value="{{old('apellido')}}">
         </label>
         @error('apellido')
@@ -37,7 +43,8 @@
 
 
         <label>
-            dni:
+            dni:*
+            <br>
             <input type="text" name="dni" value="{{old('dni')}}">
         </label>
         @error('dni')
@@ -47,9 +54,16 @@
         @enderror
         <br>
 
+        <label>
+            tarjeta: (opcional)
+            <br>
+            <input type="text" name="tarjeta" value="{{old('tarjeta')}}">
+        </label>
+        <br>
 
         <label>
-            Email:
+            Email:*
+            <br>
             <input type="text" name="email" value="{{old('email')}}">
         </label>
         @error('email')
@@ -59,9 +73,9 @@
         @enderror
         <br>
 
-
         <label>
-            Contraseña:
+            Contraseña:*
+            <br>
             <input type="password" name="contraseña" value="{{old('contraseña')}}">
         </label>
         @error('contraseña')

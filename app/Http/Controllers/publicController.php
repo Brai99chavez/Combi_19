@@ -16,21 +16,38 @@ class publicController extends Controller
         $choferes = Usuarios::select('id_usuario','nombre', 'apellido')->where('id_permiso','2')->get(); 
         return view('public.publicHome', compact('viajes','choferes'));
     } //
+
+
     public function login(){
         return view('public.login');
     } //
+
+
     public function register(){
         return view('public.register');
     } //
+
+
     public function saveFormRegister(registerRequest $request){
         // return redirect()->route('public.login');
 
-        $newUser= new Usuarios();
-        $newUser->id_membresia = 2;
-        $newUser->id_permiso =1;
-        $newUser=Usuarios::create($request->all());
+        $newUser = new Usuarios;
+        $newUser->nombre = $request->nombre;
+        $newUser->apellido = $request->apellido;
+        $newUser->dni = $request->dni;
+        $newUser->tarjeta = $request->tarjeta;
+        if (isset($request->tarjeta)) {
+            $newUser->id_membresia = 1;
+        }
+        $newUser->email = $request->email;
+        $newUser->contraseña = $request->contraseña;
+        $newUser->save();
 
         return redirect()->route('login');
+    }
+
+    public function homeUsuario(Request $request){
+        return $request->session()->all();
     }
     
 }

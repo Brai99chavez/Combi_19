@@ -1,4 +1,4 @@
-@extends('public.layout')
+@extends('public.publicLayout')
 
 @section('tittle', 'publicHome')
 

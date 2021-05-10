@@ -1,4 +1,4 @@
-@extends('user.layout')
+@extends('user.userLayout')
 
 @section('title', 'home')
 
@@ -6,4 +6,5 @@
 @endsection
         
 @section('content')
+<h1>soy home</h1>
 @endsection
