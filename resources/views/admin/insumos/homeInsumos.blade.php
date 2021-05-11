@@ -3,7 +3,7 @@
 @section('content')
     <p>INSUMOS</p>
     <a href="{{route('homeadmin')}}"><button>VOLVER AL HOME</button></a>
-    <a href="{{route('createinsumoshow')}}"><button>CARGAR INSUMO</button></a>
+    <a href="{{route('createinsumo')}}"><button>CARGAR INSUMO</button></a>
     <ul>
         @foreach($insumos as $insumo)
         <li>

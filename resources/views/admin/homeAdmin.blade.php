@@ -1,6 +1,5 @@
 @extends('admin.layout')
 @section('title', 'Admin Page')
-
 @section('content')
 <h2>HOME DEL ADMINISTRADOR</h2>    
 <div>
