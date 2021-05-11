@@ -63,6 +63,8 @@ Route::get('homemembresias',[MembresiasController::class,'homemembresias'])->nam
 Route::get('homechoferes',[ChoferesController::class,'homechoferes'])->name(('homechoferes'));
         //ADMIN - COMBIS
 Route::get('homecombis',[CombisController::class,'homecombis'])->name(('homecombis'));
+
+
 //USUARIO
 Route::post('auth',[userController::class,'autenticacion'])->name('autenticacion');
 
