@@ -18,7 +18,7 @@ class userController extends Controller
             session(['email'=>$request->email]); 
             session(['id_permiso'=>$user[0]->id_permiso]); 
             $request->session()->regenerate();
-            return $request->session()->all();
+
             return redirect()->route('homeUser');
         }else{
             return redirect()->route('login')->withErrors(['log'=>'email o contraseña incorrecto']);
