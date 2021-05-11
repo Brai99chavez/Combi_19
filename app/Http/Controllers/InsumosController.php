@@ -8,13 +8,15 @@ use Illuminate\Http\Request;
 class InsumosController extends Controller
 {
     public function homeinsumos(){
-        $insumos = Insumos::all();
-        return view('admin.insumos.homeInsumos', compact('insumos'));
+        $insumosDisponibles = Insumos::where("insumos.disponible", "=", 1)->get();
+        $insumosBaja = Insumos::where("insumos.disponible", "=", 0)->get();
+        return view('admin.insumos.homeInsumos', compact('insumosDisponibles', 'insumosBaja'));
     }
     public function createinsumo(){
         return view('admin.insumos.createInsumo');
     }
-    public function deleteinsumos(){
+    public function deleteinsumos(Request $request){
+        Insumos::where("insumos.id_insumo")->delete(); 
         return view('admin.insumos.deleteInsumos');
     }
     public function showinsumo(Request $request){
