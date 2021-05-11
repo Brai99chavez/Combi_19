@@ -6,5 +6,5 @@
 @endsection
         
 @section('content')
-<h1>soy home</h1>
+<h1>Bienvenidx {{session('nombre')}} {{session('apellido')}}</h1>
 @endsection

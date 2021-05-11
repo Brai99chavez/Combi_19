@@ -9,7 +9,12 @@
 </head>
 <body>
     <nav>
-
+        <form action="{{route('logOut')}}" method="POST">
+            @csrf
+            <button type="submit" >
+                Cerrar Sesion
+            </button>
+        </form>
     </nav>
     @yield('content')
 </body>

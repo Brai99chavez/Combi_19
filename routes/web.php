@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\publicController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChoferesController;
 use App\Http\Controllers\CombisController;
 use App\Http\Controllers\InsumosController;
 use App\Http\Controllers\MembresiasController;
+use App\Http\Controllers\publicController;
 use App\Http\Controllers\ViajesController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegisterController;
 
 
 /*
@@ -24,49 +25,55 @@ use App\Http\Controllers\userController;
 */
 
 
+
+
 //PUBLICO
-Route::get('/', [publicController::class,'publicHome']);
+
+Route::get('/',[publicController::class,'publicHome'])->name('/');
+
 
 Route::get('login', [publicController::class,'login'])->name('login');
 
 Route::get('register', [publicController::class,'register'])->name('register');
 
-Route::post('saveRegister',[publicController::class,'saveFormRegister'])->name('saveRegister');
+Route::post('save_register',[RegisterController::class,'saveFormRegister'])->name('saveRegister');
+
+Route::post('auth',[AuthController::class,'autenticacion'])->name('autenticacion');
+
+Route::post('logOut', [AuthController::class,'logOut'])->name('logOut');
 
 //ADMIN
 
         //ADMIN - VIAJES
-Route::get('homeadmin', [AdminController::class,'homeadmin'])->name('homeadmin');
+Route::get('home_admin', [AdminController::class,'homeadmin'])->name('homeadmin');
 
-Route::get('createviaje',[ViajesController::class,'createviaje'])->name(('createviaje'));
+Route::get('create_viaje',[ViajesController::class,'createviaje'])->name(('createviaje'));
 
-Route::post('viajeshow',[ViajesController::class,'showviaje'])->name(('createviajeshow'));
+Route::post('show_viaje',[ViajesController::class,'showviaje'])->name(('createviajeshow'));
 
-Route::get('homeviajes',[ViajesController::class,'homeviajes'])->name(('homeviajes'));
+Route::get('home_viajes',[ViajesController::class,'homeviajes'])->name(('homeviajes'));
 
-Route::get('updateviajes/{id_viaje}',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
+Route::get('update_viajes/{id_viaje}',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
 
-Route::get('deleteviajes',[ViajesController::class,'deleteviajes'])->name(('deleteviajes'));
+Route::get('delete_viajes',[ViajesController::class,'deleteviajes'])->name(('deleteviajes'));
         //ADMIN - INSUMOS
-Route::get('homeinsumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));
+Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));
 
-Route::get('updateinsumos/{id_insumo}',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));
+Route::get('update_insumos/{id_insumo}',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));
 
-Route::get('deleteinsumos/{id_insumo}',[InsumosController::class,'deleteinsumos'])->name(('deleteinsumos'));
+Route::get('delete_insumos/{id_insumo}',[InsumosController::class,'deleteinsumos'])->name(('deleteinsumos'));
 
-Route::post('insumoshow',[InsumosController::class,'showinsumo'])->name(('createinsumoshow'));
+Route::post('show_insumo',[InsumosController::class,'showinsumo'])->name(('createinsumoshow'));
 
-Route::get('createinsumo',[InsumosController::class,'createinsumo'])->name(('createinsumo'));
+Route::get('create_insumo',[InsumosController::class,'createinsumo'])->name(('createinsumo'));
         //ADMIN - MEMBRESIAS
-Route::get('homemembresias',[MembresiasController::class,'homemembresias'])->name(('homemembresias'));
+Route::get('home_membresias',[MembresiasController::class,'homemembresias'])->name(('homemembresias'));
         //ADMIN - CHOFERES
-Route::get('homechoferes',[ChoferesController::class,'homechoferes'])->name(('homechoferes'));
+Route::get('home_choferes',[ChoferesController::class,'homechoferes'])->name(('homechoferes'));
         //ADMIN - COMBIS
-Route::get('homecombis',[CombisController::class,'homecombis'])->name(('homecombis'));
+Route::get('home_combis',[CombisController::class,'homecombis'])->name(('homecombis'));
 
 
 //USUARIO
-Route::post('auth',[userController::class,'autenticacion'])->name('autenticacion');
 
 Route::get('home', [userController::class,'homeUser'])->name('homeUser');
-
