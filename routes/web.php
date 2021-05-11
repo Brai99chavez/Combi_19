@@ -61,13 +61,16 @@ Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('home
 
 Route::get('update_insumos/{id_insumo}',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));
 
-Route::get('delete_insumos/{id_insumo}',[InsumosController::class,'deleteinsumos'])->name(('deleteinsumos'));
+Route::get('delete_insumos',[InsumosController::class,'deleteinsumos'])->name(('deleteinsumos'));
 
 Route::post('show_insumo',[InsumosController::class,'showinsumo'])->name(('createinsumoshow'));
 
 Route::get('create_insumo',[InsumosController::class,'createinsumo'])->name(('createinsumo'));
         //ADMIN - MEMBRESIAS
 Route::get('home_membresias',[MembresiasController::class,'homemembresias'])->name(('homemembresias'));
+
+Route::get('update_membresias/{id_membresia}',[MembresiasController::class,'updatemembresias'])->name(('updatemembresias'));
+
         //ADMIN - CHOFERES
 Route::get('home_choferes',[ChoferesController::class,'homechoferes'])->name(('homechoferes'));
         //ADMIN - COMBIS

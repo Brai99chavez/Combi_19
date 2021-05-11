@@ -11,4 +11,8 @@ class MembresiasController extends Controller
         $membresias = Membresias::all();  
         return view('admin.membresias.homeMembresia', compact('membresias'));
     }
+    public function updatemembresias($id_membresia){
+        $membresia = Membresias::where("membresias.id_membresia", "=", $id_membresia);
+        return view('admin.membresias.updateMembresia',compact('membresia'));
+    }
 }

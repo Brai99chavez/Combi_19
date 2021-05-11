@@ -11,7 +11,6 @@
     @yield('head')
 </head>
 <body>
-
         <!-- HEADER ENCABEZADO-->
         <header class="header">
             <div class="logo">

@@ -15,7 +15,7 @@ class InsumosController extends Controller
         return view('admin.insumos.createInsumo');
     }
     public function deleteinsumos(){
-
+        return view('admin.insumos.deleteInsumos');
     }
     public function showinsumo(Request $request){
         $insumo = new Insumos();

@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layout')
 @section('title', 'Home Viajes')
 @section('headerTitle', 'Viajes')
 @section('content')

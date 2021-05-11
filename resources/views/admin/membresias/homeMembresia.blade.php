@@ -1,11 +1,12 @@
 @extends('admin.layout')
 @section('title', 'Home Membresia')
 @section('content')
-<ul>
+<div class="formulary">
     @foreach($membresias as $membresia)
-        <li>
             {{$membresia->nombre}}
-        </li>
+            {{$membresia->descuento}}
+            <button onclick=location.href="{{route('updatemembresias',$membresia->id_membresia)}}">MODIFICAR</button>
+            <br>
     @endforeach
-</ul>
+</div>
 @endsection

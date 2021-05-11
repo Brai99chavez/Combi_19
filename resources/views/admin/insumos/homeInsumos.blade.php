@@ -1,18 +1,16 @@
-@extends('admin.layout')
+@extends('layout')
 @section('title','Home Insumos')
-
 @section('content')
     <a href="{{route('createinsumo')}}"><button>CARGAR INSUMO</button></a>
-    <ul>
+    <div class="formulary">
         @foreach($insumos as $insumo)
-        <li>
             {{$insumo->nombre}}
             {{$insumo->precio}}
             {{$insumo->descripcion}}
             {{$insumo->disponible}}
-            <button><a href="{{route('updateinsumos',$insumo->id_insumos)}}">MODIFICAR</a></button>
-            <button><a href="{{route('deleteinsumos',$insumo->id_insumos)}}">ELIMINAR</a></button>
-        </li>
+            <button onclick=location.href="{{route('updateinsumos',$insumo->id_insumos)}}">MODIFICAR</button>
+            <button onclick=location.href="{{route('deleteinsumos')}}">ELIMINAR</button>
+        <br><br>
         @endforeach
-    </ul>
+    </div>
 @endsection
