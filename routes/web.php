@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ViajesController;
 use App\Http\Controllers\userController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
