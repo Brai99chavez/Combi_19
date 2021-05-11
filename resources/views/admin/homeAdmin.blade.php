@@ -1,6 +1,5 @@
 @extends('admin.layout')
 @section('title', 'Admin Page')
-
 @section('content')
 <h2>HOME DEL ADMINISTRADOR</h2>    
 <div>
@@ -9,14 +8,7 @@
     <a href="{{route('homemembresias')}}">MEMBRESIAS |</a>
     <a href="{{route('homecombis')}}">COMBIS |</a>
     <a href="{{route('homechoferes')}}">CHOFERES |</a>
-    <P>MEMBRESIAS</P>
-    <ul>
-        @foreach($membresias as $membresia)
-            <li>
-                {{$membresia->nombre}}
-            </li>
-        @endforeach
-    </ul>
+    
     <p>COMBIS</p>
     <ul>
         @foreach($combis as $combi)
