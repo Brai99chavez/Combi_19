@@ -1,1 +1,0 @@
-<a href="{{route('homeadmin')}}"><button>VOLVER AL HOME</button></a>

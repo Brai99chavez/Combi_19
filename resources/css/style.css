@@ -1,0 +1,19 @@
+:root{
+
+	--font:#000;
+	--font2:#fff;
+	--hover:#105671;
+	--formulary:#fff;
+	--Bordes:#10567190;
+	--paneles:#fff;
+	--fondo:#105671;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body{
+    background: var(--fondo);
+}

@@ -19,25 +19,22 @@ class AuthController extends Controller
             session(['email'=>$user[0]->email]); 
             session(['id_permiso'=>$user[0]->id_permiso]); 
 
-            if ($user[0]->id_permiso == 1) {
+            if (session()->get('id_permiso') == 1) {
                 return redirect()->route('homeUser');
-            }elseif ($user[0]->id_permiso == 2) {
+            }elseif (session()->get('id_permiso') == 2) {
                 return redirect()->route('homeChofer');
-            }elseif ($user[0]->id_permiso == 3) {
+            }elseif (session()->get('id_permiso') == 3) {
                 return redirect()->route('homeadmin');
             }
 
             
         }else{
-            return redirect()->route('login')->withErrors(['log'=>'email o contraseña incorrecto']);
+            return redirect()->route('login')->withErrors(['log'=>'email inexistente o contraseña incorrecta']);
         }
     } //
 
     public function logOut(){
-        session()->pull('nombre');
-        session()->pull('apellido');
-        session()->pull('email');
-        session()->pull('id_permiso');
+        session()->flush();
         return redirect()->route('/');
     }
 }

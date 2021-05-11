@@ -1,7 +1,6 @@
 @extends('admin.layout')
 @section('title','Home Insumos')
-@extends('admin.layout2')
-<p>INSUMOS</p>
+
 @section('content')
     <a href="{{route('createinsumo')}}"><button>CARGAR INSUMO</button></a>
     <ul>

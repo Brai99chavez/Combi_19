@@ -1,0 +1,155 @@
+
+/*---------- FORMULARIO ----------*/
+
+.formulary {
+	border-radius: 20px;
+    width: 70%;
+    padding: 30px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-family: 'calibri';
+    font-size: 20px;
+    color: var(--font);
+    text-align: center;
+    background: var(--paneles);
+    
+}
+
+.formulary .fechaYhora{
+    justify-content: center;
+    display: flex;
+}
+
+.formulary .fechaYhora select{
+    justify-content: center;
+    width: 100px;
+}
+
+.formulary h2{
+    font-size: 22px;
+}
+
+.formulary input[type="text"]{
+    width: 50%;
+    background: var(--paneles);
+    margin-bottom: 16px;
+    border: none;
+    border-bottom: 2px solid var(--Bordes);
+    outline: none;
+    color: var(--font);
+    text-align: center;
+}
+.formulary input[type="password"]{
+    width: 50%;
+    background: var(--paneles);
+    padding: 10px;
+    margin-bottom: 16px;
+    border: none;
+    border-bottom: 2px solid var(--Bordes);
+    outline: none;
+    color: var(--font);
+}
+
+.formulary input[type="submit"]{
+    width: 50%;
+    background: var(--paneles);
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 2px solid var(--Bordes);
+    outline: none;
+    color: var(--font);
+}
+
+.formulary input[type="file"]{
+    width: 50%;
+    background: var(--paneles);
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 2px solid var(--Bordes);
+    outline: none;
+    color: var(--font);
+}
+
+
+.formulary .options{
+	color: var(--font);
+    width: 13%;
+    background: var(--paneles);
+	padding: 10px;
+    margin-bottom: 16px;
+	border: none;
+    outline: none;
+    font-size: 20px;
+}
+
+.formulary .botones{
+    color: var(--font);
+    width: 50%;
+    background: var(--paneles);
+    padding: 10px;
+    margin-bottom: 16px;
+	border: 2px solid var(--Bordes);
+    outline: none;
+}
+
+.formulary a{
+    color: var(--font);
+    font-weight: bold;
+}
+
+.formulary select{
+    color: var(--font);
+    width: 50%;
+    background: var(--paneles);
+    padding: 10px;
+    margin-bottom: 16px;
+    border-color: var(--Bordes);
+}
+
+
+.formulary .embed-img{
+    width: 100%;
+    height: 100%;
+}
+
+.formulary .embed-pdf{
+    width: 100%;
+    height: 600px;
+}
+
+
+.formulary textarea{
+    color: var(--font);
+    width: 50%;
+    height: 120px;
+    resize: none;
+    outline: none;
+    border: 2px solid var(--Bordes);
+}
+
+.formulary .divisor{
+    border-radius: 20px;
+    border: 2px solid grey;
+    padding: 20px;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.542);
+    margin-bottom: 20px;
+    background: rgb(255, 255, 255);
+}
+
+@media screen and (max-width: 768px){
+    .formulary{
+        width: 80%;
+        margin-top: 0px;
+    }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+-webkit-text-fill-color: black;
+-webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset; transition: background-color 5000s ease-in-out 0s;
+}

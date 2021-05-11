@@ -40,7 +40,7 @@ Route::post('save_register',[RegisterController::class,'saveFormRegister'])->nam
 
 Route::post('auth',[AuthController::class,'autenticacion'])->name('autenticacion');
 
-Route::post('logOut', [AuthController::class,'logOut'])->name('logOut');
+Route::get('logOut', [AuthController::class,'logOut'])->name('logOut');
 
 //ADMIN
 

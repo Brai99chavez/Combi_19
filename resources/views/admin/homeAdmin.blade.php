@@ -1,36 +1,35 @@
 @extends('admin.layout')
 @section('title', 'Admin Page')
+
+@section('headerTitle', 'Home Admin')
+
+
 @section('content')
-<h2>HOME DEL ADMINISTRADOR</h2>    
-<div>
-    <a href="{{route('homeviajes')}}">VIAJES</a>
-    <a href="{{route('homeinsumos')}}">INSUMOS |</a>
-    <a href="{{route('homemembresias')}}">MEMBRESIAS |</a>
-    <a href="{{route('homecombis')}}">COMBIS |</a>
-    <a href="{{route('homechoferes')}}">CHOFERES |</a>
-    
-    <p>COMBIS</p>
+<div class="formulary">
+
+    <strong>[COMBIS]</strong>
     <ul>
         @foreach($combis as $combi)
-            <li>
+        <br>
                 {{$combi->patente}}
                 {{$combi->modelo}}
                 {{$combi->color}}
                 {{$combi->cant_asientos}}
                 {{$combi->categoria}}
                 {{$combi->disponible}}
-            </li>
+        <br>
         @endforeach
     </ul>
-    <p>CHOFERES</p>
+    <BR></BR>
+    <strong>[CHOFERES]</strong>
     <ul>
         @foreach($choferes as $chofer)
-        <li>
+        <br>
             {{$chofer->nombre}}
             {{$chofer->apellido}}
             {{$chofer->dni}}
             {{$chofer->email}}
-        </li>
+        <br>
         @endforeach
     </ul>
 </div>
