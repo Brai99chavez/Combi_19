@@ -54,6 +54,6 @@ class ViajesController extends Controller
         $origen = Ciudades::select("ciudades.nombre")->where("ciudades.id_ciudad", "=", $request->origen)->first();
         $destino = Ciudades::select("ciudades.nombre")->where("ciudades.id_ciudad", "=", $request->destino)->first();
         $viaje->save();
-        return view('admin.viajes.viajeshow', compact('viaje', 'origen', 'destino'));
+        return view('admin.viajes.viajeShow', compact('viaje', 'origen', 'destino'));
     }
 }

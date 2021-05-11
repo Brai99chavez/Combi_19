@@ -1,8 +1,8 @@
 @extends('admin.layout')
 @section('title','Home Insumos')
+@extends('admin.layout2')
+<p>INSUMOS</p>
 @section('content')
-    <p>INSUMOS</p>
-    <a href="{{route('homeadmin')}}"><button>VOLVER AL HOME</button></a>
     <a href="{{route('createinsumo')}}"><button>CARGAR INSUMO</button></a>
     <ul>
         @foreach($insumos as $insumo)

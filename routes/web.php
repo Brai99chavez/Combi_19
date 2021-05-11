@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\publicController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChoferesController;
 use App\Http\Controllers\CombisController;
@@ -47,6 +46,8 @@ Route::get('homeviajes',[ViajesController::class,'homeviajes'])->name(('homeviaj
 Route::get('updateviajes/{id_viaje}',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
 
 Route::get('deleteviajes',[ViajesController::class,'deleteviajes'])->name(('deleteviajes'));
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
         //ADMIN - INSUMOS
 Route::get('homeinsumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));
 
@@ -57,14 +58,16 @@ Route::get('deleteinsumos/{id_insumo}',[InsumosController::class,'deleteinsumos'
 Route::post('insumoshow',[InsumosController::class,'showinsumo'])->name(('createinsumoshow'));
 
 Route::get('createinsumo',[InsumosController::class,'createinsumo'])->name(('createinsumo'));
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
         //ADMIN - MEMBRESIAS
 Route::get('homemembresias',[MembresiasController::class,'homemembresias'])->name(('homemembresias'));
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
         //ADMIN - CHOFERES
 Route::get('homechoferes',[ChoferesController::class,'homechoferes'])->name(('homechoferes'));
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
         //ADMIN - COMBIS
 Route::get('homecombis',[CombisController::class,'homecombis'])->name(('homecombis'));
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 //USUARIO
 Route::post('auth',[userController::class,'autenticacion'])->name('autenticacion');
 
