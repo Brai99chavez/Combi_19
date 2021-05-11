@@ -31,8 +31,8 @@ class InsumosController extends Controller
         }
         return view('admin.insumos.showInsumo', compact('insumo', 'dis'));
     }
-    public function updateinsumos($id_insumo){
-        $insumo = Insumos::where("insumos.id_insumos", $id_insumo)->get();
+    public function updateinsumos(Request $request){
+        $insumo = Insumos::where("insumos.id_insumos",$request->id_insumos)->get();
         return view('admin.insumos.updateInsumos', compact('insumo'));
     }
 }

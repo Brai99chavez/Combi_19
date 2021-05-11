@@ -59,7 +59,7 @@ Route::get('delete_viajes',[ViajesController::class,'deleteviajes'])->name(('del
         //ADMIN - INSUMOS
 Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));
 
-Route::get('update_insumos/{id_insumo}',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));
+Route::post('update_insumos',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));
 
 Route::get('delete_insumos',[InsumosController::class,'deleteinsumos'])->name(('deleteinsumos'));
 

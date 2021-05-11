@@ -8,9 +8,14 @@
             {{$insumo->precio}}
             {{$insumo->descripcion}}
             {{$insumo->disponible}}
-            <button onclick=location.href="{{route('updateinsumos',$insumo->id_insumos)}}">MODIFICAR</button>
-            <button onclick=location.href="{{route('deleteinsumos')}}">ELIMINAR</button>
-        <br><br>
+
+            <form action="{{route('updateinsumos')}}" method="POST">
+                @csrf
+                <input type="hidden" name="id_insumo" value="{{$insumo->id_insumos}}">
+                <button type="submit">modificar</button>
+            </form>
+            <button><a href="{{route('deleteinsumos',$insumo->id_insumos)}}">ELIMINAR</a></button>
+        </li>
         @endforeach
     </div>
 @endsection
