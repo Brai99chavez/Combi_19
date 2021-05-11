@@ -20,7 +20,6 @@ class AdminController extends Controller
         "combis.disponible")->get();
         $choferes = Usuarios::select("usuarios.nombre","usuarios.apellido","usuarios.dni","usuarios.email")
         ->where("usuarios.id_permiso", "=", 2)->get();
-        $insumos = Insumos::all();
-        return view('admin.homeAdmin', compact('membresias','combis','choferes','insumos'));
+        return view('admin.homeAdmin', compact('membresias','combis','choferes'));
     }   
 }

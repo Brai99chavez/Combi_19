@@ -5,9 +5,10 @@
 <h2>HOME DEL ADMINISTRADOR</h2>    
 <div>
     <a href="{{route('homeviajes')}}">VIAJES</a>
-    <a href="">CARGAR MEMBRESIA |</a>
-    <a href="">CARGAR CHOFER |</a>
-    <a href="">CARGAR COMBI </a>
+    <a href="{{route('homeinsumos')}}">INSUMOS |</a>
+    <a href="{{route('homemembresias')}}">MEMBRESIAS |</a>
+    <a href="{{route('homecombis')}}">COMBIS |</a>
+    <a href="{{route('homechoferes')}}">CHOFERES |</a>
     <P>MEMBRESIAS</P>
     <ul>
         @foreach($membresias as $membresia)
@@ -37,17 +38,6 @@
             {{$chofer->apellido}}
             {{$chofer->dni}}
             {{$chofer->email}}
-        </li>
-        @endforeach
-    </ul>
-    <p>INSUMOS</p>
-    <ul>
-        @foreach($insumos as $insumo)
-        <li>
-            {{$insumo->nombre}}
-            {{$insumo->precio}}
-            {{$insumo->descripcion}}
-            {{$insumo->disponible}}
         </li>
         @endforeach
     </ul>
