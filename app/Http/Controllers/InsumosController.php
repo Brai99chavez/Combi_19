@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\insumosRequest;
 use App\Models\Insumos;
 use App\Models\Viaje_insumos;
 use Illuminate\Http\Request;
+
 class InsumosController extends Controller
 {
     public function homeinsumos(){
@@ -24,7 +26,7 @@ class InsumosController extends Controller
         }
         return redirect()->route('homeinsumos')->withErrors(['insumoProcess'=>'OCURRIO UN PROBLEMA']);
     }
-    public function showinsumo(Request $request){
+    public function showinsumo(insumosRequest $request){
         $insumo = new Insumos();
         $insumo->nombre = $request->nombre;
         $insumo->precio = $request->precio;

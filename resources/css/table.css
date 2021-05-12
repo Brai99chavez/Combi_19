@@ -1,0 +1,108 @@
+/*---------- TABLA ----------*/
+
+table{
+    background-color: white;
+    text-align: left ;
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.552);
+    margin-top: 30px;
+}
+
+th,td{
+    max-width: 300px;
+    padding: 20px;
+
+}
+
+thead{
+    background-color: #ffffff;
+    border-bottom: 5px solid  #064141;
+}
+
+tr:hover td{
+    background-color:#119292;
+    color: white;
+}
+
+
+tr:hover td button{
+    background-color:#119292;
+    color: white;
+}
+
+tr:hover td a{
+    background-color:#119292;
+    color: white;
+}
+
+table td button{
+    border: none;
+    background: transparent;
+    outline: none;
+    margin-left: 30px;
+}
+
+table th button{
+    border: none;
+    background: transparent;
+    outline: none;
+    margin-left: 30px;
+    pointer-events: all;
+}
+
+
+
+
+@media screen and (max-width: 800px){
+    
+	/*---------- TABLA ----------*/
+
+	table th,td{
+        padding: 16px;
+		
+    }
+
+    th,td{
+    
+        padding: 20px;
+        width:"";
+    }
+
+    table tr{
+        display:flex;
+        flex-direction:column;
+        border: 1px solid black;
+        border-bottom: 10px;
+    }
+    table{
+        background-color: white;
+        align-items: center;
+        height: 300px;
+        width: 100%;
+        
+    }
+    thead{
+        background-color: var(--paneles);
+        border-bottom: 5px solid  #064141;
+    }
+
+    tr:hover td{
+        background-color:transparent;
+        color: black;
+    }
+
+    tr:hover td button{
+        background-color:transparent;
+        color: black;
+    }
+
+    td:nth-child(even){
+        background-color: none;
+    }
+
+    .tableOptions{
+        display: flex;
+    }
+
+}

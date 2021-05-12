@@ -1,5 +1,6 @@
-@extends('layout')
+@extends('admin.layout')
 @section('title', 'Home Membresia')
+@section('headerTitle', 'Membresias')
 @section('content')
 <div class="formulary">
     @foreach($membresias as $membresia)

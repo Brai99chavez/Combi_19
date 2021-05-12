@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.layout')
 @section('title', 'Update Insumo')
 @section('content')
     <div class="formulary">

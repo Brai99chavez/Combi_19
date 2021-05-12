@@ -1,5 +1,6 @@
-@extends('layout')
+@extends('admin.layout')
 @section('title', 'Update Membresia')
+@section('title', 'Membresias')
 @section('content')
     <p>ACTUALIZAR MEMBRESIA</p>
     <div class="formulary">

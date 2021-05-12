@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="../resources/css/style.css">
     <link rel="stylesheet" href="../resources/css/navbar.css">
     <link rel="stylesheet" href="../resources/css/formulary.css">
-
-
+    <link rel="stylesheet" href="../resources/css/table.css">
+    <script src="https://kit.fontawesome.com/0172a1fd00.js" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     @yield('head')
 </head>
@@ -18,11 +18,12 @@
         <header class="header">
             <div class="logo">
                 <img src="../resources/imagenes/combi_19_logo.png" alt="">
-                <h1>@yield('navTitle')
+                <h1>@yield('headerTitle')
                 </h1>
             </div>
             <nav class="menu">
                 @yield('navLinks')
+                <a href="{{route('logOut')}}"> CERRAR SESION</a>
             </nav>
         </header>
         @yield('content')

@@ -40,6 +40,18 @@
     color: var(--font);
     text-align: center;
 }
+
+.formulary input[type="number"]{
+    width: 50%;
+    background: var(--paneles);
+    margin-bottom: 16px;
+    border: none;
+    border-bottom: 2px solid var(--Bordes);
+    outline: none;
+    color: var(--font);
+    text-align: center;
+}
+
 .formulary input[type="password"]{
     width: 50%;
     background: var(--paneles);

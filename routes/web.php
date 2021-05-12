@@ -53,7 +53,7 @@ Route::post('show_viaje',[ViajesController::class,'showviaje'])->name(('createvi
 
 Route::get('home_viajes',[ViajesController::class,'homeviajes'])->name(('homeviajes'));
 
-Route::post('update_viajes/{id_viaje}',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
+Route::post('update_viajes',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
 
 Route::post('delete_viajes',[ViajesController::class,'deleteviajes'])->name(('deleteviajes'));
         //ADMIN - INSUMOS

@@ -14,3 +14,7 @@
 body{
     background: var(--fondo);
 }
+
+i{
+	font-size: 20px;
+}

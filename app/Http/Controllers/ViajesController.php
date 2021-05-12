@@ -21,7 +21,7 @@ class ViajesController extends Controller
         ->get();
         return view("admin.viajes.homeViajes", compact('viajes'));
     }
-    public function updateviajes($id_viaje){
+    public function updateviajes(Request $request){
         $viaje = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
         ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
         ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
@@ -30,7 +30,7 @@ class ViajesController extends Controller
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","viajes.id_chofer","viajes.precio", "ciudades.nombre as origen", "c2.nombre as destino",
         "rutas.id_ciudadOrigen", "rutas.id_ciudadDestino")
-        ->where("viajes.id_viaje", "=", $id_viaje)
+        ->where("viajes.id_viaje", "=", $request->id_viaje)
         ->get();
         return view('admin.viajes.updateViajes',compact('viaje'));
     }
@@ -56,4 +56,8 @@ class ViajesController extends Controller
         $viaje->save();
         return view('admin.viajes.viajeShow', compact('viaje', 'origen', 'destino'));
     }
+    public function deleteviajes(){
+        return view('admin.viajes.deleteviajes');
+    }
+
 }

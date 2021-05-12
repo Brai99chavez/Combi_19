@@ -2,24 +2,36 @@
 @section('title', 'Create Insumo')
 @section('content')
     <h2>Nuevo Insumo</h2>
-    <form action="{{route('createinsumoshow')}}" method="POST" >
+    <form action="{{route('createinsumoshow')}}" method="POST" class="formulary">
         @csrf
-        <label>
-            NOMBRE:
+
+            <strong>NOMBRE:</strong>
+            <br>
             <input type="text" name="nombre">
-        </label>
-        <label>
-            PRECIO:
+            <br>
+            @error('nombre')
+                <small>{{$message}}</small>
+            @enderror
+            <br>
+            <strong>PRECIO:</strong>
+            <br>
             <input type="number" name="precio">
-        </label>
-        <label>
-            DESCRIPCION
+            <br>
+            @error('precio')
+            <small>{{$message}}</small>
+            @enderror
+            <br>
+            <strong>DESCRIPCION</strong>
+            <br>
             <input type="text" name="descripcion">
-        </label>
-        <label>
-            DISPONIBLE
-            <input type="number" name="disponible" placeholder="1 SI / 0 NO" >
-        </label>
-        <button type="submit">CARGAR INSUMO</button>
+            <br>
+            <strong>DISPONIBLE</strong>
+            <br>
+            <select name="disponible" id="" >
+                <option value="0">NO</option>
+                <option value="1">SI</option>
+            </select>
+            <br>
+        <button class="botones" type="submit">CARGAR INSUMO</button>
     </form>
 @endsection

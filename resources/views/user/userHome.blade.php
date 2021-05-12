@@ -2,11 +2,12 @@
 
 @section('title', 'home')
 
-@section('head')
+@section('navTitle')
+{{session('nombre')}} {{session('apellido')}}
 @endsection
         
 @section('content')
-<h1>Bienvenidx {{session('nombre')}} {{session('apellido')}}</h1>
+
 @error('permiso')
     <small>{{$message}}</small>
 @enderror
