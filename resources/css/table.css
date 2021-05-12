@@ -10,7 +10,7 @@ table{
 }
 
 th,td{
-    max-width: 200px;
+    max-width: 100px;
     padding: 20px;
 
 }
@@ -54,7 +54,7 @@ table th button{
 
 
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 960px){
     
 	/*---------- TABLA ----------*/
 
@@ -77,9 +77,9 @@ table th button{
     }
     table{
         background-color: white;
-        align-items: center;
         height: 300px;
-        width: 100%;
+        width: 70%;
+        margin: auto;
         
     }
     thead{
