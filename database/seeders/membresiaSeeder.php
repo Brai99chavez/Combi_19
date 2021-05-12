@@ -16,7 +16,7 @@ class membresiaSeeder extends Seeder
     {
         $membresia = new Membresias();
         $membresia->nombre = 'GOLDEN';
-        $membresia->descuento= 23.5;
+        $membresia->descuento= 20;
         $membresia->save();
 
         $membresia = new Membresias();

@@ -7,10 +7,17 @@
     <table>
         <thead>
             <tr>
+<<<<<<< HEAD
                 <th>id_chofer</th>
                 <th>id_combi</th>
                 <th>fecha</th>
                 <th>hora</th>
+=======
+                <th>chofer</th>
+                <th>patente</th>
+                <th>categoria</th>
+                <th>insumos</th>
+>>>>>>> b387d227ccd374fe531fc33e96f5579f3945f945
                 <th>origen</th>
                 <th>destino</th>
                 <th>precio</th>
@@ -21,10 +28,23 @@
             @if($viajes->isNotEmpty())
                 @foreach($viajes as $viaje)
             <tr>
+<<<<<<< HEAD
                 <td>{{$viaje->id_chofer}}</td>  
                 <td>{{$viaje->id_combi}}</td>
                 <td>{{$viaje->fecha}}</td>
                 <td>{{$viaje->hora}}</td>
+=======
+                <td>{{$viaje->chofer}}</td>
+                <td>{{$viaje->patente}}</td>
+                <td>{{$viaje->categoria}}</td>
+                <td>
+                    @foreach($viaje_insumos as $v_i)
+                        @if($viaje->id_viaje == $v_i->id_viaje)
+                        {{$v_i->nombre}},
+                        @endif
+                    @endforeach
+                </td>
+>>>>>>> b387d227ccd374fe531fc33e96f5579f3945f945
                 <td>{{$viaje->origen}}</td>
                 <td>{{$viaje->destino}}</td>
                 <td>{{$viaje->precio}}$</td>

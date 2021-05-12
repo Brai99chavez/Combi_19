@@ -1,8 +1,7 @@
 @extends('admin.layout')
 @section('title', 'Update Membresia')
-@section('title', 'Membresias')
+@section('headerTitle', 'Modificar Membresia')
 @section('content')
-    <p>ACTUALIZAR MEMBRESIA</p>
     <div class="formulary">
         <form action="{{route('updatemembresiasprocess')}}" method="POST">
             @csrf
