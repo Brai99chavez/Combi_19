@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.layout')
 @section('title','Home Insumos')
 @section('content')
     <a href="{{route('createinsumo')}}"><button>CARGAR INSUMO</button></a>
@@ -8,7 +8,6 @@
             {{$insumo->nombre}}
             {{$insumo->precio}}
             {{$insumo->descripcion}}
-            {{$insumo->disponible}}
             <form action="{{route('updateinsumos')}}" method="POST">
                 @csrf
                 <input type="hidden" name="id_insumo" value="{{$insumo->id_insumos}}">
@@ -25,7 +24,6 @@
         @foreach($insumosBaja as $insumo2)
             {{$insumo2->nombre}}
             {{$insumo2->precio}}
-            {{$insumo2->descripcion}}
             <form action="{{route('updateinsumos')}}" method="POST">
                 @csrf
                 <input type="hidden" name="id_insumo" value="{{$insumo2->id_insumos}}">
@@ -38,4 +36,9 @@
             </form>
         @endforeach
     </div>
+    @error('insumoProcess')
+        <br>
+            <small>{{$message}}</small>    
+        <br>
+        @enderror
 @endsection
