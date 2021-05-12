@@ -33,7 +33,7 @@
                         @endif
                     @endforeach
                 </td>
-                <td>{{$viaje->fecha}}{{$viaje->hora}}</td>
+                <td>{{$viaje->fecha}} <br> {{$viaje->hora}}</td>
                 <td>{{$viaje->origen}}</td>
                 <td>{{$viaje->destino}}</td>
                 <td>{{$viaje->precio}}$</td>

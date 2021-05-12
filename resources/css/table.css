@@ -64,9 +64,14 @@ table th button{
     }
 
     th,td{
-    
+        max-width: none;
+        text-align: center;
         padding: 20px;
         width:"";
+    }
+
+    td{
+        justify-content: center;
     }
 
     table tr{
