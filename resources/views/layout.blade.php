@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="../resources/css/style.css">
     <link rel="stylesheet" href="../resources/css/navbar.css">
     <link rel="stylesheet" href="../resources/css/formulary.css">
+
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     @yield('head')
 </head>
 <body>
@@ -15,16 +18,11 @@
         <header class="header">
             <div class="logo">
                 <img src="../resources/imagenes/combi_19_logo.png" alt="">
-                <h1>Administrator page</h1>
+                <h1>@yield('navTitle')
+                </h1>
             </div>
             <nav class="menu">
-                <a href="{{route('homeadmin')}}">HOME</a>
-                <a href="{{route('homeviajes')}}">VIAJES</a>
-                <a href="{{route('homeinsumos')}}">INSUMOS</a>
-                <a href="{{route('homemembresias')}}">MEMBRESIAS</a>
-                <a href="{{route('homecombis')}}">COMBIS</a>
-                <a href="{{route('homechoferes')}}">CHOFERES</a>
-                <a href="{{route('logOut')}}"> CERRAR SESION</a>
+                @yield('navLinks')
             </nav>
         </header>
         @yield('content')

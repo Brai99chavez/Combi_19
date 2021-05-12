@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Usuarios;
 use App\Http\Requests\loginRequest;
 use GuzzleHttp\Psr7\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function autenticacion(loginRequest $request){
-
         $user = Usuarios::select('nombre','apellido','email','contraseña','id_permiso')->where('email',$request->email)->get();
 
         if (($user->isNotEmpty())&&($request->contraseña == $user[0]->contraseña)) {
@@ -27,7 +25,6 @@ class AuthController extends Controller
                 return redirect()->route('homeadmin');
             }
 
-            
         }else{
             return redirect()->route('login')->withErrors(['log'=>'email inexistente o contraseña incorrecta']);
         }

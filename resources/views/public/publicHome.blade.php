@@ -1,34 +1,33 @@
 @extends('public.publicLayout')
 
-@section('tittle', 'publicHome')
+@section('title','publicHome')
+
+@section('navTitle','Public Home')
 
 @section('content')
-    <h1>Combi-19</h1>
 
-    <a href="{{route('login')}}">login</a>
-    <a href="{{route('register')}}">Registro</a>
-
-
+<div class="formulary">
     <h3>viajes disponibles</h3>
     <ul>
         @foreach($viajes as $viaje)
-            <h3>viaje {{$viaje->id_viaje}}</h3>
-            <li>
-                <ul>
-                    <li>
-                        @foreach($choferes as $chofer)
-                            @if($chofer->id_usuario == $viaje->id_chofer)
-                            <strong>Chofer: </strong>{{$chofer->nombre}} {{$chofer->apellido}}
-                            @endif
-                        @endforeach
-                    </li>
-                    <li>
+        <h3>viaje {{$viaje->id_viaje}}</h3>
+        <li>
+            <ul>
+                <li>
+                    @foreach($choferes as $chofer)
+                    @if($chofer->id_usuario == $viaje->id_chofer)
+                    <strong>Chofer: </strong>{{$chofer->nombre}} {{$chofer->apellido}}
+                    @endif
+                    @endforeach
+                </li>
+                <li>
 
-                    </li>
-                </ul>
-            </li>
+                </li>
+            </ul>
+        </li>
         @endforeach
-        
+
     </ul>
+</div>
 
 @endsection
