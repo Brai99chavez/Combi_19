@@ -19,7 +19,7 @@ class ViajesController extends Controller
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
-        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino")
+        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
         ->get();
 
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")

@@ -6,5 +6,5 @@
 <a href="{{route('homeinsumos')}}">INSUMOS</a>
 <a href="{{route('homemembresias')}}">MEMBRESIAS</a>
 <a href="{{route('homecombis')}}">COMBIS</a>
-<a href="{{route('homechoferes')}}">CHOFERES</a>
+<a href="{{route('homeEmp')}}">EMPLEADOS</a>
 @endsection
