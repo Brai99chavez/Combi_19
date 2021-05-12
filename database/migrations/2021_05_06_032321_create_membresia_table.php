@@ -16,7 +16,7 @@ class CreateMembresiaTable extends Migration
         Schema::create('membresia', function (Blueprint $table) {
             $table->bigIncrements('id_membresia');
             $table->string('nombre',50);
-            $table->double('descuento');
+            $table->float('descuento');
             $table->timestamps();
         });
     }

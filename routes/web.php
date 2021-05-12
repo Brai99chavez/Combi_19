@@ -69,7 +69,9 @@ Route::get('create_insumo',[InsumosController::class,'createinsumo'])->name(('cr
         //ADMIN - MEMBRESIAS
 Route::get('home_membresias',[MembresiasController::class,'homemembresias'])->name(('homemembresias'));
 
-Route::post('update_membresias/{id_membresia}',[MembresiasController::class,'updatemembresias'])->name(('updatemembresias'));
+Route::post('update_membresias',[MembresiasController::class,'updatemembresias'])->name(('updatemembresias'));
+
+Route::post('update_membresias_process',[MembresiasController::class,'updatemembresiasprocess'])->name(('updatemembresiasprocess'));
 
         //ADMIN - CHOFERES
 Route::get('home_choferes',[ChoferesController::class,'homechoferes'])->name(('homechoferes'));
