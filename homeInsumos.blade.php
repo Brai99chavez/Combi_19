@@ -5,10 +5,9 @@
     <div class="formulary">
         <h2>INSUMOS DISPONIBLES</h2>
         @foreach($insumosDisponibles as $insumo)
-            <strong>Nombre:</strong>{{$insumo->nombre}}
-            <strong>Precio:</strong>{{$insumo->precio}}
-            <br>
-            <strong>Descripcion:</strong>{{$insumo->descripcion}}
+            {{$insumo->nombre}}
+            {{$insumo->precio}}
+            {{$insumo->descripcion}}
             <form action="{{route('updateinsumos')}}" method="POST">
                 @csrf
                 <input type="hidden" name="id_insumo" value="{{$insumo->id_insumos}}">
