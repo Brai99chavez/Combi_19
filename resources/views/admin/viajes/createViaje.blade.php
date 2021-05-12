@@ -3,8 +3,8 @@
 @section('title', 'Viaje Create')
 
 @section('content')
-    <h1>VIAJE NUEVO</h1>
     <div class="formulary">
+    <h1>Viaje Nuevo</h1>
     <form action="{{route('createviajeshow')}}" method="POST">
         @csrf
         <label>

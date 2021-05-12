@@ -84,22 +84,23 @@ class ViajesController extends Controller
         return view('admin.viajes.insumosViajes', compact('idviaje', 'insumos'));
     }
     private function createviajeprocess_ruta($request){
-        $found = new Rutas;
-        $found = Rutas::select("rutas.id_ciudadOrigen", "rutas.id_ciudadDestino")->where("rutas.id_ciudadOrigen", "=", $request->origen, 
-        "and", "rutas.id_ciudadDestino", "=", $request->destino)->first(); 
-        if($found->id_ciudadOrigen <> null){    
+        $found = Rutas::where("rutas.id_ciudadOrigen", "=", $request->origen,"and", "rutas.id_ciudadDestino", "=", $request->destino)->get();
+        if(!empty($found)){    
             $rutaNew = new Rutas;
-            $rutaNew->id_ciudadOrigen = $found->id_ciudadOrigen;
-            $rutaNew->id_ciudadDestino = $found->id_ciudadDestino;
+            $rutaNew->id_ciudadOrigen = $request->origen;
+            $rutaNew->id_ciudadDestino = $request->destino;
+            $rutaNew->save();
         }
         return 0;
     }
     public function createviajeprocess_insumos(Request $request){
-        for($i = 0; $i < count($request->insumo); $i++){
-            $newInsumo = new Viaje_insumos;
-            $newInsumo->id_viaje = $request->id_viaje;
-            $newInsumo->id_insumo = $request->insumo[$i];
-            $newInsumo->save();
+       if(!empty($request)){ 
+            for($i = 0; $i < count($request->insumo); $i++){
+                $newInsumo = new Viaje_insumos;
+                $newInsumo->id_viaje = $request->id_viaje;
+                $newInsumo->id_insumo = $request->insumo[$i];
+                $newInsumo->save();
+            }
         }
         return redirect()->route('homeviajes');        
 
