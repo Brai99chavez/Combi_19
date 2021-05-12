@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\viajeRequest;
 use App\Models\Ciudades;
+use App\Models\Combis;
 use App\Models\Insumos;
 use App\Models\Rutas;
+use App\Models\Usuarios;
 use App\Models\Viaje_insumos;
 use App\Models\Viajes;
 use Illuminate\Http\Request;
@@ -63,8 +65,21 @@ class ViajesController extends Controller
 
     public function createviaje(){
         $ciudades = Ciudades::all();
-        $insumos = Insumos::select("nombre", "id_insumos")->get();
-        return view('admin.viajes.createViaje', compact('ciudades','insumos'));
+        $combis = $this->createviajecombidisponible();
+        $choferes = $this->createviajechoferdisponible();
+        return view('admin.viajes.createViaje', compact('ciudades','combis','choferes'));
+    }
+    private function createviajecombidisponible(){
+        $combis = Combis::join("viajes as vi", "vi.id_combi", "=", "combis.id_combi")
+        ->join("usuarios as usu", "usu.id_usuario", "=","vi.id_chofer")
+        ->select("combis.patente", "combis.id_combi")
+        ->where("usu.disponible", "=", 1, "and", "vi.fecha", ">=", "getdate()")
+        ->get();
+        return $combis;
+    }
+    private function createviajechoferdisponible(){
+        $choferes = Usuarios::select("nombre","id_usuario")->where("usuarios.id_permiso", "=", 2, "and", "usuarios.disponible", "=", 1)->get();
+        return $choferes;
     }
     public function createviajeprocess(viajeRequest $request){
         $viaje = new Viajes();
