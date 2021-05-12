@@ -10,6 +10,7 @@
                 <th>chofer</th>
                 <th>patente</th>
                 <th>categoria</th>
+                <th>insumos</th>
                 <th>origen</th>
                 <th>destino</th>
                 <th>precio</th>
@@ -23,6 +24,13 @@
                 <td>{{$viaje->chofer}}</td>
                 <td>{{$viaje->patente}}</td>
                 <td>{{$viaje->categoria}}</td>
+                <td>
+                    @foreach($viaje_insumos as $v_i)
+                        @if($viaje->id_viaje == $v_i->id_viaje)
+                        {{$v_i->nombre}},
+                        @endif
+                    @endforeach
+                </td>
                 <td>{{$viaje->origen}}</td>
                 <td>{{$viaje->destino}}</td>
                 <td>{{$viaje->precio}}$</td>

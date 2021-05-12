@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ciudades;
+use App\Models\Insumos;
 use App\Models\Rutas;
+use App\Models\Viaje_insumos;
 use App\Models\Viajes;
 use Illuminate\Http\Request;
 
@@ -19,7 +21,12 @@ class ViajesController extends Controller
         ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
         "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino")
         ->get();
-        return view("admin.viajes.homeViajes", compact('viajes'));
+
+        $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
+        ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
+        ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
+
+        return view("admin.viajes.homeViajes", compact('viajes','viaje_insumos'));
     }
     public function updateviajes(Request $request){
         $viaje = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
