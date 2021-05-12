@@ -42,7 +42,7 @@
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Descripcion</th>
-                    <th>Opciones</th>
+                    <th>Opciones<a href="{{route('createinsumo')}}"><button><i class="far fa-plus-square"></i></button></a></th>
                 </tr>
             </thead>
             @foreach($insumosBaja as $insumo2)
@@ -67,10 +67,4 @@
             </tbody>
             @endforeach
         </table>
-
-    @error('insumoProcess')
-        <br>
-            <small>{{$message}}</small>    
-        <br>
-    @enderror
 @endsection

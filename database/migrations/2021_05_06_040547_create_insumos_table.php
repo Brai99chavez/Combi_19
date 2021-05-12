@@ -17,7 +17,7 @@ class CreateInsumosTable extends Migration
             $table->bigIncrements('id_insumos');
             $table->string('nombre',50);
             $table->double('precio');
-            $table->text('descripcion');
+            $table->text('descripcion')->nullable();
             $table->boolean('disponible');
             $table->timestamps();
         });
