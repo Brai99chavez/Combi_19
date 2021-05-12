@@ -3,30 +3,55 @@
 @section('title', 'Viaje Create')
 
 @section('content')
-    <h1>VIAJE NUEVO</h1>
+    <div class="formulary">
+    <h1>Viaje Nuevo</h1>
     <form action="{{route('createviajeshow')}}" method="POST">
         @csrf
         <label>
             ID_CHOFER:
             <input type="number" name="id_chofer">
         </label>
+        @error('id_chofer')
+            <br>
+                <small>{{$message}}</small>
+            <br>
+        @enderror
         <label>
             ID_COMBI
             <input type="number" name="id_combi">
         </label>
+        @error('id_combi')
+            <br>
+                <small>{{$message}}</small>
+            <br>
+        @enderror
         <label>
             FECHA
             <input type="date" name="fecha">
         </label>
+        @error('fecha')
+            <br>
+                <small>{{$message}}</small>
+            <br>
+        @enderror
         <label>
             HORA
             <input type="time" name="hora">
         </label>
+        @error('hora')
+            <br>
+                <small>{{$message}}</small>
+            <br>
+        @enderror
         <label>
             PRECIO
             <input type="number" name="precio">
         </label>
-        
+        @error('precio')
+            <br>
+                <small>{{$message}}</small>
+            <br>
+        @enderror
         <label>
             ORIGEN
             <select name="origen">
@@ -37,6 +62,11 @@
                 @endforeach
             </select>
         </label>
+        @error('origen')
+            <br>
+                <small>{{$message}}</small>
+            <br>
+        @enderror
         <label>
             DESTINO
             <select name="destino">
@@ -47,6 +77,12 @@
                 @endforeach
             </select>
         </label>
+        @error('destino')
+            <br>
+                <small>{{$message}}</small>
+            <br>
+        @enderror
         <button type="submit"> Cargar viaje</button>
     </form>
+    </div>
 @endsection

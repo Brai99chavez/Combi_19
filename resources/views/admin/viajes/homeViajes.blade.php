@@ -11,7 +11,8 @@
                 <th>patente</th>
                 <th>categoria</th>
                 <th>insumos</th>
-                <th>fecha/hora</th>
+                <th>fecha</th>
+                <th>hora</th>
                 <th>origen</th>
                 <th>destino</th>
                 <th>precio</th>
@@ -33,7 +34,8 @@
                         @endif
                     @endforeach
                 </td>
-                <td>{{$viaje->fecha}} <br> {{$viaje->hora}}</td>
+                <td>{{$viaje->fecha}} </td>
+                <td>{{$viaje->hora}}</td>
                 <td>{{$viaje->origen}}</td>
                 <td>{{$viaje->destino}}</td>
                 <td>{{$viaje->precio}}$</td>
