@@ -7,27 +7,9 @@
 @section('content')
 
 <div class="formulary">
-    <h3>viajes disponibles</h3>
-    <ul>
-        @foreach($viajes as $viaje)
-        <h3>viaje {{$viaje->id_viaje}}</h3>
-        <li>
-            <ul>
-                <li>
-                    @foreach($choferes as $chofer)
-                    @if($chofer->id_usuario == $viaje->id_chofer)
-                    <strong>Chofer: </strong>{{$chofer->nombre}} {{$chofer->apellido}}
-                    @endif
-                    @endforeach
-                </li>
-                <li>
-
-                </li>
-            </ul>
-        </li>
-        @endforeach
-
-    </ul>
+    <h2>Bienvenido a Combi 19</h2>
+    <h2>Registrate e ingresa tu tarjeta de credito y obtendras descuentos en tus proximos viajes</h2>
+    <h2>Ademas tendras acceso a la membresia Golden!!</h2>
 </div>
 
 @endsection

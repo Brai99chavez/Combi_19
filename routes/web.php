@@ -85,7 +85,7 @@ Route::post('update_membresias_process',[MembresiasController::class,'updatememb
         //ADMIN - EMPLEADOS
 Route::get('create_empleado',[empleadosController::class,'createEmp'])->name(('createEmp'));
 
-Route::post('save_register',[empleadosController::class,'saveReg'])->name('saveReg');
+Route::post('save_register',[empleadosController::class,'saveReg'])->name('saveRegister');
 
 Route::post('update_empleado',[empleadosController::class,'updateEmp'])->name(('updateEmp'));
 
@@ -98,6 +98,8 @@ Route::get('empleados',[empleadosController::class,'showEmp'])->name(('homeEmp')
 Route::get('combis',[CombisController::class,'homecombis'])->name(('homecombis'));
 
 Route::get('create_combi',[CombisController::class,'createcombis'])->name(('createcombis'));
+
+Route::post('update_combi_process',[CombisController::class,'createcombisprocess'])->name(('createcombisprocess'));
 
 //USUARIO
 

@@ -13,7 +13,7 @@ class combisRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class combisRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'patente' =>'required',
+            'cant_asientos' =>'required|gt:0',
+            'id_categoria' => 'required',
         ];
     }
 }
