@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Insumos;
+use App\Models\Viaje_insumos;
 use Illuminate\Http\Request;
-
 class InsumosController extends Controller
 {
     public function homeinsumos(){
@@ -16,8 +16,13 @@ class InsumosController extends Controller
         return view('admin.insumos.createInsumo');
     }
     public function deleteinsumos(Request $request){
-        Insumos::where("insumos.id_insumo")->delete(); 
-        return view('admin.insumos.deleteInsumos');
+        $found = Insumos::select("insumos.id_insumos")->where("insumos.id_insumos", "=", $request->id_insumo)->get();
+        if($found->isNotEmpty()){
+            Viaje_insumos::where("viaje_insumo.id_insumo", "=", $request->id_insumo)->delete();
+            Insumos::where("insumos.id_insumos","=", $request->id_insumo)->delete();
+            return redirect()->route('homeinsumos')->withErrors(['insumoProcess'=>'INSUMO BORRADO CORRECTAMENTE']);
+        }
+        return redirect()->route('homeinsumos')->withErrors(['insumoProcess'=>'OCURRIO UN PROBLEMA']);
     }
     public function showinsumo(Request $request){
         $insumo = new Insumos();

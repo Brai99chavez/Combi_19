@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layout')
 @section('title', 'Home Membresia')
 @section('content')
 <div class="formulary">
