@@ -21,18 +21,18 @@ thead{
 }
 
 tr:hover td{
-    background-color:#119292;
+    background-color:var(--hover);
     color: white;
 }
 
 
 tr:hover td button{
-    background-color:#119292;
+    background-color:var(--hover);
     color: white;
 }
 
 tr:hover td a{
-    background-color:#119292;
+    background-color:var(--hover);
     color: white;
 }
 
@@ -51,16 +51,14 @@ table th button{
     pointer-events: all;
 }
 
-
-
-
-@media screen and (max-width: 960px){
+@media screen and (max-width: 1024 px){
     
 	/*---------- TABLA ----------*/
 
 	table th,td{
         padding: 16px;
-		
+        font-size: 20px;
+
     }
 
     th,td{
