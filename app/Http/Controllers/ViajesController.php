@@ -94,7 +94,7 @@ class ViajesController extends Controller
         return 0;
     }
     public function createviajeprocess_insumos(Request $request){
-       if(!empty($request)){ 
+       if(empty($request)){ 
             for($i = 0; $i < count($request->insumo); $i++){
                 $newInsumo = new Viaje_insumos;
                 $newInsumo->id_viaje = $request->id_viaje;
