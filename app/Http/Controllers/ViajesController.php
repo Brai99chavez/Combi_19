@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\viajeRequest;
 use App\Models\Ciudades;
 use App\Models\Insumos;
 use App\Models\Rutas;
@@ -43,28 +44,49 @@ class ViajesController extends Controller
     }
     public function createviaje(){
         $ciudades = Ciudades::all();
-        return view('admin.viajes.createViaje', compact('ciudades'));
+        $insumos = Insumos::select("nombre", "id_insumos")->get();
+        return view('admin.viajes.createViaje', compact('ciudades','insumos'));
     }
-    public function showviaje(Request $request){
-        $ruta = new Rutas();
+    public function createviajeprocess(viajeRequest $request){
         $viaje = new Viajes();
-        $ruta->id_ciudadOrigen = $request->origen;
-        $ruta->id_ciudadDestino = $request->destino;
-        $ruta->save();
-        $aux = Rutas::select("rutas.id_ruta")->where("rutas.id_ciudadOrigen", "=", $request->origen, "and", "rutas.id_ciudadDestino", "=", $request->destino)->first();
+        $this->createviajeprocess_ruta($request);
+        $aux = Rutas::select("rutas.id_ruta")->where("rutas.id_ciudadOrigen", "=", $request->origen, "and", "rutas.id_ciudadDestino", 
+        "=", $request->destino)->first();
         $viaje->id_ruta = $aux->id_ruta;  
         $viaje->id_chofer = $request->id_chofer;
         $viaje->id_combi = $request->id_combi;
         $viaje->precio = $request->precio;
         $viaje->fecha = $request->fecha;
         $viaje->hora = $request->hora;
-        $origen = Ciudades::select("ciudades.nombre")->where("ciudades.id_ciudad", "=", $request->origen)->first();
-        $destino = Ciudades::select("ciudades.nombre")->where("ciudades.id_ciudad", "=", $request->destino)->first();
         $viaje->save();
-        return view('admin.viajes.viajeShow', compact('viaje', 'origen', 'destino'));
+        $idviaje = Viajes::select("viajes.id_viaje")->where("viajes.fecha", "=" ,$request->fecha, "and", "viajes.hora", "=", $request->hora, 
+        "and", "viajes.id_chofer", "=", $request->id_chofer)->first();
+        $insumos = Insumos::select("id_insumos","nombre")->get();
+        return view('admin.viajes.insumosViajes', compact('idviaje', 'insumos'));
+    }
+    private function createviajeprocess_ruta($request){
+        $found = new Rutas;
+        $found = Rutas::select("rutas.id_ciudadOrigen", "rutas.id_ciudadDestino")->where("rutas.id_ciudadOrigen", "=", $request->origen, 
+        "and", "rutas.id_ciudadDestino", "=", $request->destino)->first(); 
+        if($found->id_ciudadOrigen <> null){    
+            $rutaNew = new Rutas;
+            $rutaNew->id_ciudadOrigen = $found->id_ciudadOrigen;
+            $rutaNew->id_ciudadDestino = $found->id_ciudadDestino;
+        }
+        return 0;
+    }
+    public function createviajeprocess_insumos(Request $request){
+        for($i = 0; $i < count($request->insumo); $i++){
+            $newInsumo = new Viaje_insumos;
+            $newInsumo->id_viaje = $request->id_viaje;
+            $newInsumo->id_insumo = $request->insumo[$i];
+            $newInsumo->save();
+        }
+        return redirect()->route('homeviajes');        
+
     }
     public function deleteviajes(){
-        return view('admin.viajes.deleteviajes');
+        return view('admin.viajes.deleteViajes');
     }
 
 }
