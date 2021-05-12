@@ -55,19 +55,28 @@ Route::get('home_viajes',[ViajesController::class,'homeviajes'])->name(('homevia
 
 Route::post('update_viajes',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
 
+Route::post('update_viajes1', [ViajesController::class,'updateviajes1'])->name('updateviajes1');
+
+
 Route::post('delete_viajes',[ViajesController::class,'deleteviajes'])->name(('deleteviajes'));
-        //ADMIN - INSUMOS
-Route::get('insumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));
+ 
+      //ADMIN - INSUMOS
+Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));
 
 Route::post('update_insumos',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));
+
+Route::post('update_insumo1', [InsumosController::class,'updateinsumos1'])->name(('updateinsumos1'));
+    
+
 
 Route::post('delete_insumos',[InsumosController::class,'deleteinsumos'])->name(('deleteinsumos'));
 
 Route::post('show_insumo',[InsumosController::class,'showinsumo'])->name(('createinsumoshow'));
 
 Route::get('create_insumo',[InsumosController::class,'createinsumo'])->name(('createinsumo'));
-        //ADMIN - MEMBRESIAS
-Route::get('membresias',[MembresiasController::class,'homemembresias'])->name(('homemembresias'));
+
+       //ADMIN - MEMBRESIAS
+Route::get('home_membresias',[MembresiasController::class,'homemembresias'])->name(('homemembresias'));
 
 Route::post('update_membresias',[MembresiasController::class,'updatemembresias'])->name(('updatemembresias'));
 

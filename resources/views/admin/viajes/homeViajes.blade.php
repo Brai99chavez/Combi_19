@@ -22,6 +22,7 @@
             @if($viajes->isNotEmpty())
                 @foreach($viajes as $viaje)
             <tr>
+
                 <td>{{$viaje->chofer}}</td>
                 <td>{{$viaje->patente}}</td>
                 <td>{{$viaje->categoria}}</td>
@@ -36,6 +37,8 @@
                 <td>{{$viaje->origen}}</td>
                 <td>{{$viaje->destino}}</td>
                 <td>{{$viaje->precio}}$</td>
+
+
                 <td class="tableOptions">
                     <form action="{{route('updateviajes')}}" method="POST">
                         @csrf
