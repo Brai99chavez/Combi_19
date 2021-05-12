@@ -67,9 +67,7 @@ Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('home
 
 Route::post('update_insumos',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));
 
-Route::post('update_insumo1', [InsumosController::class,'updateinsumos1'])->name(('updateinsumos1'));
-    
-
+Route::post('update_insumo1', [InsumosController::class,'updateinsumos1'])->name(('updateinsumos1'));   
 
 Route::post('delete_insumos',[InsumosController::class,'deleteinsumos'])->name(('deleteinsumos'));
 
@@ -86,6 +84,7 @@ Route::post('update_membresias_process',[MembresiasController::class,'updatememb
 
         //ADMIN - EMPLEADOS
 Route::get('create_empleado',[empleadosController::class,'createEmp'])->name(('createEmp'));
+
 Route::post('save_register',[empleadosController::class,'saveReg'])->name('saveReg');
 
 Route::post('update_empleado',[empleadosController::class,'updateEmp'])->name(('updateEmp'));
@@ -98,6 +97,7 @@ Route::get('empleados',[empleadosController::class,'showEmp'])->name(('homeEmp')
         //ADMIN - COMBIS
 Route::get('combis',[CombisController::class,'homecombis'])->name(('homecombis'));
 
+Route::get('create_combi',[CombisController::class,'createcombis'])->name(('createcombis'));
 
 //USUARIO
 
