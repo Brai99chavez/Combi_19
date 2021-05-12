@@ -2,90 +2,85 @@
 
 @section('title', 'registro')
 
+@section('navTitle', 'Registro')
+
 @section('content')
 
+
+
+<form action="{{route('saveRegister')}}" method="POST" class="formulary">
+    @csrf
     
-    <h1>
-        soy el registro padre
-    </h1>
-    <p>
-        si ingresa tarjeta sera usuario golden y
-        tendra acceso a descuentos
-    </p>
-    <form action="{{route('saveRegister')}}" method="POST">
-        @csrf
+    <strong>
+        Nombre:*
+        <br>
+        <input type="text" name="nombre" value="{{old('nombre')}}" placeholder="carlos.....">
+    </strong>
+    @error('nombre')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
 
 
-        <label>
-            Nombre:*
-            <br>
-            <input type="text" name="nombre" value="{{old('nombre')}}">
-        </label>
-        @error('nombre')
-            <br>
-            <small>{{$message}}</small>
-            <br>
-        @enderror
+    <strong>
+        Apellido:*
         <br>
+        <input type="text" name="apellido" value="{{old('apellido')}}" placeholder="rodriguez....">
+    </strong>
+    @error('apellido')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
 
 
-        <label>
-            Apellido:*
-            <br>
-            <input type="text" name="apellido" value="{{old('apellido')}}">
-        </label>
-        @error('apellido')
+    <strong>
+        dni:*
         <br>
-            <small>{{$message}}</small>
+        <input type="text" name="dni" value="{{old('dni')}}" placeholder="987654321....">
+    </strong>
+    @error('dni')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
+
+    <strong>
+        tarjeta: (opcional)
         <br>
-        @enderror
+        <input type="text" name="tarjeta" value="{{old('tarjeta')}}" placeholder="123456789....">
+    </strong>
+    <br>
+
+    <strong>
+        Email:*
         <br>
+        <input type="text" name="email" value="{{old('email')}}" placeholder="example@gmail.com.....">
+    </strong>
+    @error('email')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
+
+    <strong>
+        Contraseña:*
+        <br>
+        <input type="password" name="contraseña" value="{{old('contraseña')}}" placeholder="password......">
+    </strong>
+    @error('contraseña')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
 
 
-        <label>
-            dni:*
-            <br>
-            <input type="text" name="dni" value="{{old('dni')}}">
-        </label>
-        @error('dni')
-        <br>
-            <small>{{$message}}</small>
-        <br>
-        @enderror
-        <br>
-
-        <label>
-            tarjeta: (opcional)
-            <br>
-            <input type="text" name="tarjeta" value="{{old('tarjeta')}}">
-        </label>
-        <br>
-
-        <label>
-            Email:*
-            <br>
-            <input type="text" name="email" value="{{old('email')}}">
-        </label>
-        @error('email')
-        <br>
-            <small>{{$message}}</small>
-        <br>
-        @enderror
-        <br>
-
-        <label>
-            Contraseña:*
-            <br>
-            <input type="password" name="contraseña" value="{{old('contraseña')}}">
-        </label>
-        @error('contraseña')
-        <br>
-            <small>{{$message}}</small>
-        <br>
-        @enderror
-        <br>
-
-
-        <button type="submit"> Registrarse</button>
-    </form>
+    <button type="submit"> Registrarse</button>
+</form>
 @endsection

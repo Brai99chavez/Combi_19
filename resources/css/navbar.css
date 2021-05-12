@@ -7,10 +7,7 @@ header {
 }
 
 .header .logo {
-	margin-bottom: 20px;
-	text-transform: uppercase;
-	text-align: center;
-	letter-spacing: 3px;
+text-align: center;
 }
 
 .logo h1 {

@@ -1,33 +1,33 @@
 @extends('public.publicLayout')
 
 
-@section('tittle', 'login')
+@section('title', 'login')
+
+@section('navTitle', 'Login')
 
 @section('content')
-    <h1>
-        login
-    </h1>
-    <form action="{{route('autenticacion')}}" method="POST" >
+    
+    <form action="{{route('autenticacion')}}" method="POST" class="formulary" >
         @csrf
-        <label for="email">email:</label>
+        <strong for="email">email:</strong>
         <br>
-        <input type="email" name="email" placeholder="Email...." value="{{old('email')}}">
+        <input type="text" name="email" placeholder="Example@gmail.com..." value="{{old('email')}}">
         @error('email')
             <br>
                 <small>{{$message}}</small>
             <br>
         @enderror
         <br>
-        <label for="contraseña">contraseña:</label>
+        <strong>contraseña:</strong>
         <br>
-        <input type="password" name="contraseña" placeholder="contraseña" >
+        <input type="password" name="contraseña" placeholder="Example123password...." >
         @error('contraseña')
             <br>
             <small>{{$message}}</small>
             <br>
         @enderror
         <br>
-        <button type="submit" >login</button>
+        <button type="submit" class="botones" >Iniciar Sesion</button>
         @error('log')
             <br>
                 <small>{{$message}}</small>
