@@ -7,9 +7,10 @@
     <table>
         <thead>
             <tr>
-                <th>chofer</th>
-                <th>patente</th>
-                <th>categoria</th>
+                <th>id_chofer</th>
+                <th>id_combi</th>
+                <th>fecha</th>
+                <th>hora</th>
                 <th>origen</th>
                 <th>destino</th>
                 <th>precio</th>
@@ -20,12 +21,15 @@
             @if($viajes->isNotEmpty())
                 @foreach($viajes as $viaje)
             <tr>
-                <td>{{$viaje->chofer}}</td>
-                <td>{{$viaje->patente}}</td>
-                <td>{{$viaje->categoria}}</td>
+                <td>{{$viaje->id_chofer}}</td>  
+                <td>{{$viaje->id_combi}}</td>
+                <td>{{$viaje->fecha}}</td>
+                <td>{{$viaje->hora}}</td>
                 <td>{{$viaje->origen}}</td>
                 <td>{{$viaje->destino}}</td>
                 <td>{{$viaje->precio}}$</td>
+
+
                 <td class="tableOptions">
                     <form action="{{route('updateviajes')}}" method="POST">
                         @csrf
