@@ -10,23 +10,37 @@
     <form action="{{route('createviajeshow')}}" method="POST">
         @csrf
         <label>
-            ID_CHOFER:
-            <input type="number" name="id_chofer">
+            CHOFER
+            <select name="id_chofer">
+                @foreach($choferes as $chofer)
+                <option value="{{$chofer->id_chofer}}">
+                    {{$chofer->nombre}}
+                </option>
+                @endforeach
+            </select>
         </label>
         @error('id_chofer')
             <br>
                 <small>{{$message}}</small>
             <br>
         @enderror
+        <br>
         <label>
-            ID_COMBI
-            <input type="number" name="id_combi">
+            COMBIS
+            <select name="id_combi">
+                @foreach($combis as $combi)
+                <option value="{{$combi->id_combi}}">
+                    {{$combi->patente}}
+                </option>
+                @endforeach
+            </select>
         </label>
         @error('id_combi')
             <br>
                 <small>{{$message}}</small>
             <br>
         @enderror
+        <br>
         <label>
             FECHA
             <input type="date" name="fecha">
@@ -37,6 +51,7 @@
             <br>
         @enderror
         <label>
+            <br><br>
             HORA
             <input type="time" name="hora">
         </label>
@@ -45,6 +60,7 @@
                 <small>{{$message}}</small>
             <br>
         @enderror
+        <br>
         <label>
             PRECIO
             <input type="number" name="precio">
@@ -54,6 +70,7 @@
                 <small>{{$message}}</small>
             <br>
         @enderror
+        <br>
         <label>
             ORIGEN
             <select name="origen">
@@ -69,6 +86,7 @@
                 <small>{{$message}}</small>
             <br>
         @enderror
+        <br>
         <label>
             DESTINO
             <select name="destino">
@@ -84,6 +102,7 @@
                 <small>{{$message}}</small>
             <br>
         @enderror
+        <br>
         <button type="submit"> Cargar viaje</button>
     </form>
     </div>
