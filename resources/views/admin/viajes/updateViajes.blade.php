@@ -6,10 +6,10 @@
 @section('content')
 <div class="formulary">
     <h1>Actualizar Viaje</h1>
-    <form action="{{route('updateviajes1')}}" method="POST" >
+    <form action="{{route('updateviajesprocess')}}" method="POST">
         @csrf 
-        {{$viaje}}
         <br>
+        <input type="hidden" name="id_viaje" value="{{$viaje[0]->id_viaje}}">
         <label>
             ID_CHOFER:
             <input type="number" name="id_chofer" value="{{$viaje[0]->id_chofer}}"> 
@@ -50,7 +50,8 @@
                 @endforeach
             </select>
         </label><br>
-
+        <br>
+        <h5>Presiona actualizar para ver los insumos</h5>
         <button type="submit"> Actualizar viaje</button>
     </form>
 </div>

@@ -44,7 +44,6 @@ class InsumosController extends Controller
 
 
     public function updateinsumos1(Request $request ){
-
      Insumos::where("id_insumos", "=", $request->id_insumos)->update(["nombre"=> $request->nombre,
      "precio"=> $request->precio, "descripcion"=> $request->descripcion, "disponible"=> $request->disponible]);
       return redirect()->route('homeinsumos')->withErrors(['updateprocess'=>'Membresia modificada correctamente']);

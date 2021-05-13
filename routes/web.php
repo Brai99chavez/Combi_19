@@ -31,12 +31,11 @@ use App\Http\Controllers\RegisterController;
 
 Route::get('/',[publicController::class,'publicHome'])->name('/');
 
-
 Route::get('login', [publicController::class,'login'])->name('login');
 
 Route::get('register', [publicController::class,'register'])->name('register');
 
-Route::post('save_register',[RegisterController::class,'saveFormRegister'])->name('saveRegister');
+Route::post('guardarRegistro',[RegisterController::class,'guardarRegistro'])->name('guardarRegistro');
 
 Route::post('auth',[AuthController::class,'autenticacion'])->name('autenticacion');
 
@@ -55,19 +54,18 @@ Route::get('home_viajes',[ViajesController::class,'homeviajes'])->name(('homevia
 
 Route::post('update_viajes',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
 
-Route::post('update_viajes1', [ViajesController::class,'updateviajes1'])->name('updateviajes1');
-
+Route::post('update_viajes_process',[ViajesController::class,'updateviajesprocess'])->name(('updateviajesprocess'));
 
 Route::post('delete_viajes',[ViajesController::class,'deleteviajes'])->name(('deleteviajes'));
+
+Route::post('delete_insumosviaje',[ViajesController::class,'deleteinsumosviaje'])->name(('deleteinsumosviaje'));
 
 Route::post('cargando_insumos',[ViajesController::class,'createviajeprocess_insumos'])->name(('createviajeprocess_insumos'));
 
         //ADMIN - INSUMOS
 Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));
 
-Route::post('update_insumos',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));
-
-Route::post('update_insumo1', [InsumosController::class,'updateinsumos1'])->name(('updateinsumos1'));   
+Route::post('update_insumos',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));  
 
 Route::post('delete_insumos',[InsumosController::class,'deleteinsumos'])->name(('deleteinsumos'));
 

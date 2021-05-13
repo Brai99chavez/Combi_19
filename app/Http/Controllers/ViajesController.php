@@ -42,27 +42,24 @@ class ViajesController extends Controller
         "viajes.precio", "ciudades.nombre as origen", "c2.nombre as destino")
         ->where("viajes.id_viaje", "=", $request->id_viaje)
         ->get(); 
-
-       // $viaje = Viajes::findOrFail($id); 
         $ciudades = Ciudades::all();
-       
         return view("admin.viajes.updateViajes", compact('viaje','ciudades'));
     }
 
-    public function updateviajes1(Request $request ){
-
-     
-        
-      Viajes::where("id_viaje", "=", $request->id_viaje)
-      ->update(["id_chofer"=> $request->id_chofer, "id_combi"=> $request->id_combi, 
-      "fecha"=> $request->fecha, "hora"=> $request->hora, "precio"=> $request->precio]);
-
-      return redirect()->route('homeviajes')
-      ->withErrors(['updateprocess'=>'Membresia modificada correctamente']);
-        
-       
+    public function updateviajesprocess(viajeRequest $request){
+        $this->createviajeprocess_ruta($request);
+        $aux = Rutas::select("rutas.id_ruta")->where("rutas.id_ciudadOrigen", "=", $request->origen, "and", "rutas.id_ciudadDestino", 
+        "=", $request->destino)->first();
+        Viajes::where("id_viaje", "=", $request->id_viaje)->update(["id_chofer"=> $request->id_chofer,
+        "id_combi" => $request->id_combi, "id_ruta" => $aux->id_ruta, "precio"=> $request->precio,
+         "descripcion"=> $request->descripcion, "fecha" => $request->fecha, "hora" => $request->hora]);
+        $id_viaje = $request->id_viaje;
+        $insumos = Viaje_insumos::select("id_insumos")->where("viaje_insumo.id_viaje", "=", $request->id_viaje)->get();
+        return view('admin.viajes.deleteInsumosViajes', compact('id_viaje', 'insumos'));
     }
-
+    public function deleteinsumosviaje(Request $request){
+        return redirect()->route('homeviajes');
+    }
     public function createviaje(){
         $ciudades = Ciudades::all();
         $combis = $this->createviajecombidisponible();
@@ -118,7 +115,6 @@ class ViajesController extends Controller
             }
         }
         return redirect()->route('homeviajes');        
-
     }
 
     public function deleteviajes(){

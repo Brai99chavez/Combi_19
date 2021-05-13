@@ -5,12 +5,8 @@
 @section('navTitle', 'Registro')
 
 @section('content')
-
-
-
-<form action="{{route('saveRegister')}}" method="POST" class="formulary">
+<form action="{{route('guardarRegistro')}}" method="POST" class="formulary">
     @csrf
-    
     <strong>
         Nombre:*
         <br>
@@ -22,8 +18,6 @@
     <br>
     @enderror
     <br>
-
-
     <strong>
         Apellido:*
         <br>
@@ -35,8 +29,6 @@
     <br>
     @enderror
     <br>
-
-
     <strong>
         dni:*
         <br>
@@ -48,14 +40,12 @@
     <br>
     @enderror
     <br>
-
     <strong>
         tarjeta: (opcional)
         <br>
         <input type="text" name="tarjeta" value="{{old('tarjeta')}}" placeholder="123456789....">
     </strong>
     <br>
-
     <strong>
         Email:*
         <br>
@@ -67,7 +57,6 @@
     <br>
     @enderror
     <br>
-
     <strong>
         Contraseña:*
         <br>
@@ -79,8 +68,6 @@
     <br>
     @enderror
     <br>
-
-
     <button type="submit"> Registrarse</button>
 </form>
 @endsection

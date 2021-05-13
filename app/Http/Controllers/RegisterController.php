@@ -7,9 +7,8 @@ use App\Models\Usuarios;
 
 class RegisterController extends Controller
 {
-    public function saveFormRegister(registerRequest $request){
+    public function guardarRegistro(registerRequest $request){
         // return redirect()->route('public.login');
-
         $newUser = new Usuarios;
         $newUser->nombre = $request->nombre;
         $newUser->apellido = $request->apellido;
@@ -21,7 +20,6 @@ class RegisterController extends Controller
         $newUser->email = $request->email;
         $newUser->contraseña = $request->contraseña;
         $newUser->save();
-
         return redirect()->route('login');
     }
 }
