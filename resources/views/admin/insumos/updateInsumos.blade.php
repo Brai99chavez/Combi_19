@@ -30,6 +30,7 @@
                     <option value="1">SI</option>
                 </select>
                 <br>
+                <input type="hidden" name="id_insumos" value="{{$insumo[0]->id_insumos}}">
             <button class="botones" type="submit">ACTUALIZAR INSUMO</button>
         </form>
 @endsection

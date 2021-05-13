@@ -23,20 +23,29 @@
                     <td>{{$combi->modelo}}</td>
                     <td>{{$combi->color}}</td>
                     <td>{{$combi->cant_asientos}}</td>
-                    <td>{{$combi->id_categoria}}</td>
-                    <td>{{$combi->disponible}}</td>
-                    {{--<td>
-                        <form action="{{route('')}}" method="POST">
+                    @if($combi->id_categoria == 1)
+                        <td>Comoda</td>
+                    @else
+                        <td>Super Comoda</td>
+                    @endif
+                    
+                    @if ($combi->disponible == 1)
+                        <td>Disponible</td>
+                    @else
+                        <td>No Disponible</td>
+                    @endif
+                    <td>
+                        <form action="{{route('updatecombi')}}" method="POST">
                             @csrf
                             <input type="hidden" name="id_combi" value="{{$combi->id_combi}}">
                             <button type="submit"><i class="fas fa-edit"></i></button>
                         </form>
-                        <form action="{{route('')}}" method="POST">
+                        {{-- <form action="{{route('')}}" method="POST">
                             @csrf
                             <input type="hidden" name="id_combi" value="{{$combi->id_combi}}">
                             <button type="submit"><i class="fas fa-trash-alt"></i></button>
-                        </form>
-                    </td> --}}
+                        </form> --}}
+                    </td>
                 </tr>
                 @endforeach
             @else

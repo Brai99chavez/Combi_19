@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\empleadosRequest;
 use App\Models\Usuarios;
+use App\Models\Viajes;
 use Illuminate\Http\Request;
 
 class empleadosController extends Controller
@@ -41,9 +42,7 @@ class empleadosController extends Controller
         if (($request->nombre == null)or($request->apellido == null)or($request->dni == null)or($request->email == null)or($request->contraseña == null) ) {
             
             return redirect()->route('homeEmp')->withErrors(['sucess'=>'error al modificar , hay campos vacios']);
-
         } else {
-
             $usuario = new Usuarios;
             $usuario->nombre = $request->nombre;
             $usuario->apellido = $request->apellido;
@@ -54,14 +53,19 @@ class empleadosController extends Controller
             "apellido" => $request->apellido,"dni" => $request->dni,"email" => $request->email,
             "contraseña" => $request->contraseña,]);
             return redirect()->route('homeEmp')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
-
         }
-
     }
 
-    public function deleteEmp (){
-        
-        return view('admin.empleados.createEmp');
+
+    public function deleteEmp(Request $request){
+        $found = Usuarios::select("id_usuario")->where("id_usuario", "=", $request->id_usuario)->get();
+        $viaje = Viajes::select('id_viaje')->where('id_chofer',$request->id_usuario)->get();
+
+        if($found->isNotEmpty() && $viaje->isEmpty()){
+            Usuarios::where("id_usuario", $request->id_usuario)->delete();
+            return redirect()->route('homeEmp')->withErrors(['sucess'=>'el empleado se elimino correctamente']);
+        }
+        return redirect()->route('homeEmp')->withErrors(['sucess'=>'el empleado chofer no  se pudo eliminar , esta asignado a un viaje']);
     }
 
 }

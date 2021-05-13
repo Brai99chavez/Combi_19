@@ -55,7 +55,7 @@
             <option value="2">NO</option>
         </select>
         <br>
-        <button type="submit">Cargar Combi</button>
+        <button class="botones" type="submit">Cargar Combi</button>
 
     </form>
 </div>

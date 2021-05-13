@@ -109,7 +109,7 @@ class ViajesController extends Controller
         return 0;
     }
     public function createviajeprocess_insumos(Request $request){
-       if(empty($request)){ 
+        if(empty($request)){ 
             for($i = 0; $i < count($request->insumo); $i++){
                 $newInsumo = new Viaje_insumos;
                 $newInsumo->id_viaje = $request->id_viaje;
@@ -118,11 +118,15 @@ class ViajesController extends Controller
             }
         }
         return redirect()->route('homeviajes');        
-
     }
 
-    public function deleteviajes(){
-        return view('admin.viajes.deleteViajes');
-    }
+    public function deleteviajes(Request $request){
+        $found = Viajes::select('id_viaje')->where('id_viaje',$request->id_viaje)->get();
 
+        if($found->isNotEmpty()){
+            Viajes::where('id_viaje',$request->id_viaje)->delete();
+            return redirect()->route('homeEmp')->withErrors(['sucess'=>'el viaje se elimino correctamente']);
+        }
+        return redirect()->route('homeEmp')->withErrors(['sucess'=>'ocurrio un problema']);
+    }
 }

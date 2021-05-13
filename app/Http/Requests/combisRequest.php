@@ -25,8 +25,9 @@ class combisRequest extends FormRequest
     {
         return [
             'patente' =>'required',
-            'cant_asientos' =>'required|gt:0',
-            'id_categoria' => 'required',
+            'modelo' =>'required',
+            'color' =>'required',
+            'cant_asientos' =>'required|gt:0'
         ];
     }
 }

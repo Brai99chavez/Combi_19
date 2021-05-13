@@ -30,4 +30,13 @@ class CombisController extends Controller
         }
         return redirect()->route('homecombis')->withErrors(['combiprocess'=>'Ya existe una combi con la patente ingresada']); 
     }
+
+    public function updateCombi(Request $request){
+        $combis = Combis::select('patente','modelo','color','cant_asientos','id_categoria','disponible')->where('id_combi',$request->id_combi)->get();
+        return view('admin.combis.createCombis',compact('combis'));
+    }
+
+    public function updateCombiProcess(combisRequest $request){
+        
+    }
 }
