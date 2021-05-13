@@ -8,15 +8,23 @@
     <h1>Actualizar Viaje</h1>
     <form action="{{route('updateviajes1')}}" method="POST" >
         @csrf 
-        {{$viaje}}
+        <input type="hidden" name="id_viaje" value="{{$viaje[0]->id_viaje}}">
         <br>
         <label>
-            ID_CHOFER:
-            <input type="number" name="id_chofer" value="{{$viaje[0]->id_chofer}}"> 
+            CHOFER:
+            <select name="id_usuario" id="" value="{{$viaje[0]->id_usuario}}">
+                @foreach($Choferes as $chofer)
+                    <option value="{{$chofer->id_usuario}}">{{$chofer->nombre}}</option>
+                @endforeach
+            </select>
         </label> <br> 
         <label>
-            ID_COMBI
-            <input type="text" name="id_combi" value="{{$viaje[0]->id_combi}} ">
+            COMBI
+            <select name="id_combi" id="" value="{{$viaje[0]->id_combi}}">
+                @foreach($Combis as $combi)
+                    <option value="{{$combi->id_combi}}">Patente:{{$combi->patente}}</option>
+                @endforeach
+            </select>
         </label> <br> 
             FECHA
             <input type="text" name="fecha" value=" {{$viaje[0]->fecha}} ">

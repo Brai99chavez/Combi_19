@@ -45,22 +45,24 @@ class ViajesController extends Controller
 
        // $viaje = Viajes::findOrFail($id); 
         $ciudades = Ciudades::all();
-       
-        return view("admin.viajes.updateViajes", compact('viaje','ciudades'));
+        $Combis = Combis::select('id_combi','patente')->get();
+        $Choferes = Usuarios::select('id_usuario','nombre')->where('id_permiso',2)->get();
+        return view("admin.viajes.updateViajes", compact('viaje','ciudades','Choferes','Combis'));
     }
 
     public function updateviajes1(Request $request ){
 
-     
+        if (isset($request->fecha) && isset($request->hora) && isset($request->precio)) {
+            Viajes::where("id_viaje", "=", $request->id_viaje)
+            ->update(["id_chofer"=> $request->id_usuario, "id_combi"=> $request->id_combi, 
+            "fecha"=> $request->fecha, "hora"=> $request->hora, "precio"=> $request->precio]);
+            return redirect()->route('homeviajes')
+            ->withErrors(['sucess'=>'Viaje modificado correctamente']);
+        } else {
+            return redirect()->route('homeviajes')->withErrors(['sucess'=>'Viaje no modificado por que hay campos vacios']);
+        }
         
-      Viajes::where("id_viaje", "=", $request->id_viaje)
-      ->update(["id_chofer"=> $request->id_chofer, "id_combi"=> $request->id_combi, 
-      "fecha"=> $request->fecha, "hora"=> $request->hora, "precio"=> $request->precio]);
-
-      return redirect()->route('homeviajes')
-      ->withErrors(['updateprocess'=>'Membresia modificada correctamente']);
-        
-       
+    
     }
 
     public function createviaje(){
