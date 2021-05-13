@@ -108,6 +108,8 @@ Route::post('update_combi',[CombisController::class,'updateCombi'])->name(('upda
 
 Route::post('update_combi_process',[CombisController::class,'updateCombiProcess'])->name(('updatecombiprocess'));
 
+Route::post('delete_combi',[CombisController::class,'deleteCombi'])->name(('deleteCombi'));
+
 //USUARIO
 
 Route::get('home', [userController::class,'homeUser'])->name('homeUser');

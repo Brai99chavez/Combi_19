@@ -32,11 +32,28 @@ class CombisController extends Controller
     }
 
     public function updateCombi(Request $request){
-        $combis = Combis::select('patente','modelo','color','cant_asientos','id_categoria','disponible')->where('id_combi',$request->id_combi)->get();
-        return view('admin.combis.createCombis',compact('combis'));
+        $combi = Combis::select('id_combi','patente','modelo','color','cant_asientos','id_categoria','disponible')->where('id_combi',$request->id_combi)->get();
+        return view('admin.combis.updateCombis',compact('combi'));
+    }
+    
+    public function updateCombiProcess(Request $request){
+        if (($request->patente == null)or($request->modelo == null)or($request->color == null)or($request->cant_asientos == null)or($request->id_categoria == null)or ($request->disponible == null)) {
+            return redirect()->route('homecombis')->withErrors(['sucess'=>'error al modificar , hay campos vacios']);
+        } else {
+            Combis::where('id_combi',$request->id_combi)->update(["patente"=> $request->patente,
+            "modelo" => $request->modelo,"color" => $request->color,"cant_asientos" => $request->cant_asientos,
+            "id_categoria" => $request->id_categoria,"disponible"=>$request->disponible]);
+            return redirect()->route('homecombis')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
+        }
     }
 
-    public function updateCombiProcess(combisRequest $request){
-        
+    public function deleteCombi (Request $request){
+        $found = Combis::select("id_combi")->where("id_combi", $request->id_combi)->get();
+
+        if($found->isNotEmpty()){
+            Combis::where("id_combi", $request->id_combi)->delete();
+            return redirect()->route('homecombis')->withErrors(['sucess'=>'la combi se elimino correctamente']);
+        }
+        return redirect()->route('homecombis')->withErrors(['sucess'=>'la combi no  se pudo eliminar , esta asignado a un viaje']);
     }
 }

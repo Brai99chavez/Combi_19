@@ -43,12 +43,6 @@ class empleadosController extends Controller
             
             return redirect()->route('homeEmp')->withErrors(['sucess'=>'error al modificar , hay campos vacios']);
         } else {
-            $usuario = new Usuarios;
-            $usuario->nombre = $request->nombre;
-            $usuario->apellido = $request->apellido;
-            $usuario->dni = $request->dni;
-            $usuario->email = $request->email;
-            $usuario->contraseña = $request->contraseña;
             Usuarios::where('email',$request->email)->update(["nombre"=> $request->nombre,
             "apellido" => $request->apellido,"dni" => $request->dni,"email" => $request->email,
             "contraseña" => $request->contraseña,]);
