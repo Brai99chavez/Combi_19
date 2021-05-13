@@ -1,10 +1,12 @@
 @extends('admin.layout')
 
-@section('title', 'Viaje Create')
+@section('title', 'Registro Viaje')
+
+@section('headerTitle', 'Registro Viaje')
 
 @section('content')
     <div class="formulary">
-    <h1>Viaje Nuevo</h1>
+    
     <form action="{{route('createviajeshow')}}" method="POST">
         @csrf
         <label>

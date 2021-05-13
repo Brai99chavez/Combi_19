@@ -1,10 +1,8 @@
 @extends('admin.layout')
 @section('title', 'Update Insumo')
 @section('content')
-    <div class="formulary"> 
         <form action="{{route('updateinsumos1')}}" method="POST" class="formulary">
             @csrf
-               
                 <strong>NOMBRE:</strong>
                 <br>
                 <input type="text" name="nombre" value="{{$insumo[0]->nombre}}">
@@ -34,5 +32,4 @@
                 <br>
             <button class="botones" type="submit">ACTUALIZAR INSUMO</button>
         </form>
-    </div>
 @endsection

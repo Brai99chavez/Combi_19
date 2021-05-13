@@ -28,7 +28,7 @@ class empleadosController extends Controller
         $reg->email = $request->email;
         $reg->contraseña = $request->contraseña;
         $reg->save();
-        return redirect()->route('homeEmp');
+        return redirect()->route('homeEmp')->withErrors(['sucess'=>'usuario creado con exito']);
     }
 
     public function updateEmp (Request $request){

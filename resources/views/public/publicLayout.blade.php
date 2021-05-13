@@ -19,8 +19,8 @@
             <h1>@yield('navTitle')</h1>
         </div>
         <nav class="menu">
-            <a href="{{route('/')}}">Home</a>
-            <a href="{{route('login')}}">Login</a>
+            <a href="{{route('/')}}">Home Publico</a>
+            <a href="{{route('login')}}">Iniciar Sesion</a>
             <a href="{{route('register')}}">Registrarse</a>
         </nav>
     </header>
