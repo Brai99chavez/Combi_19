@@ -1,17 +1,19 @@
 @extends('admin.layout')
 
-@section('title', 'Viaje Create')
+@section('title', 'Registro Viaje')
+
+@section('headerTitle', 'Registro Viaje')
 
 @section('content')
     <div class="formulary">
-    <h1>Viaje Nuevo</h1>
+    
     <form action="{{route('createviajeshow')}}" method="POST">
         @csrf
         <label>
             CHOFER
             <select name="id_chofer">
                 @foreach($choferes as $chofer)
-                <option value="{{$chofer->id_chofer}}">
+                <option value="{{$chofer->id_usuario}}">
                     {{$chofer->nombre}}
                 </option>
                 @endforeach

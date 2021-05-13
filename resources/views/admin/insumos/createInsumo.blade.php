@@ -1,7 +1,8 @@
 @extends('admin.layout')
-@section('title', 'Create Insumo')
+@section('title', 'Registrar Insumo')
+@section('headerTitle', 'Registrar Insumo')
 @section('content')
-    <h2>Nuevo Insumo</h2>
+
     <form action="{{route('createinsumoshow')}}" method="POST" class="formulary">
         @csrf
 

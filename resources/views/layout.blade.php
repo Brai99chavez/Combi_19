@@ -26,6 +26,10 @@
                 <a href="{{route('logOut')}}"> CERRAR SESION</a>
             </nav>
         </header>
+        <br>
+        <br>
+        <br>
+        <br>
         @yield('content')
 </body>
 </html>

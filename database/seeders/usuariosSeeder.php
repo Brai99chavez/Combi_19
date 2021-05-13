@@ -73,5 +73,14 @@ class usuariosSeeder extends Seeder
         $usu6->contraseña = 'Facundo123';
         $usu6->id_permiso = 1;
         $usu6->save();
+
+        $usu6 = new Usuarios();
+        $usu6->nombre = 'Belen';
+        $usu6->apellido = 'Bot';
+        $usu6->dni = 12344321;
+        $usu6->email = 'Belen@gmail.com';
+        $usu6->contraseña = 'belen123';
+        $usu6->id_permiso = 3;
+        $usu6->save();
     }
 }

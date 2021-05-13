@@ -5,7 +5,7 @@
 @section('headerTitle', 'Regitro Empleado')
 
 @section('content')
-    <form action="{{route('saveReg')}}" method="POST" class="formulary">
+    <form action="{{route('saveRegister')}}" method="POST" class="formulary">
         @csrf
         @error('nombre')
             <small>{{$message}}</small>

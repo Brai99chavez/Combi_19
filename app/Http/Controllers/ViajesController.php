@@ -43,7 +43,9 @@ class ViajesController extends Controller
         ->where("viajes.id_viaje", "=", $request->id_viaje)
         ->get(); 
         $ciudades = Ciudades::all();
-        return view("admin.viajes.updateViajes", compact('viaje','ciudades'));
+        $Combis = Combis::select('id_combi','patente')->get();
+        $Choferes = Usuarios::select('id_usuario','nombre')->where('id_permiso',2)->get();
+        return view("admin.viajes.updateViajes", compact('viaje','ciudades','Choferes','Combis'));
     }
 
     public function updateviajesprocess(viajeRequest $request){
@@ -56,9 +58,6 @@ class ViajesController extends Controller
         $id_viaje = $request->id_viaje;
         $insumos = Viaje_insumos::select("id_insumos")->where("viaje_insumo.id_viaje", "=", $request->id_viaje)->get();
         return view('admin.viajes.deleteInsumosViajes', compact('id_viaje', 'insumos'));
-    }
-    public function deleteinsumosviaje(Request $request){
-        return redirect()->route('homeviajes');
     }
     public function createviaje(){
         $ciudades = Ciudades::all();
@@ -75,7 +74,7 @@ class ViajesController extends Controller
         return $combis;
     }
     private function createviajechoferdisponible(){
-        $choferes = Usuarios::select("nombre","id_usuario")->where("usuarios.id_permiso", "=", 2, "and", "usuarios.disponible", "=", 1)->get();
+        $choferes = Usuarios::select("usuarios.nombre","usuarios.id_usuario")->where("usuarios.id_permiso", "=", 2, "and", "usuarios.disponible", "=", 1)->get();
         return $choferes;
     }
     public function createviajeprocess(viajeRequest $request){
@@ -106,7 +105,7 @@ class ViajesController extends Controller
         return 0;
     }
     public function createviajeprocess_insumos(Request $request){
-       if(empty($request)){ 
+        if(empty($request)){ 
             for($i = 0; $i < count($request->insumo); $i++){
                 $newInsumo = new Viaje_insumos;
                 $newInsumo->id_viaje = $request->id_viaje;
@@ -117,8 +116,13 @@ class ViajesController extends Controller
         return redirect()->route('homeviajes');        
     }
 
-    public function deleteviajes(){
-        return view('admin.viajes.deleteViajes');
-    }
+    public function deleteviajes(Request $request){
+        $found = Viajes::select('id_viaje')->where('id_viaje',$request->id_viaje)->get();
 
+        if($found->isNotEmpty()){
+            Viajes::where('id_viaje',$request->id_viaje)->delete();
+            return redirect()->route('homeEmp')->withErrors(['sucess'=>'el viaje se elimino correctamente']);
+        }
+        return redirect()->route('homeEmp')->withErrors(['sucess'=>'ocurrio un problema']);
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class combisRequest extends FormRequest
+class ciudadesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,9 @@ class combisRequest extends FormRequest
     public function rules()
     {
         return [
-            'patente' =>'required',
-            'modelo' =>'required',
-            'color' =>'required',
-            'cant_asientos' =>'required|gt:0'
+            'nombre' =>'required',
+            'direccion' =>'required',
+            'disponible' =>'required',
         ];
     }
 }
