@@ -26,9 +26,9 @@ class CombisController extends Controller
             $new->id_categoria = $request->id_categoria;
             $new->disponible = $request->disponible;
             $new->save();
-            return redirect()->route('homecombis')->withErrors(['combiprocess'=>'Combi creada correctamente']);    
+            return redirect()->route('homeciudades')->withErrors(['combiprocess'=>'Combi creada correctamente']);    
         }
-        return redirect()->route('homecombis')->withErrors(['combiprocess'=>'Ya existe una combi con la patente ingresada']); 
+        return redirect()->route('homeciudades')->withErrors(['combiprocess'=>'Ya existe una combi con la patente ingresada']); 
     }
 
     public function updateCombi(Request $request){

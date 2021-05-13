@@ -47,6 +47,17 @@ Route::get('logOut', [AuthController::class,'logOut'])->name('logOut');
         //ADMIN - CIUDADES
 
 Route::get('home_ciudades', [ciudadesController::class,'showCiudades'])->name('homeciudades');
+
+Route::get('create_ciudad', [ciudadesController::class,'createciudades'])->name('createciudad');
+
+Route::post('create_ciudad_process', [ciudadesController::class,'createciudadesprocess'])->name('createciudadprocess');
+
+Route::post('update_ciudad',[ciudadesController::class,'updateCiudad'])->name(('updateciudad'));
+
+Route::post('update_ciudad_process',[ciudadesController::class,'updateCiudadProcess'])->name(('updateciudadprocess'));
+
+Route::post('delete_ciudad',[ciudadesController::class,'deleteCiudad'])->name(('deleteciudad'));
+
         //ADMIN - VIAJES
 Route::get('home_admin', [AdminController::class,'homeadmin'])->name('homeadmin');
 
