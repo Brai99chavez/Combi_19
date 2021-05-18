@@ -26,7 +26,6 @@
                 <th>Dni</th>
                 <th>Rol</th>
                 <th>Email</th>
-                <th>Contraseña</th>
                 <th>Opciones<a href="{{route('createEmp')}}"><button><i class="far fa-plus-square"></i></button></a></th>
             </tr>
         </thead>
@@ -38,7 +37,6 @@
                 <td>{{$admin->dni}}</td>
                 <td>Admin</td>
                 <td>{{$admin->email}}</td>
-                <td>{{$admin->contraseña}}</td>
                 <td>
                     <form action="{{route('updateEmp')}}" method="POST">
                         @csrf
@@ -60,7 +58,6 @@
                     <td>{{$chofer->dni}}</td>
                     <td>Chofer</td>
                     <td>{{$chofer->email}}</td>
-                    <td>{{$chofer->contraseña}}</td>
                     <td>
                         <form action="{{route('updateEmp')}}" method="POST">
                             @csrf

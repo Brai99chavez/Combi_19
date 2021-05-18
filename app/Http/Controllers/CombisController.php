@@ -12,9 +12,11 @@ class CombisController extends Controller
         $combis = Combis::all();
         return view('admin.combis.homeCombi', compact('combis'));
     }
+
     public function createcombis(){
         return view('admin.combis.createCombis');
     }
+
     public function createcombisprocess(combisRequest $request){
         $new = new Combis;
         $found = Combis::where("combis.patente", "=", $request->patente);
@@ -26,9 +28,9 @@ class CombisController extends Controller
             $new->id_categoria = $request->id_categoria;
             $new->disponible = $request->disponible;
             $new->save();
-            return redirect()->route('homeciudades')->withErrors(['combiprocess'=>'Combi creada correctamente']);    
+            return redirect()->route('homecombis')->withErrors(['sucess'=>'Combi creada correctamente']);    
         }
-        return redirect()->route('homeciudades')->withErrors(['combiprocess'=>'Ya existe una combi con la patente ingresada']); 
+        return redirect()->route('homecombis')->withErrors(['sucess'=>'Ya existe una combi con la patente ingresada']); 
     }
 
     public function updateCombi(Request $request){
@@ -40,11 +42,16 @@ class CombisController extends Controller
         if (($request->patente == null)or($request->modelo == null)or($request->color == null)or($request->cant_asientos == null)or($request->id_categoria == null)or ($request->disponible == null)) {
             return redirect()->route('homecombis')->withErrors(['sucess'=>'error al modificar , hay campos vacios']);
         } else {
-            Combis::where('id_combi',$request->id_combi)->update(["patente"=> $request->patente,
-            "modelo" => $request->modelo,"color" => $request->color,"cant_asientos" => $request->cant_asientos,
-            "id_categoria" => $request->id_categoria,"disponible"=>$request->disponible]);
-            return redirect()->route('homecombis')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
-        }
+            $found = Combis::where("combis.patente", "=", $request->patente);
+            if($found->count() == 0){ 
+               Combis::where('id_combi',$request->id_combi)->update(["patente"=> $request->patente,
+                "modelo" => $request->modelo,"color" => $request->color,"cant_asientos" => $request->cant_asientos,
+                "id_categoria" => $request->id_categoria,"disponible"=>$request->disponible]);
+                return redirect()->route('homecombis')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
+            } else {
+                return redirect()->route('homecombis')->withErrors(['sucess'=>'error al modificar ,patente ya registrada']);
+            }
+        }    
     }
 
     public function deleteCombi (Request $request){

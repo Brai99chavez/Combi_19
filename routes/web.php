@@ -81,6 +81,8 @@ Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('home
 
 Route::post('update_insumos',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));  
 
+Route::post('update_insumos1',[InsumosController::class,'updateinsumos1'])->name(('updateinsumos1'));  
+
 Route::post('delete_insumos',[InsumosController::class,'deleteinsumos'])->name(('deleteinsumos'));
 
 Route::post('show_insumo',[InsumosController::class,'showinsumo'])->name(('createinsumoshow'));
