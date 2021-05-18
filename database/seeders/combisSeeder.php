@@ -20,7 +20,6 @@ class combisSeeder extends Seeder
         $combi-> color = 'rojo';
         $combi-> cant_asientos = '12';
         $combi-> id_categoria = 1;
-        $combi-> disponible = true;
         $combi->save();
 
         $combi2 = new Combis();
@@ -29,7 +28,6 @@ class combisSeeder extends Seeder
         $combi2-> color = 'azul';
         $combi2-> cant_asientos = '32';
         $combi2-> id_categoria = 2;
-        $combi2-> disponible = true;
         $combi2->save();
 
         $combi3 = new Combis();
@@ -38,7 +36,6 @@ class combisSeeder extends Seeder
         $combi3-> color = 'blanco';
         $combi3-> cant_asientos = '24';
         $combi3-> id_categoria = 1;
-        $combi3-> disponible = true;
         $combi3->save();
 
         $combi4 = new Combis();
@@ -47,7 +44,6 @@ class combisSeeder extends Seeder
         $combi4-> color = 'negro';
         $combi4-> cant_asientos = '26';
         $combi4-> id_categoria = 2;
-        $combi4-> disponible = true;
         $combi4->save();
 
 

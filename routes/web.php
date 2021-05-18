@@ -62,7 +62,7 @@ Route::get('home_admin', [AdminController::class,'homeadmin'])->name('homeadmin'
 
 Route::get('create_viaje',[ViajesController::class,'createviaje'])->name(('createviaje'));
 
-Route::post('show_viaje',[ViajesController::class,'createviajeprocess'])->name(('createviajeshow'));
+Route::post('working',[ViajesController::class,'createviajeprocess'])->name(('createviajeprocess'));
 
 Route::get('home_viajes',[ViajesController::class,'homeviajes'])->name(('homeviajes'));
 
@@ -74,7 +74,9 @@ Route::post('delete_viajes',[ViajesController::class,'deleteviajes'])->name(('de
 
 Route::post('delete_insumosviaje',[ViajesController::class,'deleteinsumosviaje'])->name(('deleteinsumosviaje'));
 
-Route::post('cargando_insumos',[ViajesController::class,'createviajeprocess_insumos'])->name(('createviajeprocess_insumos'));
+Route::get('viaje_validation',[ViajesController::class,'filtrardatosviaje'])->name(('filtrardatosviaje'));
+
+Route::post('createviajeprocess_insumos',[ViajesController::class,'createviajeprocess_insumos'])->name(('createviajeprocess_insumos'));
 
         //ADMIN - INSUMOS
 Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));

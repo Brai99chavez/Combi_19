@@ -7,15 +7,18 @@
 @section('content')
     <div class="formulary">
     
-    <form action="{{route('createviajeshow')}}" method="POST">
+    <form action="{{route('createviajeprocess')}}" method="POST">
         @csrf
+        <input type="hidden" name="fecha" value="{{$fecha}}">
         <label>
             CHOFER
             <select name="id_chofer">
                 @foreach($choferes as $chofer)
-                <option value="{{$chofer->id_usuario}}">
-                    {{$chofer->nombre}}
-                </option>
+                    @if($chofer->id_permiso == 2)
+                        <option value="{{$chofer->id_usuario}}">
+                            {{$chofer->nombre}}
+                        </option>
+                    @endif    
                 @endforeach
             </select>
         </label>
@@ -43,13 +46,8 @@
         <br>
         <label>
             FECHA
-            <input type="date" name="fecha">
+            {{$fecha}}
         </label>
-        @error('fecha')
-            <br>
-                <small>{{$message}}</small>
-            <br>
-        @enderror
         <label>
             <br><br>
             HORA
@@ -74,9 +72,9 @@
         <label>
             ORIGEN
             <select name="origen">
-                @foreach($ciudades as $ciudad)
-                <option value="{{$ciudad->id_ciudad}}">
-                    {{$ciudad->nombre}}
+                @foreach($ciudades as $ciudad1)
+                <option value="{{$ciudad1->id_ciudad}}">
+                    {{$ciudad1->nombre}}
                 </option>
                 @endforeach
             </select>
@@ -90,9 +88,9 @@
         <label>
             DESTINO
             <select name="destino">
-                @foreach($ciudades as $ciudad)
-                <option value="{{$ciudad->id_ciudad}}">
-                    {{$ciudad->nombre}}
+                @foreach($ciudades as $ciudad2)
+                <option value="{{$ciudad2->id_ciudad}}">
+                    {{$ciudad2->nombre}}
                 </option>  
                 @endforeach
             </select>

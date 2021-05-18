@@ -23,7 +23,6 @@
                 <th>color</th>
                 <th>asientos</th>
                 <th>categoria</th>
-                <th>disponible</th>
                 <th>options<a href="{{route('createcombis')}}"><button><i class="far fa-plus-square"></i></button></a></th>
             </tr>
         </thead>
@@ -40,12 +39,6 @@
                         <td>Comoda</td>
                     @else
                         <td>Super Comoda</td>
-                    @endif
-                    
-                    @if ($combi->disponible == 1)
-                        <td>Disponible</td>
-                    @else
-                        <td>No Disponible</td>
                     @endif
                     <td>
                         <form action="{{route('updatecombi')}}" method="POST">

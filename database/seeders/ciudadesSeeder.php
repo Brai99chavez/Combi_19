@@ -42,13 +42,13 @@ class ciudadesSeeder extends Seeder
         $ciu5 = new Ciudades();
         $ciu5->nombre = 'entre rios';
         $ciu5->direccion=' calle acevedo numero de casa 773';
-        $ciu5->disponible = true;
+        $ciu5->disponible = false;
         $ciu5->save();
 
         $ciu6 = new Ciudades();
         $ciu6->nombre = 'salta';
         $ciu6->direccion=' calle asd numero de casa 1111';
-        $ciu6->disponible = true;
+        $ciu6->disponible = false;
         $ciu6->save();
 
     }

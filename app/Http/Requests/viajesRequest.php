@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
-class viajeRequest extends FormRequest
+class viajesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,7 +30,7 @@ class viajeRequest extends FormRequest
             'fecha' => 'required',
             'hora' => 'required',
             'origen' => 'required|different:destino',
-            'destino' => 'required|different:origen'
+            'destino' => 'required|different:origen',
         ];
     }
 }

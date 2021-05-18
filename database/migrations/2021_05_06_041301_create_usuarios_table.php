@@ -21,7 +21,6 @@ class CreateUsuariosTable extends Migration
             $table->string('email')->unique();
             $table->string('contraseña');
             $table->integer('tarjeta')->nullable();
-            $table->integer('disponible')->nullable();
             $table->integer('id_membresia')->default(2);
             $table->integer('id_permiso')->default(1);
             $table->timestamps();
