@@ -23,8 +23,7 @@ class AdminController extends Controller
 
             $membresias = Membresias::all();
             $combis = Combis::join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
-            ->select("combis.patente","combis.modelo","combis.color","combis.cant_asientos","categorias.nombre as categoria",
-            "combis.disponible")->get();
+            ->select("combis.patente","combis.modelo","combis.color","combis.cant_asientos","categorias.nombre as categoria")->get();
             $choferes = Usuarios::select("usuarios.nombre","usuarios.apellido","usuarios.dni","usuarios.email")
             ->where("usuarios.id_permiso", "=", 2)->get();
             return view('admin.homeAdmin', compact('membresias','combis','choferes'));

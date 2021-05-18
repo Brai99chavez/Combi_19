@@ -28,7 +28,7 @@
             <th>origen</th>
             <th>destino</th>
             <th>precio</th>
-            <th>options <br> <a href="{{route('createviaje')}}"><button><i class="far fa-plus-square"></i></button></a></th>
+            <th>options <br> <a href="{{route('filtrardatosviaje')}}"><button><i class="far fa-plus-square"></i></button></a></th>
         </tr>
     </thead>
     <tbody>           

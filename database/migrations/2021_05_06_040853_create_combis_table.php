@@ -20,7 +20,6 @@ class CreateCombisTable extends Migration
             $table->text('color',15);
             $table->integer('cant_asientos');
             $table->integer('id_categoria');
-            $table->boolean('disponible');
             $table->timestamps();
         });
     }
