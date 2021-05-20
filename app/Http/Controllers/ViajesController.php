@@ -76,7 +76,7 @@ class ViajesController extends Controller
     private function createviajecombidisponible($request){
         $fecha = $request->fechaValidation;
         $combis = Combis::whereNotExists(function ($query) use ($fecha) {
-            $query->select(DB::raw(1))
+        $query->select(DB::raw(1))
                   ->from('viajes')
                   ->whereColumn( "viajes.id_combi","=", "combis.id_combi")
                   ->when($fecha, function ($query, $fecha){

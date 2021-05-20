@@ -33,14 +33,14 @@ class ciudadesController extends Controller
     
     public function updateCiudad(Request $request){
         $ciudades = Ciudades::select('id_ciudad','nombre','direccion','disponible')->where('id_ciudad',$request->id_ciudad)->get();
-        
+       
         return view('admin.ciudades.updateCiudades',compact('ciudades'));
     }
     
     public function updateCiudadProcess(Request $request){
         if (($request->nombre == null)or($request->direccion == null)or($request->disponible == null)) {
             return redirect()->route('homeciudades')->withErrors(['sucess'=>'error al modificar , hay campos vacios']);
-        } else {
+        } else {                     
             $found = Ciudades::where("nombre", $request->nombre);
             if($found->count() == 0){ 
               Ciudades::where('id_ciudad',$request->id_ciudad)->update(["nombre"=> $request->nombre,

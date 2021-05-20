@@ -28,7 +28,10 @@ class registerRequest extends FormRequest
             'apellido' => 'required|max:20',
             'dni' => 'required|max:10',
             'email' => 'required|unique:Usuarios',
-            'contraseña' => 'required'
+            'contraseña' => 'required',
+            'tarjeta' => 'required|max:20',
+            'fechaVenc' => 'required',
+            'codigo' => 'required|max:3',
         ];
     }
 

@@ -6,10 +6,10 @@
 
 @section('content')
 
-<form action="{{route('guardarRegistro')}}" method="POST" class="formulary">
-<h1>Registro Basic</h1>
-<br>
+<form action="{{route('guardarRegistroGolden')}}" method="post" class="formulary">
     @csrf
+    <h1>Registro Golden</h1>
+    <br>
     <strong>
         Nombre:*
         <br>
@@ -38,6 +38,42 @@
         <input type="text" name="dni" value="{{old('dni')}}" placeholder="987654321....">
     </strong>
     @error('dni')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
+    <strong>
+        Num. de tarjeta: 
+        <br>
+        <input type="text" name="tarjeta" value="{{old('tarjeta')}}" placeholder="123456789....">
+    </strong>
+    <br>
+    @error('tarjeta')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
+    <strong>
+        Fecha de venc. de tarjeta: 
+        <br>
+        <input type="text" name="fechaVen" value="{{old('fechaVen')}}" placeholder="01/07..">
+    </strong>
+    <br>
+    @error('fechaVenc')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
+    <strong>
+        cod. de tarjeta: 
+        <br>
+        <input type="text" name="codigo" value="{{old('codigo')}}" placeholder="456..">
+    </strong>
+    <br>
+    @error('codigo')
     <br>
     <small>{{$message}}</small>
     <br>

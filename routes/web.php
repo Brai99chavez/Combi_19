@@ -36,7 +36,13 @@ Route::get('login', [publicController::class,'login'])->name('login');
 
 Route::get('register', [publicController::class,'register'])->name('register');
 
+Route::get('registerEleccion', [publicController::class,'registerEleccion'])->name('registerEleccion');
+
+Route::get('registerGolden', [publicController::class,'registerGolden'])->name('registerGolden');
+
 Route::post('guardarRegistro',[RegisterController::class,'guardarRegistro'])->name('guardarRegistro');
+
+Route::post('guardarRegistroGolden',[publicController::class,'guardarRegistroGolden'])->name('guardarRegistroGolden');
 
 Route::post('auth',[AuthController::class,'autenticacion'])->name('autenticacion');
 
