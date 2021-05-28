@@ -10,5 +10,8 @@ class userController extends Controller
         return view('user.userHome');
     } //
 
+    public function editarPerfilCliente(){
 
+        return view('user.editarPerfilCliente');
+    }
 }

@@ -132,3 +132,7 @@ Route::post('delete_combi',[CombisController::class,'deleteCombi'])->name(('dele
 //USUARIO
 
 Route::get('home', [userController::class,'homeUser'])->name('homeUser');
+            
+Route::get('editarPerfilCliente', [userController::class,'editarPerfilCliente'])->name('editarPerfilCliente');
+
+
