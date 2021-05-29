@@ -1,14 +1,14 @@
 @extends('public.publicLayout')
 
-@section('title', 'registro')
+@section('title', 'registro Golden')
 
-@section('navTitle', 'Registro')
+@section('navTitle', 'Registro Golden')
 
 @section('content')
 
 <form action="{{route('guardarRegistroGolden')}}" method="post" class="formulary">
     @csrf
-    <h1>Registro Golden</h1>
+    <h1>Datos de Usuario</h1>
     <br>
     <strong>
         Nombre:*
@@ -44,42 +44,6 @@
     @enderror
     <br>
     <strong>
-        Num. de tarjeta: 
-        <br>
-        <input type="text" name="tarjeta" value="{{old('tarjeta')}}" placeholder="123456789....">
-    </strong>
-    <br>
-    @error('tarjeta')
-    <br>
-    <small>{{$message}}</small>
-    <br>
-    @enderror
-    <br>
-    <strong>
-        Fecha de venc. de tarjeta: 
-        <br>
-        <input type="text" name="fechaVen" value="{{old('fechaVen')}}" placeholder="01/07..">
-    </strong>
-    <br>
-    @error('fechaVenc')
-    <br>
-    <small>{{$message}}</small>
-    <br>
-    @enderror
-    <br>
-    <strong>
-        cod. de tarjeta: 
-        <br>
-        <input type="text" name="codigo" value="{{old('codigo')}}" placeholder="456..">
-    </strong>
-    <br>
-    @error('codigo')
-    <br>
-    <small>{{$message}}</small>
-    <br>
-    @enderror
-    <br>
-    <strong>
         Email:*
         <br>
         <input type="text" name="email" value="{{old('email')}}" placeholder="example@gmail.com.....">
@@ -101,6 +65,47 @@
     <br>
     @enderror
     <br>
-    <button type="submit"> Registrarse</button>
+
+   <h1>Datos de Tarjeta</h1>
+
+    <br>
+    <strong>
+        Num. de tarjeta: 
+        <br>
+        <input type="text" name="tarjeta" value="{{old('tarjeta')}}" placeholder="123456789....">
+    </strong>
+    <br>
+    @error('tarjeta')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
+    <strong>
+        Fecha de venc. de tarjeta: 
+        <br>
+        <input type="text" name="fechaVenc" value="{{old('fechaVenc')}}" placeholder="01/07..">
+    </strong>
+    <br>
+    @error('fechaVenc')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
+    <strong>
+        cod. de tarjeta: 
+        <br>
+        <input type="text" name="codigo" value="{{old('codigo')}}" placeholder="456..">
+    </strong>
+    <br>
+    @error('codigo')
+    <br>
+    <small>{{$message}}</small>
+    <br>
+    @enderror
+    <br>
+
+    <button type="submit" class="botones">  REGISTRARSE  </button>
 </form>
 @endsection

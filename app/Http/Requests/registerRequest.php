@@ -30,7 +30,7 @@ class registerRequest extends FormRequest
             'email' => 'required',
             'contraseña' => 'required|min:6',
             'tarjeta' => 'required|max:20',
-            'fechaVenc' => 'required',
+            //'fechaVenc' => 'required',
             'codigo' => 'required|max:3',
         ];
     }

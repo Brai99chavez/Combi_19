@@ -26,24 +26,13 @@ class RegisterController extends Controller
         } 
     }
 
-  // no sirve 
-    public function guardarRegistroGolden(registerRequest $request){
-    
-        
-        
-        $newUser = new Usuarios;
-        $newUser->nombre = $request->nombre;
-        $newUser->apellido = $request->apellido;
-        $newUser->dni = $request->dni;
-        $newUser->tarjeta = $request->tarjeta;
-        $newUser->fechaVenc = $request->fechaVenc;
-        $newUser->codigo = $request->codigo;
-        $newUser->id_membresia = 1; 
-        $newUser->email = $request->email;
-        $newUser->contraseña = $request->contraseña;
-        $newUser->save();
-        return redirect()->route('login')->withErrors(['sucess'=>'usuario creado con Exito']);
-    
-    }
+    public function saveCli(Request $request){
+
+            Usuarios::where('email',$request->email)->update(["nombre"=> $request->nombre,
+            "apellido" => $request->apellido,"dni" => $request->dni,"email" => $request->email,
+            "contraseña" => $request->contraseña,]);
+            return redirect()->route('editarPerfilCliente')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
+
+  }
 
 }

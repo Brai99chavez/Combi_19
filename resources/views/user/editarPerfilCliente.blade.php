@@ -7,7 +7,7 @@
 @endsection
         
 @section('content')
-<form action="" method="POST" class="formulary">
+<form action="{{route('saveCli')}}" method="POST" class="formulary">
 <h1>Actualizar Datos</h1>
 <br>
     @csrf
@@ -73,7 +73,7 @@
     <strong>
         Num. de tarjeta: 
         <br>
-        <input type="text" name="tarjeta" value="{{old('tarjeta')}}" >
+        <input type="text" name="tarjeta" value="{{session('tarjeta')}}" >
     </strong>
     <br>
     @error('tarjeta')
@@ -85,7 +85,7 @@
     <strong>
         Fecha de venc. de tarjeta: 
         <br>
-        <input type="text" name="fechaVen" value="{{old('fechaVen')}}" >
+        <input type="text" name="fechaVenc" value="{{session('fechaVenc')}}" >
     </strong>
     <br>
     @error('fechaVenc')
@@ -97,7 +97,7 @@
     <strong>
         cod. de tarjeta: 
         <br>
-        <input type="text" name="codigo" value="{{old('codigo')}}" >
+        <input type="text" name="codigo" value="{{session('codigo')}}" >
     </strong>
     <br>
     @error('codigo')
@@ -106,13 +106,10 @@
     <br>
     @enderror
 
-    <button type="submit"> Actualizar</button>
+    <h3>(si desea ser Usuario GOLDEN ingrese datos de una tarjeta valida)</h3>
+
+    <button type="submit">    ACTUALIZAR   </button>
 </form>
-
-
-
-
-
 
 
 
