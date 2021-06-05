@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class viajesRequest extends FormRequest
@@ -27,7 +28,6 @@ class viajesRequest extends FormRequest
             'id_chofer' => 'required|integer|gt:0',
             'id_combi' => 'required|integer|gt:0',
             'precio' => 'required|gt:0',
-            'fecha' => 'required',
             'hora' => 'required',
             'origen' => 'required|different:destino',
             'destino' => 'required|different:origen',

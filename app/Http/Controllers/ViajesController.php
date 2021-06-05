@@ -10,8 +10,11 @@ use App\Models\Rutas;
 use App\Models\Usuarios;
 use App\Models\Viaje_insumos;
 use App\Models\Viajes;
+use Carbon\Carbon;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class ViajesController extends Controller
 {
@@ -24,12 +27,11 @@ class ViajesController extends Controller
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
         "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
-        ->orderByDesc('viajes.id_viaje')
         ->get();
 
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
         ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
-        ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
+        ->select("insumos.nombre","viajes.id_viaje")->get();
 
         return view("admin.viajes.homeViajes", compact('viajes','viaje_insumos'));
     }
@@ -41,41 +43,75 @@ class ViajesController extends Controller
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","viajes.id_chofer","viajes.id_combi","viajes.fecha", "viajes.hora", 
-        "viajes.precio", "ciudades.nombre as origen", "c2.nombre as destino")
+        "viajes.precio", "ciudades.nombre as origen", "c2.nombre as destino","usuarios.nombre as chofer",
+         "combis.patente as combi")
         ->where("viajes.id_viaje", "=", $request->id_viaje)
         ->get(); 
-        $ciudades = Ciudades::all();
-        $Combis = Combis::select('id_combi','patente')->get();
-        $Choferes = Usuarios::select('id_usuario','nombre')->where('id_permiso',2)->get();
+        $ciudades = Ciudades::where("disponible",1)->get();
+        $Combis = $this-> createviajecombidisponible($viaje[0]->fecha);
+        $Choferes = $this->createviajechoferdisponible($viaje[0]->fecha);
         return view("admin.viajes.updateViajes", compact('viaje','ciudades','Choferes','Combis'));
     }
-
     public function updateviajesprocess(Request $request){
+        $request->validate([
+            'precio' => 'required|numeric',
+            'fecha' => 'required|after_or_equal:ladeHoy'
+        ]);
+        if($request->fecha <> $request->fechaactual){
+            if($this->validationupdatefecha($request)==0){
+                return redirect()->route('homeviajes')->withErrors(['sucess'=>'El chofer o la combi ingresada no esta disponible en la nueva fecha']); 
+            }
+        }
         $this->createviajeprocess_ruta($request);
-        $aux = Rutas::select("rutas.id_ruta")->where("rutas.id_ciudadOrigen", "=", $request->origen, "and", "rutas.id_ciudadDestino", 
+        $aux = Rutas::select("rutas.id_ruta")->where("rutas.id_ciudadOrigen", "=", $request->origen)->where("rutas.id_ciudadDestino", 
         "=", $request->destino)->first();
         Viajes::where("id_viaje", "=", $request->id_viaje)->update(["id_chofer"=> $request->id_chofer,
-        "id_combi" => $request->id_combi, "id_ruta" => $aux->id_ruta, "precio"=> $request->precio,
-         "descripcion"=> $request->descripcion, "fecha" => $request->fecha, "hora" => $request->hora]);
-        $id_viaje = $request->id_viaje;
-        $insumos = Viaje_insumos::select("id_insumos")->where("viaje_insumo.id_viaje", "=", $request->id_viaje)->get();
-        return view('admin.viajes.deleteInsumosViajes', compact('id_viaje', 'insumos'));
+        "id_combi" => $request->id_combi, "id_ruta" => $aux->id_ruta, "precio"=> $request->precio, "fecha" => $request->fecha,
+        "hora" => $request->hora]);
+        return redirect()->route('homeviajes')->withErrors(['sucess'=>'La actualizacion se realizo correctamente']);
+    }
+    private function validationupdatefecha($request){
+        $foundCombi = Combis::whereExists(function ($query) use ($request) {
+            $query->select(DB::raw(1))
+                  ->from('viajes')
+                  ->whereColumn( "viajes.id_combi","=", "combis.id_combi")
+                  ->when($request, function ($query, $request){
+                      return $query->where("viajes.fecha","=", $request->fecha)->where("viajes.id_combi","=", $request->id_combi);
+                  });
+        })
+        ->get();
+        $foundChofer = Usuarios::whereExists(function ($query) use ($request){
+            $query->select(DB::raw(1))
+            ->from('viajes')
+            ->whereColumn('viajes.id_chofer',"=", 'usuarios.id_usuario')
+            ->when($request,function($query, $request){
+                return $query->where("viajes.fecha", "=", $request->fecha)->where("viajes.id_chofer", "=", $request->id_chofer);
+            });
+        })
+        ->get();
+        if(($foundCombi->count() ==0) && ($foundChofer->count() ==0)){  
+            return 1;
+        }
+        return 0;
     }
     public function createviaje(Request $request){
+        $request->validate([
+            'fecha' => 'required|after_or_equal:ladeHoy'
+        ]);
+        $fecha = $request->fecha;
         $ciudades = Ciudades::where("disponible",1)->get();
-        $combis = $this->createviajecombidisponible($request);
-        $choferes = $this->createviajechoferdisponible($request);
-        $fecha = $request->fechaValidation;
+        $combis = $this->createviajecombidisponible($fecha);
+        $choferes = $this->createviajechoferdisponible($fecha);
+        $cantchoferes = 0;
         return view('admin.viajes.createViaje', compact('ciudades','combis','choferes','fecha'));
     }
 
+    
     public function filtrardatosviaje(){
         return view('admin.viajes.inputFechaViaje');
-        
     }
-    private function createviajecombidisponible($request){
-        $fecha = $request->fechaValidation;
-        $combis = Combis::whereNotExists(function ($query) use ($fecha) {
+    private function createviajecombidisponible($fecha){
+        return Combis::whereNotExists(function ($query) use ($fecha) {
             $query->select(DB::raw(1))
                   ->from('viajes')
                   ->whereColumn( "viajes.id_combi","=", "combis.id_combi")
@@ -84,11 +120,9 @@ class ViajesController extends Controller
                   });
         })
         ->get();
-        return $combis;
     }
-    private function createviajechoferdisponible($request){
-        $fecha = $request->fechaValidation;
-        $choferes = Usuarios::whereNotExists(function ($query) use ($fecha){
+    private function createviajechoferdisponible($fecha){
+        $aux = Usuarios::whereNotExists(function ($query) use ($fecha){
             $query->select(DB::raw(1))
             ->from('viajes')
             ->whereColumn('viajes.id_chofer',"=", 'usuarios.id_usuario')
@@ -97,13 +131,13 @@ class ViajesController extends Controller
             });
         })
         ->get();
-        return $choferes;
+        return $aux->where('id_permiso', 2);
     }
 
     public function createviajeprocess(viajesRequest $request){
         $viaje = new Viajes();
         $this->createviajeprocess_ruta($request);
-        $aux = Rutas::select("id_ruta")->where("id_ciudadOrigen", "=", $request->origen, "and", "id_ciudadDestino","=", $request->destino)
+        $aux = Rutas::select("id_ruta")->where("id_ciudadOrigen", "=", $request->origen)->where( "id_ciudadDestino","=", $request->destino)
         ->get();
         $viaje->id_ruta = $aux[0]->id_ruta;  
         $viaje->id_chofer = $request->id_chofer;
@@ -112,13 +146,13 @@ class ViajesController extends Controller
         $viaje->fecha = $request->fecha;
         $viaje->hora = $request->hora;
         $viaje->save();
-        $idviaje = Viajes::select("viajes.id_viaje")->where("viajes.fecha", "=" ,$request->fecha, "and", "viajes.id_chofer", "=", 
-        $request->id_chofer)->first();
-        $insumos = Insumos::select("id_insumos","nombre")->get();
+        $idviaje = Viajes::select("id_viaje")->where("viajes.fecha", "=" ,$request->fecha)->where( "viajes.id_chofer", "=", 
+        $request->id_chofer)->get();
+        $insumos = Insumos::select("id_insumos","nombre")->where("disponible",1)->get();
         return view('admin.viajes.insumosViajes', compact('idviaje', 'insumos'));
     }
     private function createviajeprocess_ruta($request){
-        $found = Rutas::where("id_ciudadOrigen","=",$request->origen,"and","id_ciudadDestino","=", $request->destino)->get();
+        $found = Rutas::where('id_ciudadOrigen',$request->origen)->where('id_ciudadDestino',$request->destino)->get();
         if($found->count() == 0){    
             $rutaNew = new Rutas;
             $rutaNew->id_ciudadOrigen = $request->origen;
@@ -128,7 +162,7 @@ class ViajesController extends Controller
         return 0;
     }
     public function createviajeprocess_insumos(Request $request){
-        if(!empty($request)){ 
+        if(isset($request->insumo)){ 
             for($i = 0; $i < count($request->insumo); $i++){
                 $newInsumo = new Viaje_insumos;
                 $newInsumo->id_viaje = $request->id_viaje;
@@ -140,11 +174,27 @@ class ViajesController extends Controller
     }
 
     public function deleteviajes(Request $request){
-        $found = Viajes::select('id_viaje')->where('id_viaje',$request->id_viaje)->get();
-        if($found->isNotEmpty()){
-            Viajes::where('id_viaje',$request->id_viaje)->delete();
-            return redirect()->route('homeEmp')->withErrors(['sucess'=>'el viaje se elimino correctamente']);
+        Viaje_insumos::where('id_viaje',$request->id_viaje)->delete();
+        Viajes::where('id_viaje',$request->id_viaje)->delete();
+        return redirect()->route('homeviajes')->withErrors(['sucess'=>'el viaje se elimino correctamente']);
+    }
+    public function editinsumosviaje(Request $request){
+        $insumos = Viaje_insumos::join("insumos", "id_insumos", "=" ,"id_insumo")
+                ->where("id_viaje",$request->id_viaje)
+                ->select("id_insumo","nombre")
+                ->get();
+        $id_viaje = $request->id_viaje;
+        return view('admin.viajes.updateInsumosViajes', compact('insumos','id_viaje'));
+    }
+    public function editinsumosviaje_process(Request $request){
+        if(isset($request->insumo)){ 
+            for($i = 0; $i < count($request->insumo); $i++){
+                Viaje_insumos::where('id_viaje',$request->id_viaje)
+                ->where('id_insumo',$request->insumo[$i])
+                ->delete();
+            }
+            return redirect()->route('homeviajes')->withErrors(['sucess' => 'Los insumos han sido modificados']);
         }
-        return redirect()->route('homeEmp')->withErrors(['sucess'=>'ocurrio un problema']);
+        return redirect()->route('homeviajes')->withErrors(['sucess' => 'No se realizaron cambios en los insumos']);
     }
 }

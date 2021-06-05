@@ -66,17 +66,21 @@ Route::post('working',[ViajesController::class,'createviajeprocess'])->name(('cr
 
 Route::get('home_viajes',[ViajesController::class,'homeviajes'])->name(('homeviajes'));
 
-Route::post('update_viajes',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
+Route::get('update_viajes',[ViajesController::class,'updateviajes'])->name(('updateviajes'));
 
 Route::post('update_viajes_process',[ViajesController::class,'updateviajesprocess'])->name(('updateviajesprocess'));
 
 Route::post('delete_viajes',[ViajesController::class,'deleteviajes'])->name(('deleteviajes'));
 
-Route::post('delete_insumosviaje',[ViajesController::class,'deleteinsumosviaje'])->name(('deleteinsumosviaje'));
+Route::get('insumosviaje_edit',[ViajesController::class,'editinsumosviaje'])->name(('insumosviaje_edit'));
+
+Route::post('insumosviaje_processing',[ViajesController::class,'editinsumosviaje_process'])->name(('insumosviaje.edit.process'));
 
 Route::get('viaje_validation',[ViajesController::class,'filtrardatosviaje'])->name(('filtrardatosviaje'));
 
 Route::post('createviajeprocess_insumos',[ViajesController::class,'createviajeprocess_insumos'])->name(('createviajeprocess_insumos'));
+
+
 
         //ADMIN - INSUMOS
 Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));

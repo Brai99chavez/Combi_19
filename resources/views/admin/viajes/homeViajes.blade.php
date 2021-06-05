@@ -15,7 +15,6 @@
     })
 </script>
 @enderror
-
 <table>
     <thead>
         <tr>
@@ -28,7 +27,7 @@
             <th>origen</th>
             <th>destino</th>
             <th>precio</th>
-            <th>options <br> <a href="{{route('filtrardatosviaje')}}"><button><i class="far fa-plus-square"></i></button></a></th>
+            <th>options <br><a href="{{route('filtrardatosviaje')}}"><button><i class="far fa-plus-square"></i></button></a></th>
         </tr>
     </thead>
     <tbody>           
@@ -40,21 +39,19 @@
             <td>{{$viaje->patente}}</td>
             <td>{{$viaje->categoria}}</td>
             <td>
-                @foreach($viaje_insumos as $v_i)
-                    @if($viaje->id_viaje == $v_i->id_viaje)
-                    {{$v_i->nombre}},
-                    @endif
-                @endforeach
+                <form action="{{route('insumosviaje_edit')}}" method="GET">
+                @csrf
+                <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
+                <button type="submit">Visualizar insumos</button>
+                </form>
             </td>
             <td>{{$viaje->fecha}} </td>
             <td>{{$viaje->hora}}</td>
             <td>{{$viaje->origen}}</td>
             <td>{{$viaje->destino}}</td>
             <td>{{$viaje->precio}}$</td>
-
-
             <td class="tableOptions">
-                <form action="{{route('updateviajes')}}" method="POST">
+                <form action="{{route('updateviajes')}}" method="GET">
                     @csrf
                     <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
                     <button type="submit"><i class="fas fa-edit"></i></button>
