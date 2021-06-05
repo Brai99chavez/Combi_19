@@ -86,6 +86,10 @@ Route::get('viaje_validation',[ViajesController::class,'filtrardatosviaje'])->na
 
 Route::post('createviajeprocess_insumos',[ViajesController::class,'createviajeprocess_insumos'])->name(('createviajeprocess_insumos'));
 
+Route::post('addInsumos',[ViajesController::class,'addInsumos'])->name(('addInsumos'));
+
+Route::post('addInsumos_process',[ViajesController::class,'addInsumos_process'])->name(('addInsumos.process'));
+
 
 
         //ADMIN - INSUMOS
@@ -113,13 +117,14 @@ Route::get('create_empleado',[empleadosController::class,'createEmp'])->name(('c
 
 Route::post('save_register',[empleadosController::class,'saveReg'])->name('saveRegister');
 
-Route::post('update_empleado',[empleadosController::class,'updateEmp'])->name(('updateEmp'));
+Route::get('update_empleado',[empleadosController::class,'updateEmp'])->name(('updateEmp'));
 
 Route::post('save_empleado',[empleadosController::class,'saveEmp'])->name(('saveEmp'));
 
 Route::post('delete_empleado',[empleadosController::class,'deleteEmp'])->name(('deleteEmp'));
 
 Route::get('empleados',[empleadosController::class,'showEmp'])->name(('homeEmp'));
+        
         //ADMIN - COMBIS
 Route::get('combis',[CombisController::class,'homecombis'])->name(('homecombis'));
 

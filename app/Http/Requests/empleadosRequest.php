@@ -27,7 +27,7 @@ class empleadosRequest extends FormRequest
             'nombre'=>'required',
             'apellido'=>'required',
             'dni'=>'required',
-            'email'=>'required|unique:Usuarios',
+            'email'=>'required',
             'contraseña'=>'required',
         ];
     }

@@ -174,9 +174,13 @@ class ViajesController extends Controller
     }
 
     public function deleteviajes(Request $request){
-        Viaje_insumos::where('id_viaje',$request->id_viaje)->delete();
-        Viajes::where('id_viaje',$request->id_viaje)->delete();
-        return redirect()->route('homeviajes')->withErrors(['sucess'=>'el viaje se elimino correctamente']);
+        $found = Viajes::where('id_viaje',$request->id_viaje)->where('fecha','<',date('Y-m-d'))->get();
+        if($found->count() == 0){
+            Viaje_insumos::where('id_viaje',$request->id_viaje)->delete();
+            Viajes::where('id_viaje',$request->id_viaje)->delete();
+            return redirect()->route('homeviajes')->withErrors(['sucess'=>'el viaje se elimino correctamente']);
+        }
+        return redirect()->route('homeviajes')->withErrors(['sucess'=>'El viaje no puede ser eliminado porque es un viaje finalizado']);
     }
     public function editinsumosviaje(Request $request){
         $insumos = Viaje_insumos::join("insumos", "id_insumos", "=" ,"id_insumo")
@@ -196,5 +200,31 @@ class ViajesController extends Controller
             return redirect()->route('homeviajes')->withErrors(['sucess' => 'Los insumos han sido modificados']);
         }
         return redirect()->route('homeviajes')->withErrors(['sucess' => 'No se realizaron cambios en los insumos']);
+    }
+    public function addInsumos(Request $request){
+        $insumos = Insumos::whereNotExists(function ($query) use ($request){
+            $query->select(DB::raw(1))
+            ->from('viaje_insumo')
+            ->whereColumn('id_insumo',"=", 'id_insumos')
+            ->when($request,function($query, $request){
+                return $query->where("viaje_insumo.id_viaje", "=", $request->id_viaje);
+            });
+        })
+        ->get();
+        $insumosDisponibles = $insumos->where('disponible',1);
+        $id_viaje = $request->id_viaje;
+        return view('admin.viajes.addInsumos',compact('insumosDisponibles','id_viaje'));
+    }
+    public function addInsumos_process(Request $request){
+        if(isset($request->insumo)){ 
+            for($i = 0; $i < count($request->insumo); $i++){
+                $nuevoInsumo = new Viaje_insumos;
+                $nuevoInsumo->id_viaje = $request->id_viaje;
+                $nuevoInsumo->id_insumo = $request->insumo[$i];
+                $nuevoInsumo->save();
+            }
+            return redirect()->route('homeviajes')->withErrors(['sucess' => 'Los nuevos insumos han sido agregados']);
+        }
+        return redirect()->route('homeviajes')->withErrors(['sucess' => 'No se realizaron cambios en los insumos']);        
     }
 }

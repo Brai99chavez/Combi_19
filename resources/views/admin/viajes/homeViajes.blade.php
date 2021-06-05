@@ -42,7 +42,7 @@
                 <form action="{{route('insumosviaje_edit')}}" method="GET">
                 @csrf
                 <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
-                <button type="submit">Visualizar insumos</button>
+                <button type="submit">Editar Insumos</button>
                 </form>
             </td>
             <td>{{$viaje->fecha}} </td>

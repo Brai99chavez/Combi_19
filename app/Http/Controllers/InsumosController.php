@@ -32,8 +32,7 @@ class InsumosController extends Controller
     }
     
     public function showinsumo(insumosRequest $request){
-
-      $query = Insumos::where('nombre','=', $request->nombre);
+      $query = Insumos::where('nombre', $request->nombre);
       if($query->count() == 0 ){  
         $insumo = new Insumos();
         $insumo->nombre = $request->nombre;
@@ -43,7 +42,7 @@ class InsumosController extends Controller
         $insumo->save();
         $insumosDisponibles = Insumos::where("insumos.disponible", "=", 1)->get();
         $insumosBaja = Insumos::where("insumos.disponible", "=", 0)->get();
-        return redirect()->route('homeinsumos', compact('insumosDisponibles', 'insumosBaja'))->withErrors(['alert'=>'insumo creado correctamente']);
+        return redirect()->route('homeinsumos', compact('insumosDisponibles', 'insumosBaja'))->withErrors(['alert'=>'Insumo creado correctamente']);
       } else {
         return redirect()->route('homeinsumos')->withErrors(['alert'=>'error, insumo con nombre ya registrado']);
       }

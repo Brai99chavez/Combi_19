@@ -38,7 +38,7 @@
                 <td>Admin</td>
                 <td>{{$admin->email}}</td>
                 <td>
-                    <form action="{{route('updateEmp')}}" method="POST">
+                    <form action="{{route('updateEmp')}}" method="get">
                         @csrf
                         <input type="hidden" name="id_usuario" value="{{$admin->id_usuario}}">
                         <button type="submit"><i class="fas fa-edit"></i></button>
@@ -59,7 +59,7 @@
                     <td>Chofer</td>
                     <td>{{$chofer->email}}</td>
                     <td>
-                        <form action="{{route('updateEmp')}}" method="POST">
+                        <form action="{{route('updateEmp')}}" method="get">
                             @csrf
                             <input type="hidden" name="id_usuario" value="{{$chofer->id_usuario}}">
                             <button type="submit"><i class="fas fa-edit"></i></button>

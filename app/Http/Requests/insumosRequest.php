@@ -26,7 +26,6 @@ class insumosRequest extends FormRequest
         return [
             'nombre' => 'required|max:30',
             'precio' => 'required|gt:0',
-            
         ];
     }
 }

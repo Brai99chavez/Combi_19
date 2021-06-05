@@ -2,8 +2,8 @@
 @section('title', 'Edit Insumos')
 @section('headerTitle', 'Editar insumos')
 @section('content')
-<label>
-    <form action="{{route('insumosviaje.edit.process')}}" method="POST" class="formulary">
+<div class="formulary">
+    <form action="{{route('insumosviaje.edit.process')}}" method="POST">
         @csrf
         <input type="hidden" name="id_viaje" value="{{$id_viaje}}">
         @if($insumos->count()>0)
@@ -20,7 +20,11 @@
             <br>
             <button onclick="location.href='{{route('homeviajes')}}'">Volver</button>
         @endif
-         <!--AGREGAR BOTON PARA AGREGAR NUEVOS INSUMOS-->
     </form>
-</label>
+    <form action="{{route('addInsumos')}}" method="post">
+        @csrf
+        <input type="hidden" value="{{$id_viaje}}" name="id_viaje">
+        <button type="submit">Agregar Insumos</button>
+    </form>
+</div>
 @endsection
