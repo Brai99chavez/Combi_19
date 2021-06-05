@@ -21,6 +21,9 @@ class empleadosController extends Controller
     }
 
     public function saveReg (empleadosRequest $request){
+      $query = Usuarios::where('dni','=', $request->dni);
+      if($query->count() == 0 ){    
+
         $reg = new Usuarios;
         $reg->nombre = $request->nombre;
         $reg->apellido = $request->apellido;
@@ -30,6 +33,10 @@ class empleadosController extends Controller
         $reg->contraseña = $request->contraseña;
         $reg->save();
         return redirect()->route('homeEmp')->withErrors(['sucess'=>'usuario creado con exito']);
+      } else {
+        return redirect()->route('homeEmp')->withErrors(['sucess'=>'usuario ya registrado con dni']);
+       
+      }
     }
 
     public function updateEmp (Request $request){
@@ -43,10 +50,17 @@ class empleadosController extends Controller
             
             return redirect()->route('homeEmp')->withErrors(['sucess'=>'error al modificar , hay campos vacios']);
         } else {
-            Usuarios::where('email',$request->email)->update(["nombre"=> $request->nombre,
-            "apellido" => $request->apellido,"dni" => $request->dni,"email" => $request->email,
-            "contraseña" => $request->contraseña,]);
-            return redirect()->route('homeEmp')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
+            $query = Usuarios::where('dni','=', $request->dni);
+            $query1 = Usuarios::where('email','=', $request->email);
+            if($query->count() == 0 and $query1->count() == 0){   
+              Usuarios::where('email',$request->email)->update(["nombre"=> $request->nombre,
+              "apellido" => $request->apellido,"dni" => $request->dni,"email" => $request->email,
+              "contraseña" => $request->contraseña,]);
+              return redirect()->route('homeEmp')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
+ 
+            } else {
+                return redirect()->route('homeEmp')->withErrors(['sucess'=>'error, campo dni o email ya registrados']);
+            }
         }
     }
 

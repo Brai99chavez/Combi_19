@@ -32,6 +32,9 @@ class InsumosController extends Controller
     }
     
     public function showinsumo(insumosRequest $request){
+
+      $query = Insumos::where('nombre','=', $request->nombre);
+      if($query->count() == 0 ){  
         $insumo = new Insumos();
         $insumo->nombre = $request->nombre;
         $insumo->precio = $request->precio;
@@ -41,7 +44,11 @@ class InsumosController extends Controller
         $insumosDisponibles = Insumos::where("insumos.disponible", "=", 1)->get();
         $insumosBaja = Insumos::where("insumos.disponible", "=", 0)->get();
         return redirect()->route('homeinsumos', compact('insumosDisponibles', 'insumosBaja'))->withErrors(['alert'=>'insumo creado correctamente']);
+      } else {
+        return redirect()->route('homeinsumos')->withErrors(['alert'=>'error, insumo con nombre ya registrado']);
+      }
     }
+
     public function updateinsumos(Request $request){
         $insumo = Insumos::where("insumos.id_insumos","=",$request->id_insumo)->get();
         return view('admin.insumos.updateInsumos', compact('insumo'));
@@ -49,11 +56,16 @@ class InsumosController extends Controller
 
 
     public function updateinsumos1(Request $request ){
-     Insumos::where("id_insumos", "=", $request->id_insumos)->update(["nombre"=> $request->nombre,
-     "precio"=> $request->precio, "descripcion"=> $request->descripcion, "disponible"=> $request->disponible]);
-      return redirect()->route('homeinsumos')->withErrors(['updateprocess'=>'Membresia modificada correctamente']);
-    }
+        $query = Insumos::where('nombre','=', $request->nombre);
+        if($query->count() == 0 ){     
+          Insumos::where("id_insumos", "=", $request->id_insumos)->update(["nombre"=> $request->nombre,
+           "precio"=> $request->precio, "descripcion"=> $request->descripcion, "disponible"=> $request->disponible]);
+         return redirect()->route('homeinsumos')->withErrors(['alert'=>'Insumo modificada correctamente']);
+   
+        }else {
+            return redirect()->route('homeinsumos')->withErrors(['alert'=>'error, insumo con nombre ya registrado']);
+        }
       
-
+    }
 
 }

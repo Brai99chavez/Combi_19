@@ -25,25 +25,31 @@ class ciudadesController extends Controller
             $new->direccion = $request->direccion;
             $new->disponible = $request->disponible;
             $new->save();
-            return redirect()->route('homeciudades')->withErrors(['ciudadprocess'=>'Ciudad creada correctamente']);    
+            return redirect()->route('homeciudades')->withErrors(['sucess'=>'Ciudad creada correctamente']);    
         }
-        return redirect()->route('homeciudades')->withErrors(['ciudadprocess'=>'Ya existe una combi con la patente ingresada']); 
+        return redirect()->route('homeciudades')->withErrors(['sucess'=>'Ya existe una ciudad con la patente ingresada']); 
     }
 
     
     public function updateCiudad(Request $request){
         $ciudades = Ciudades::select('id_ciudad','nombre','direccion','disponible')->where('id_ciudad',$request->id_ciudad)->get();
-        
+       
         return view('admin.ciudades.updateCiudades',compact('ciudades'));
     }
     
     public function updateCiudadProcess(Request $request){
         if (($request->nombre == null)or($request->direccion == null)or($request->disponible == null)) {
             return redirect()->route('homeciudades')->withErrors(['sucess'=>'error al modificar , hay campos vacios']);
-        } else {
-            Ciudades::where('id_ciudad',$request->id_ciudad)->update(["nombre"=> $request->nombre,
-            "direccion" => $request->direccion,"disponible" => $request->disponible]);
-            return redirect()->route('homeciudades')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
+        } else {                     
+            $found = Ciudades::where("nombre", $request->nombre);
+            if($found->count() == 0){ 
+              Ciudades::where('id_ciudad',$request->id_ciudad)->update(["nombre"=> $request->nombre,
+              "direccion" => $request->direccion,"disponible" => $request->disponible]);
+              return redirect()->route('homeciudades')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
+        
+            } else {
+                return redirect()->route('homeciudades')->withErrors(['sucess'=>'error al modificar , nombre ya registrado']);
+            }
         }
     }
 

@@ -2,7 +2,8 @@
 
 
 @section('navLinks')
-    <a href="">boton1</a>
-    <a href="">boton2</a>
-    <a href="">boton3</a>
+               
+    <a href="">Viajes Disponibles</a>
+    <a href="">Mis Viajes</a>
+    <a href="{{route('editarPerfilCliente')}}">Editar Perfil</a>
 @endsection

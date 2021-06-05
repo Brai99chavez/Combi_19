@@ -36,7 +36,13 @@ Route::get('login', [publicController::class,'login'])->name('login');
 
 Route::get('register', [publicController::class,'register'])->name('register');
 
+Route::get('registerEleccion', [publicController::class,'registerEleccion'])->name('registerEleccion');
+
+Route::get('registerGolden', [publicController::class,'registerGolden'])->name('registerGolden');
+
 Route::post('guardarRegistro',[RegisterController::class,'guardarRegistro'])->name('guardarRegistro');
+
+Route::post('guardarRegistroGolden',[publicController::class,'guardarRegistroGolden'])->name('guardarRegistroGolden');
 
 Route::post('auth',[AuthController::class,'autenticacion'])->name('autenticacion');
 
@@ -87,6 +93,8 @@ Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('home
 
 Route::post('update_insumos',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));  
 
+Route::post('update_insumos1',[InsumosController::class,'updateinsumos1'])->name(('updateinsumos1'));  
+
 Route::post('delete_insumos',[InsumosController::class,'deleteinsumos'])->name(('deleteinsumos'));
 
 Route::post('show_insumo',[InsumosController::class,'showinsumo'])->name(('createinsumoshow'));
@@ -128,3 +136,7 @@ Route::post('delete_combi',[CombisController::class,'deleteCombi'])->name(('dele
 //USUARIO
 
 Route::get('home', [userController::class,'homeUser'])->name('homeUser');
+            
+Route::get('editarPerfilCliente', [userController::class,'editarPerfilCliente'])->name('editarPerfilCliente');
+
+Route::post('saveCli', [RegisterController::class,'saveCli'])->name('saveCli');
