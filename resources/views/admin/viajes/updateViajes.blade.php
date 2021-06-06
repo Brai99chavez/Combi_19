@@ -5,62 +5,97 @@
 
 @section('content')
 <div class="formulary">
-    <h1>Actualizar Viaje</h1>
+    <h1>Actualizar viaje</h1>
     <form action="{{route('updateviajesprocess')}}" method="POST">
-        @csrf 
+        @csrf
         <br>
         <input type="hidden" name="id_viaje" value="{{$viaje[0]->id_viaje}}">
+        <input type="hidden" name="ladeHoy" value="{{date("Y-m-d")}}">
+        <input type="hidden" name="fechaactual" value="{{$viaje[0]->fecha}}">
+        <label> Fecha 
+            <input type="date" name="fecha" value="{{$viaje[0]->fecha}}">
+        </label><br><br>
+        @error('fecha')
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
+        @enderror
         <label>
-            CHOFER:
-            <select name="id_usuario" id="" value="{{$viaje[0]->id_usuario}}">
+            Chofer
+            <select name="id_chofer">
+                <option value="{{$viaje[0]->id_chofer}}" selected>{{$viaje[0]->chofer}}</option>
                 @foreach($Choferes as $chofer)
-                    <option value="{{$chofer->id_usuario}}">{{$chofer->nombre}}</option>
+                    @if($chofer->id_permiso == 2)
+                        <option value="{{$chofer->id_usuario}}">{{$chofer->nombre}}</option>
+                    @endif    
                 @endforeach
             </select>
         </label> <br> 
         <label>
-            COMBI
-            <select name="id_combi" id="" value="{{$viaje[0]->id_combi}}">
+            Combi
+            <select name="id_combi">
+                <option value="{{$viaje[0]->id_combi}}" selected>{{$viaje[0]->combi}}</option>
                 @foreach($Combis as $combi)
-                    <option value="{{$combi->id_combi}}">Patente:{{$combi->patente}}</option>
+                    <option value="{{$combi->id_combi}}">{{$combi->patente}}</option>
                 @endforeach
             </select>
-        </label> <br> 
-            FECHA
-            <input type="text" name="fecha" value=" {{$viaje[0]->fecha}} ">
-        </label> <br>
-        <label> 
-            HORA
-            <input type="text" name="hora" value=" {{$viaje[0]->hora}} ">
-        </label> <br>
+        </label><br><br>
         <label>
-            PRECIO
-            <input type="text"  name="precio" value=" {{$viaje[0]->precio}} ">
-        </label> <br>
+            Horario
+            <input type="time" name="hora" value="{{$viaje[0]->hora}}">
+        </label> <br><br>
         <label>
-            ORIGEN
+            Precio
+            <input type="text"  name="precio" value="{{$viaje[0]->precio}}" autocomplete="off" >
+        </label>
+        <br><br>
+        @error('precio')
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
+        @enderror
+        <br><br>
+        <label>
+            Origen
             <select name="origen">
                 @foreach($ciudades as $ciudad)
-                <option value="{{$viaje[0]->origen}}">
-                    {{$ciudad->nombre}}
-                </option>
+                    @if($ciudad->nombre == $viaje[0]->origen)
+                        <option value="{{$ciudad->id_ciudad}}" selected>{{$ciudad->nombre}}</option>    
+                    @else
+                        <option value="{{$ciudad->id_ciudad}}">{{$ciudad->nombre}}</option>
+                    @endif
                 @endforeach
             </select>
         </label>
-        <br>
+        <br><br>
         <label>
-            DESTINO
+            Destino
             <select name="destino">
                 @foreach($ciudades as $ciudad)
-                <option  value="{{$viaje[0]->destino}}">
-                    {{$ciudad->nombre}}
-                </option>  
+                    @if($ciudad->nombre == $viaje[0]->destino)
+                        <option value="{{$ciudad->id_ciudad}}" selected>{{$ciudad->nombre}}</option>    
+                    @else
+                        <option value="{{$ciudad->id_ciudad}}">{{$ciudad->nombre}}</option>
+                    @endif
                 @endforeach
             </select>
         </label><br>
         <br>
-        <h5>Presiona actualizar para ver los insumos</h5>
-        <button type="submit"> Actualizar viaje</button>
+        <button type="submit">Guardar cambios</button>
     </form>
 </div>
 @endsection
