@@ -9,7 +9,7 @@
 @section('content')
   <div class="formulary">
 
-     <h1>Bienvenido a Combi 19</h1>
+     <h1>Bienvenido a Combi 19 - {{session('nombre')}} </h1>
      
   </div>
  

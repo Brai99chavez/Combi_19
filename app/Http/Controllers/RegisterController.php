@@ -30,7 +30,8 @@ class RegisterController extends Controller
 
             Usuarios::where('email',$request->email)->update(["nombre"=> $request->nombre,
             "apellido" => $request->apellido,"dni" => $request->dni,"email" => $request->email,
-            "contraseña" => $request->contraseña,]);
+            "contraseña" => $request->contraseña, "tarjeta"=>$request->tarjeta,  "fechaVenc"=>$request->fechaVenc, "codigo"=>$request->codigo,
+            ]);
             return redirect()->route('editarPerfilCliente')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
 
   }

@@ -136,3 +136,9 @@ Route::get('home', [userController::class,'homeUser'])->name('homeUser');
 Route::get('editarPerfilCliente', [userController::class,'editarPerfilCliente'])->name('editarPerfilCliente');
 
 Route::post('saveCli', [RegisterController::class,'saveCli'])->name('saveCli');
+
+Route::get('viajesDisponibles', [userController::class,'viajesDisponibles'])->name('viajesDisponibles');
+
+Route::post('crearPasaje', [userController::class,'crearPasaje'])->name('crearPasaje');
+
+Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');

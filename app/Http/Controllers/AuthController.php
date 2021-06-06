@@ -9,7 +9,7 @@ use GuzzleHttp\Psr7\Request;
 class AuthController extends Controller
 {
     public function autenticacion(loginRequest $request){
-        $user = Usuarios::select('nombre','apellido','email','contraseña','dni','id_permiso','tarjeta','fechaVenc','codigo')->where('email',$request->email)->get();
+        $user = Usuarios::select('id_usuario','nombre','apellido','email','contraseña','dni','id_permiso','tarjeta','fechaVenc','codigo')->where('email',$request->email)->get();
 
         if (($user->isNotEmpty())&&($request->contraseña == $user[0]->contraseña)) {
             session(['nombre'=>$user[0]->nombre]); 
@@ -21,6 +21,7 @@ class AuthController extends Controller
             session(['tarjeta'=>$user[0]->tarjeta]); 
             session(['fechaVenc'=>$user[0]->fechaVenc]); 
             session(['codigo'=>$user[0]->codigo]); 
+            session(['id_usuario'=>$user[0]->id_usuario]); 
             
 
             if (session()->get('id_permiso') == 1) {
