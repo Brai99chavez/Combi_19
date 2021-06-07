@@ -3,8 +3,6 @@
 
 @section('headerTitle', 'Home Admin')
 
-
-
 @section('content')
 
 @endsection

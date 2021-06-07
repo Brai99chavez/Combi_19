@@ -16,9 +16,16 @@
         <input type="text" name="nombre" value="{{old('nombre')}}" placeholder="carlos.....">
     </strong>
     @error('nombre')
-    <br>
-    <small>{{$message}}</small>
-    <br>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            iconColor: '#48C9B0',
+            title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+            background:'#404040',
+            confirmButtonColor: '#45B39D ',
+            confirmButtonText: 'Got it!' ,
+        })
+    </script>
     @enderror
     <br>
     <strong>
@@ -27,9 +34,16 @@
         <input type="text" name="apellido" value="{{old('apellido')}}" placeholder="rodriguez....">
     </strong>
     @error('apellido')
-    <br>
-    <small>{{$message}}</small>
-    <br>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            iconColor: '#48C9B0',
+            title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+            background:'#404040',
+            confirmButtonColor: '#45B39D ',
+            confirmButtonText: 'Got it!' ,
+        })
+    </script>
     @enderror
     <br>
     <strong>
@@ -38,9 +52,16 @@
         <input type="text" name="dni" value="{{old('dni')}}" placeholder="987654321....">
     </strong>
     @error('dni')
-    <br>
-    <small>{{$message}}</small>
-    <br>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            iconColor: '#48C9B0',
+            title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+            background:'#404040',
+            confirmButtonColor: '#45B39D ',
+            confirmButtonText: 'Got it!' ,
+        })
+    </script>
     @enderror
     <br>
     <strong>
@@ -49,9 +70,16 @@
         <input type="text" name="email" value="{{old('email')}}" placeholder="example@gmail.com.....">
     </strong>
     @error('email')
-    <br>
-    <small>{{$message}}</small>
-    <br>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            iconColor: '#48C9B0',
+            title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+            background:'#404040',
+            confirmButtonColor: '#45B39D ',
+            confirmButtonText: 'Got it!' ,
+        })
+    </script>
     @enderror
     <br>
     <strong>
@@ -60,14 +88,19 @@
         <input type="password" name="contraseña" value="{{old('contraseña')}}" placeholder="password......">
     </strong>
     @error('contraseña')
-    <br>
-    <small>{{$message}}</small>
-    <br>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            iconColor: '#48C9B0',
+            title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+            background:'#404040',
+            confirmButtonColor: '#45B39D ',
+            confirmButtonText: 'Got it!' ,
+        })
+    </script>
     @enderror
     <br>
-
    <h1>Datos de Tarjeta</h1>
-
     <br>
     <strong>
         Num. de tarjeta: 
@@ -76,9 +109,16 @@
     </strong>
     <br>
     @error('tarjeta')
-    <br>
-    <small>{{$message}}</small>
-    <br>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            iconColor: '#48C9B0',
+            title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+            background:'#404040',
+            confirmButtonColor: '#45B39D ',
+            confirmButtonText: 'Got it!' ,
+        })
+    </script>
     @enderror
     <br>
     <strong>
@@ -88,9 +128,16 @@
     </strong>
     <br>
     @error('fechaVenc')
-    <br>
-    <small>{{$message}}</small>
-    <br>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            iconColor: '#48C9B0',
+            title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+            background:'#404040',
+            confirmButtonColor: '#45B39D ',
+            confirmButtonText: 'Got it!' ,
+        })
+    </script>
     @enderror
     <br>
     <strong>
@@ -100,12 +147,18 @@
     </strong>
     <br>
     @error('codigo')
-    <br>
-    <small>{{$message}}</small>
-    <br>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            iconColor: '#48C9B0',
+            title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+            background:'#404040',
+            confirmButtonColor: '#45B39D ',
+            confirmButtonText: 'Got it!' ,
+        })
+    </script>
     @enderror
     <br>
-
     <button type="submit" class="botones">  REGISTRARSE  </button>
 </form>
 @endsection

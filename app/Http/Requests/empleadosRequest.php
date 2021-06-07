@@ -24,11 +24,22 @@ class empleadosRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required',
-            'apellido'=>'required',
-            'dni'=>'required',
-            'email'=>'required',
+            'nombre'=>'required|max:40',
+            'apellido'=>'required|max:40',
+            'dni'=>'required|numeric|unique:Usuarios',
+            'email'=>'required|email|unique:Usuarios',
             'contraseña'=>'required',
+            'contraseñavalidation' => 'required|same:contraseña'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'dni.unique' => 'El DNI ingresado ya pertenece a un empleado registrado',
+            'email.unique' => 'El email ingresado ya pertenece a un empleado registrado',
+            'contraseñavalidation.same' => 'Las contraseñas no coinciden',
+            'max' => 'El nombre o apellido debe tener menos de 40 caracteres',
+            'required' => 'Los campos no pueden estar vacios'
         ];
     }
 }

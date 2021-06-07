@@ -54,12 +54,18 @@ class ciudadesController extends Controller
     }
 
     public function deleteCiudad (Request $request){
-        $found = Ciudades::select("id_ciudad")->where("id_ciudad", $request->id_ciudad)->get();
-        if($found->isNotEmpty()){
-            Ciudades::where("id_ciudad", $request->id_ciudad)->delete();
-            return redirect()->route('homeciudades')->withErrors(['sucess'=>'la ciudad se elimino correctamente']);
+        $aux = Rutas::select('id_ruta')->where("id_ciudadDestino", $request->id_ciudad)->get();
+        $aux2 = Rutas::select('id_ruta')->where("id_ciudadOrigen", $request->id_ciudad)->get();
+        $idruta = $aux->union($aux2);
+        if($idruta->count()>0){
+            $found = Viajes::where('id_ruta', $idruta[0]->id_ruta)->get();
+            if($found->count()>0){
+                return redirect()->route('homeciudades')->withErrors(['sucess'=>'La ciudad no se pudo eliminar, esta asignado a un viaje']);
+            }
+            Rutas::where('id_ruta',$idruta[0]->id_ruta)->delete();
         }
-        return redirect()->route('homeciudades')->withErrors(['sucess'=>'la ciudad no  se pudo eliminar , esta asignado a un viaje']);
+        Ciudades::where("id_ciudad", $request->id_ciudad)->delete();     
+        return redirect()->route('homeciudades')->withErrors(['sucess'=>'La ciudad se elimino correctamente']);
     }
 
 }

@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'home ciudades')
-@section('headerTitle', 'home ciudades')
+@section('title', 'Home ciudades')
+@section('headerTitle', 'Home ciudades')
 
 @section('content')
 

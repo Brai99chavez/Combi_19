@@ -8,7 +8,16 @@
                 <input type="text" name="nombre" value="{{$insumo[0]->nombre}}">
                 <br>
                 @error('nombre')
-                    <small>{{$message}}</small>
+                <script>
+                    Swal.fire({
+                        icon: 'warning',
+                        iconColor: '#48C9B0',
+                        title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                        background:'#404040',
+                        confirmButtonColor: '#45B39D ',
+                        confirmButtonText: 'Got it!' ,
+                    })
+                </script>
                 @enderror
                 <br>
                 <strong>PRECIO:</strong>
@@ -16,7 +25,16 @@
                 <input type="number" name="precio" value="{{$insumo[0]->precio}}">
                 <br>
                 @error('precio')
-                <small>{{$message}}</small>
+                <script>
+                    Swal.fire({
+                        icon: 'warning',
+                        iconColor: '#48C9B0',
+                        title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                        background:'#404040',
+                        confirmButtonColor: '#45B39D ',
+                        confirmButtonText: 'Got it!' ,
+                    })
+                </script>
                 @enderror
                 <br>
                 <strong>DESCRIPCION</strong>
@@ -26,8 +44,11 @@
                 <strong>DISPONIBLE</strong>
                 <br>
                 <select name="disponible" id="" >
-                    <option value="0">NO</option>
-                    <option value="1">SI</option>
+                    @if($insumo->disponible == 1)
+                        <option value="1">SI</option>    
+                    @else
+                        <option value="0">NO</option>
+                    @endif
                 </select>
                 <br>
                 <input type="hidden" name="id_insumos" value="{{$insumo[0]->id_insumos}}">

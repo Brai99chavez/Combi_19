@@ -85,9 +85,9 @@
         <br>
         <strong>Rol:*</strong><br>
         <select name="rol" id="">
-            <option value="2" >chofer</option>
-            <option value="3" >admin</option>
+            <option value="2" >Chofer</option>
+            <option value="3" >Admin</option>
         </select>
-        <button class="botones" type="submit">modificar</button>
+        <button class="botones" type="submit">Modificar</button>
     </form>
 @endsection

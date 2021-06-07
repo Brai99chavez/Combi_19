@@ -21,9 +21,6 @@ class empleadosController extends Controller
     }
 
     public function saveReg (empleadosRequest $request){
-      $query = Usuarios::where('dni','=', $request->dni);
-      if($query->count() == 0 ){    
-
         $reg = new Usuarios;
         $reg->nombre = $request->nombre;
         $reg->apellido = $request->apellido;
@@ -32,11 +29,7 @@ class empleadosController extends Controller
         $reg->email = $request->email;
         $reg->contraseña = $request->contraseña;
         $reg->save();
-        return redirect()->route('homeEmp')->withErrors(['sucess'=>'usuario creado con exito']);
-      } else {
-        return redirect()->route('homeEmp')->withErrors(['sucess'=>'usuario ya registrado con dni']);
-       
-      }
+        return redirect()->route('homeEmp')->withErrors(['sucess'=>'Empleado cargado con exito']);
     }
 
     public function updateEmp (Request $request){
@@ -44,28 +37,38 @@ class empleadosController extends Controller
         return view('admin.empleados.updateEmp',compact('usuario'));
     }
 
-    public function saveEmp(empleadosRequest $request){
-        if($this->newsEmailorDNI($request)==1){
-            if($this->validationEmailDNI($request)==0){
-                return redirect()->route('homeEmp')->withErrors(['sucess'=>'Error, campo dni o email ya registrados']);    
+    public function saveEmp(Request $request){
+        $request->validate([
+            'nombre'=>'required|max:40',
+            'apellido'=>'required|max:40',
+            'dni' => 'required|numeric',
+            'email' => 'required|email',
+            'contraseña' => 'required'
+        ],['required' => 'Los campos no pueden estar vacios','max' => 'El nombre o apellido debe tener menos de 40 caracteres']);
+        Usuarios::where('id_usuario',$request->id_usuario)->update(["nombre"=> $request->nombre,
+        "apellido" => $request->apellido,"contraseña" => $request->contraseña]);
+        if($this->newsEmailorDNI($request)){
+            if($this->updateEmailDNI($request)==0){
+                return redirect()->route('homeEmp')->withErrors(['sucess'=>'Error, DNI o email ya registrados']);
             }
         }
-        Usuarios::where('email',$request->email)->update(["nombre"=> $request->nombre,
-        "apellido" => $request->apellido,"dni" => $request->dni,"email" => $request->email,
-        "contraseña" => $request->contraseña]);
         return redirect()->route('homeEmp')->withErrors(['sucess'=>'Se modificaron los datos correctamente']);       
     }
     private function newsEmailorDNI($request){
-        $usuarioActual = Usuarios::where('id_usuario', $request->id_usuario)->get();
-        if($usuarioActual[0]->email <> $request->email || $usuarioActual[0]->dni <> $request->dni){
-            return 1;
+        $usuarioActual = Usuarios::select('email','dni')->where('id_usuario', $request->id_usuario)->get();
+        if(($usuarioActual[0]->email <> $request->email) || ($usuarioActual[0]->dni <> $request->dni)){
+            return true;
         }     
-        return 0;
+        return false;
     }
-    private function validationEmailDNI($request){
+    private function updateEmailDNI($request){
         $found = Usuarios::where('email', $request->email)->get();
         $found2 = Usuarios::where('dni', $request->dni)->get();
-        if($found->count() == 0 && $found2 == 0){
+        if($found->count() == 0){
+            Usuarios::where('id_usuario',$request->id_usuario)->update(["email" => $request->email]);
+            return 1;
+        }elseif($found2->count() == 0){
+            Usuarios::where('id_usuario',$request->id_usuario)->update([ "dni" => $request->dni]);
             return 1;
         }
         return 0;
@@ -77,7 +80,7 @@ class empleadosController extends Controller
         ->get();
         if($viaje->count()==0){
             Usuarios::where("id_usuario", $request->id_usuario)->delete();
-            return redirect()->route('homeEmp')->withErrors(['sucess'=>'el empleado se elimino correctamente']);
+            return redirect()->route('homeEmp')->withErrors(['sucess'=>'El empleado se elimino correctamente']);
         }
         return redirect()->route('homeEmp')->withErrors(['sucess'=>'El empleado chofer no  se pudo eliminar, esta asignado a un viaje']);
     }

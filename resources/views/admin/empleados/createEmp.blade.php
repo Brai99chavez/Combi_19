@@ -8,41 +8,89 @@
     <form action="{{route('saveRegister')}}" method="POST" class="formulary">
         @csrf
         @error('nombre')
-            <small>{{$message}}</small>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
         @enderror
         <br>
         <strong>Nombre:*</strong><br>
         <input type="text" name="nombre" placeholder="Example:Juan..." value="{{old('nombre')}}"><br>
         <br>
         @error('apellido')
-            <small>{{$message}}</small>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
         @enderror
         <br>
         <strong>Apellido:*</strong><br>
         <input type="text" name="apellido" placeholder="Example:marquez..." value="{{old('apellido')}}"><br>
         @error('dni')
-            <small>{{$message}}</small>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
         @enderror
         <br>
-        <strong>dni:*</strong><br>
+        <strong>DNI:*</strong><br>
         <input type="text" name="dni" placeholder="Example:123456789..." value="{{old('dni')}}"><br>
         @error('email')
-            <small>{{$message}}</small>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
         @enderror
         <br>
         <strong>Email:*</strong><br>
         <input type="email" name="email" placeholder="Example@gmail.com" value="{{old('email')}}"><br>
-        @error('contraseña')
-            <small>{{$message}}</small>
-        @enderror
         <br>
         <strong>Contraseña:*</strong><br>
         <input type="password" name="contraseña" placeholder="***********" value="{{old('contraseña')}}"><br>
+        @error('contraseñavalidation')
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
+        @enderror
+        <br>
+        <strong>Repetir Contraseña:*</strong><br>
+        <input type="password" name="contraseñavalidation" placeholder="***********" value="{{old('contraseñavalidation')}}"><br>
         <br>
         <strong>Rol:*</strong><br>
         <select name="rol" id="">
-            <option value="2" >chofer</option>
-            <option value="3" >admin</option>
+            <option value="2" >Chofer</option>
+            <option value="3" >Admin</option>
         </select>
         <button class="botones" type="submit">Registrar</button>
     </form>

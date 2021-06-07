@@ -22,7 +22,6 @@ class InsumosController extends Controller
     public function deleteinsumos(Request $request){
         $found = Insumos::select("insumos.id_insumos")->where("insumos.id_insumos", "=", $request->id_insumo)->get();
         $viaje = Viaje_insumos::select('id_viaje')->where('id_insumo',$request->id_insumo)->get();
-
         if($found->isNotEmpty() && $viaje->isEmpty()){
             Viaje_insumos::where("viaje_insumo.id_insumo", "=", $request->id_insumo, "and", "viaje_insumo.created_at", ">", "getdate()")->delete();
             Insumos::where("insumos.id_insumos","=", $request->id_insumo)->delete();

@@ -30,49 +30,61 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($Admin as $admin)
-            <tr>
-                <td>{{$admin->nombre}}</td>
-                <td>{{$admin->apellido}}</td>
-                <td>{{$admin->dni}}</td>
-                <td>Admin</td>
-                <td>{{$admin->email}}</td>
-                <td>
-                    <form action="{{route('updateEmp')}}" method="get">
-                        @csrf
-                        <input type="hidden" name="id_usuario" value="{{$admin->id_usuario}}">
-                        <button type="submit"><i class="fas fa-edit"></i></button>
-                    </form>
-                    <form action="{{route('deleteEmp')}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="id_usuario" value="{{$admin->id_usuario}}">
-                        <button type="submit"><i class="fas fa-trash-alt"></i></button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-            @foreach($Choferes as $chofer)
+            @if($Admin->isNotEmpty() && $Choferes->isNotEmpty())
+                @foreach($Admin as $admin)
                 <tr>
-                    <td>{{$chofer->nombre}}</td>
-                    <td>{{$chofer->apellido}}</td>
-                    <td>{{$chofer->dni}}</td>
-                    <td>Chofer</td>
-                    <td>{{$chofer->email}}</td>
+                    <td>{{$admin->nombre}}</td>
+                    <td>{{$admin->apellido}}</td>
+                    <td>{{$admin->dni}}</td>
+                    <td>Admin</td>
+                    <td>{{$admin->email}}</td>
                     <td>
                         <form action="{{route('updateEmp')}}" method="get">
                             @csrf
-                            <input type="hidden" name="id_usuario" value="{{$chofer->id_usuario}}">
+                            <input type="hidden" name="id_usuario" value="{{$admin->id_usuario}}">
                             <button type="submit"><i class="fas fa-edit"></i></button>
                         </form>
                         <form action="{{route('deleteEmp')}}" method="POST">
                             @csrf
-                            <input type="hidden" name="id_usuario" value="{{$chofer->id_usuario}}">
+                            <input type="hidden" name="id_usuario" value="{{$admin->id_usuario}}">
                             <button type="submit"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </td>
                 </tr>
-            @endforeach
-
+                @endforeach
+                @foreach($Choferes as $chofer)
+                    <tr>
+                        <td>{{$chofer->nombre}}</td>
+                        <td>{{$chofer->apellido}}</td>
+                        <td>{{$chofer->dni}}</td>
+                        <td>Chofer</td>
+                        <td>{{$chofer->email}}</td>
+                        <td>
+                            <form action="{{route('updateEmp')}}" method="get">
+                                @csrf
+                                <input type="hidden" name="id_usuario" value="{{$chofer->id_usuario}}">
+                                <button type="submit"><i class="fas fa-edit"></i></button>
+                            </form>
+                            <form action="{{route('deleteEmp')}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id_usuario" value="{{$chofer->id_usuario}}">
+                                <button type="submit"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            @else
+            <script>
+                Swal.fire({
+                    icon: 'warning',
+                    iconColor: '#48C9B0',
+                    title: '<strong style= "color: white; font-family: arial;"> No hay empleados</strong>',
+                    background:'#404040',
+                    confirmButtonColor: '#45B39D ',
+                    confirmButtonText: 'Got it!' ,
+                })
+            </script>
+            @endif        
         </tbody>
     </table>
 @endsection

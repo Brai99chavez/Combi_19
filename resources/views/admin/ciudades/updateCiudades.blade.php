@@ -32,7 +32,6 @@
 
         <input type="hidden" name="id_ciudad" value="{{$ciudades[0]->id_ciudad}}">
         <button class="botones" type="submit">Modificar Ciudad</button>
-
     </form>
 </div>
 @endsection
