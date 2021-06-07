@@ -20,14 +20,14 @@ class InsumosController extends Controller
     }
 
     public function deleteinsumos(Request $request){
-        $found = Insumos::select("insumos.id_insumos")->where("insumos.id_insumos", "=", $request->id_insumo)->get();
-        $viaje = Viaje_insumos::select('id_viaje')->where('id_insumo',$request->id_insumo)->get();
-        if($found->isNotEmpty() && $viaje->isEmpty()){
+        $found = Viaje_insumos::join('viajes','viajes.id_viaje','=','viaje_insumo.id_viaje')->where('id_insumo',$request->id_insumo)
+        ->where('viajes.fecha','>=',date('Y-m-d'))->get();
+        if($found->count()==0){
             Viaje_insumos::where("viaje_insumo.id_insumo", "=", $request->id_insumo, "and", "viaje_insumo.created_at", ">", "getdate()")->delete();
             Insumos::where("insumos.id_insumos","=", $request->id_insumo)->delete();
-            return redirect()->route('homeinsumos')->withErrors(['alert'=>'el insumo se elimino correctamente']);
+            return redirect()->route('homeinsumos')->withErrors(['alert'=>'El insumo se elimino correctamente']);
         }
-        return redirect()->route('homeinsumos')->withErrors(['alert'=>'el insumo no  se pudo eliminar , esta asignado a un viaje']);
+        return redirect()->route('homeinsumos')->withErrors(['alert'=>'El insumo no se pudo eliminar, esta asignado a un viaje']);
     }
     
     public function showinsumo(insumosRequest $request){
@@ -54,16 +54,32 @@ class InsumosController extends Controller
 
 
     public function updateinsumos1(Request $request ){
-        $query = Insumos::where('nombre','=', $request->nombre);
-        if($query->count() == 0 ){     
-          Insumos::where("id_insumos", "=", $request->id_insumos)->update(["nombre"=> $request->nombre,
-           "precio"=> $request->precio, "descripcion"=> $request->descripcion, "disponible"=> $request->disponible]);
-         return redirect()->route('homeinsumos')->withErrors(['alert'=>'Insumo modificada correctamente']);
-   
-        }else {
-            return redirect()->route('homeinsumos')->withErrors(['alert'=>'error, insumo con nombre ya registrado']);
+      $request->validate([
+        'nombre' => 'required|max:40',
+        'precio' => 'required'
+      ],['nombre.unique' => 'El nombre debe tener menos de 40 caracteres', 'required' => 'No puede haber campos vacios']);
+      if($this->newNombre($request)){
+        if($this->validateNewNombre($request)==0){
+          return redirect()->route('homeinsumos')->withErrors(['alert'=>'El nombre ingresado del insumo ya se encuentra registrado']); 
         }
-      
+      }    
+      Insumos::where("id_insumos",$request->id_insumos)->update(["nombre" => $request->nombre,"precio"=> $request->precio,
+       "descripcion"=> $request->descripcion, "disponible"=> $request->disponible]);
+      return redirect()->route('homeinsumos')->withErrors(['alert'=>'Insumo modificada correctamente']);
+    }
+    private function newNombre($request){
+      $found = Insumos::where('id_insumos',$request->id_insumos)->get();
+      if($found[0]->nombre <> $request->nombre){
+        return true;
+      }
+      return false;
+    }
+    private function validateNewNombre($request){
+      $found = Insumos::Where('nombre',$request->nombre)->get();
+      if($found->count()==0){
+        return true;
+      }
+      return false;
     }
 
 }

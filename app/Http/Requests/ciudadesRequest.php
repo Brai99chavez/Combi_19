@@ -29,4 +29,11 @@ class ciudadesRequest extends FormRequest
             'disponible' =>'required',
         ];
     }
+    public function messages()
+    {
+        return [
+            'required' => 'No puede haber campos vacios', 
+            'nombre' => 'El nombre ya se encuentra registrado en el sistema'
+        ];
+    }
 }

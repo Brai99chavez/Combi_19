@@ -44,10 +44,12 @@
                 <strong>DISPONIBLE</strong>
                 <br>
                 <select name="disponible" id="" >
-                    @if($insumo->disponible == 1)
-                        <option value="1">SI</option>    
+                    @if($insumo[0]->disponible == 1)
+                        <option value="1" selected>SI</option>
+                        <option value="0">NO</option>    
                     @else
-                        <option value="0">NO</option>
+                        <option value="0" selected>NO</option>
+                        <option value="1">SI</option>
                     @endif
                 </select>
                 <br>

@@ -37,7 +37,7 @@
                         <td>no disponible</td>
                     @endif
                     <td>
-                        <form action="{{route('updateciudad')}}" method="POST">
+                        <form action="{{route('updateciudad')}}" method="get">
                             @csrf
                             <input type="hidden" name="id_ciudad" value="{{$ciudad->id_ciudad}}">
                             <button type="submit"><i class="fas fa-edit"></i></button>

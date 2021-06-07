@@ -57,7 +57,7 @@ Route::get('create_ciudad', [ciudadesController::class,'createciudades'])->name(
 
 Route::post('create_ciudad_process', [ciudadesController::class,'createciudadesprocess'])->name('createciudadprocess');
 
-Route::post('update_ciudad',[ciudadesController::class,'updateCiudad'])->name(('updateciudad'));
+Route::get('update_ciudad',[ciudadesController::class,'updateCiudad'])->name(('updateciudad'));
 
 Route::post('update_ciudad_process',[ciudadesController::class,'updateCiudadProcess'])->name(('updateciudadprocess'));
 
@@ -95,7 +95,7 @@ Route::post('addInsumos_process',[ViajesController::class,'addInsumos_process'])
         //ADMIN - INSUMOS
 Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));
 
-Route::post('update_insumos',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));  
+Route::get('update_insumos',[InsumosController::class,'updateinsumos'])->name(('updateinsumos'));  
 
 Route::post('update_insumos1',[InsumosController::class,'updateinsumos1'])->name(('updateinsumos1'));  
 

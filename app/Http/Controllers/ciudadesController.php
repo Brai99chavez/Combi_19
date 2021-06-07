@@ -18,40 +18,47 @@ class ciudadesController extends Controller
         return view('admin.ciudades.createCiudades');
     }
     public function createciudadesprocess(ciudadesRequest $request){
-        $new = new Ciudades();
-        $found = Ciudades::where("nombre", $request->nombre);
-        if($found->count() == 0){ 
+        if($this->validateNewNombre($request)){
+            $new = new Ciudades(); 
             $new->nombre = $request->nombre;
             $new->direccion = $request->direccion;
             $new->disponible = $request->disponible;
             $new->save();
-            return redirect()->route('homeciudades')->withErrors(['sucess'=>'Ciudad creada correctamente']);    
+            return redirect()->route('homeciudades')->withErrors(['sucess'=>'Ciudad cargada correctamente']);    
         }
-        return redirect()->route('homeciudades')->withErrors(['sucess'=>'Ya existe una ciudad con la patente ingresada']); 
+        return redirect()->route('homeciudades')->withErrors(['sucess'=>'La nombre de la ciudad ya existe']); 
     }
 
     
     public function updateCiudad(Request $request){
         $ciudades = Ciudades::select('id_ciudad','nombre','direccion','disponible')->where('id_ciudad',$request->id_ciudad)->get();
-       
         return view('admin.ciudades.updateCiudades',compact('ciudades'));
     }
     
-    public function updateCiudadProcess(Request $request){
-        if (($request->nombre == null)or($request->direccion == null)or($request->disponible == null)) {
-            return redirect()->route('homeciudades')->withErrors(['sucess'=>'error al modificar , hay campos vacios']);
-        } else {                     
-            $found = Ciudades::where("nombre", $request->nombre);
-            if($found->count() == 0){ 
-              Ciudades::where('id_ciudad',$request->id_ciudad)->update(["nombre"=> $request->nombre,
-              "direccion" => $request->direccion,"disponible" => $request->disponible]);
-              return redirect()->route('homeciudades')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
-        
-            } else {
-                return redirect()->route('homeciudades')->withErrors(['sucess'=>'error al modificar , nombre ya registrado']);
-            }
+    public function updateCiudadProcess(ciudadesRequest $request){              
+        if($this->newNombre($request)){
+            if($this->validateNewNombre($request)==0){
+                return redirect()->route('homeciudades')->withErrors(['sucess'=>'Error, el nombre ya esta registrado']);
+            } 
+            Ciudades::where('id_ciudad',$request->id_ciudad)->update(["nombre"=> $request->nombre,
+            "direccion" => $request->direccion,"disponible" => $request->disponible]);
+        return redirect()->route('homeciudades')->withErrors(['sucess'=>'Los datos han sido actualizados']);
         }
     }
+    private function newNombre($request){
+        $found = Ciudades::where('id_ciudad',$request->id_ciudad)->get();
+        if($found[0]->nombre <> $request->nombre){
+          return true;
+        }
+        return false;
+      }
+      private function validateNewNombre($request){
+        $found = Ciudades::Where('nombre',$request->nombre)->get();
+        if($found->count()==0){
+          return true;
+        }
+        return false;
+      }
 
     public function deleteCiudad (Request $request){
         $aux = Rutas::select('id_ruta')->where("id_ciudadDestino", $request->id_ciudad)->get();
