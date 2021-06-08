@@ -6,23 +6,44 @@
 <form action="{{route('updateciudadprocess')}}" method="POST" >
     @csrf
         @error('nombre')
-            <br>
-                <small>{{$message}}</small>
-            <br>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
         @enderror
         <strong>nombre</strong><br>
         <input name="nombre" type="text" value="{{$ciudades[0]->nombre}}"><br>
         @error('direccion')
-            <br>
-                <small>{{$message}}</small>
-            <br>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
         @enderror
         <strong>direccion:</strong><br>
         <input name="direccion" type="text" value="{{$ciudades[0]->direccion}}"><br>
         @error('disponible')
-            <br>
-                <small>{{$message}}</small>
-            <br>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
         @enderror
         <strong>disponible:</strong><br>
         <select name="disponible" id="" value="{{$ciudades[0]->disponible}}">

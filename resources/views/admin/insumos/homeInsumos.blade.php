@@ -33,7 +33,7 @@
                 <td>{{$insumo->precio}}</td>
                 <td>{{$insumo->descripcion}}</td>
                 <td class="tableOptions">
-                    <form action="{{route('updateinsumos')}}" method="POST">
+                    <form action="{{route('updateinsumos')}}" method="get">
                         @csrf
                         <input type="hidden" name="id_insumo" value="{{$insumo->id_insumos}}">
                         <button type="submit"><i class="fas fa-edit"></i></button>
@@ -66,7 +66,7 @@
                     <td>{{$insumo2->precio}}</td>
                     <td>{{$insumo2->descripcion}}</td>
                     <td class="tableOptions">
-                        <form action="{{route('updateinsumos')}}" method="POST">
+                        <form action="{{route('updateinsumos')}}" method="get">
                             @csrf
                             <input type="hidden" name="id_insumo" value="{{$insumo2->id_insumos}}">
                             <button type="submit"><i class="fas fa-edit"></i></button>

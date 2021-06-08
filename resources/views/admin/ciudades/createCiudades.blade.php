@@ -6,25 +6,46 @@
 <form action="{{route('createciudadprocess')}}" method="POST" >
     @csrf
         @error('nombre')
-            <br>
-                <small>{{$message}}</small>
-            <br>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
         @enderror
-        <strong>nombre</strong><br>
+        <strong>Nombre</strong><br>
         <input name="nombre" type="text" ><br>
         @error('direccion')
-            <br>
-                <small>{{$message}}</small>
-            <br>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
         @enderror
-        <strong>direccion:</strong><br>
+        <strong>Direccion</strong><br>
         <input name="direccion" type="text"><br>
         @error('disponible')
-            <br>
-                <small>{{$message}}</small>
-            <br>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
         @enderror
-        <strong>disponible:</strong><br>
+        <strong>Disponible</strong><br>
         <select name="disponible" id="">
             <option value="1">SI</option>
             <option value="0">NO</option>
