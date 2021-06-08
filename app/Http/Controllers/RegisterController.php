@@ -25,15 +25,45 @@ class RegisterController extends Controller
            return redirect()->route('login')->withErrors(['sucess'=>'usuario existenteeee']);
         } 
     }
+    
+     //  actualizar registro de cliente
+     public function saveCli(Request $request){
+      $request->validate([
+        'nombre'=>'required|max:40',
+        'apellido'=>'required|max:40',
+        'dni' => 'required|numeric',
+        'email' => 'required|email',
+        'contraseña' => 'required'
+      ],['required' => 'Los campos no pueden estar vacios','max' => 'El nombre o apellido debe tener menos de 40 caracteres']);
+      Usuarios::where('id_usuario',$request->id_usuario)->update(["nombre"=> $request->nombre,
+      "apellido" => $request->apellido,"contraseña" => $request->contraseña, "tarjeta"=>$request->tarjeta,
+      "fechaVenc"=>$request->fechaVenc, "codigo"=>$request->codigo]);
+      if($this->newsEmailorDNI($request)){
+        if($this->updateEmailDNI($request)==0){
+            return redirect()->route('editarPerfilCliente')->withErrors(['sucess'=>'Error, DNI o email ya registrados']);
+        }
+      }
+      return redirect()->route('editarPerfilCliente')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
+   }
 
-    public function saveCli(Request $request){
-
-            Usuarios::where('email',$request->email)->update(["nombre"=> $request->nombre,
-            "apellido" => $request->apellido,"dni" => $request->dni,"email" => $request->email,
-            "contraseña" => $request->contraseña, "tarjeta"=>$request->tarjeta,  "fechaVenc"=>$request->fechaVenc, "codigo"=>$request->codigo,
-            ]);
-            return redirect()->route('editarPerfilCliente')->withErrors(['sucess'=>'se modificaron los datos correctamente']);
-
-  }
+   private function newsEmailorDNI($request){
+    $usuarioActual = Usuarios::select('email','dni')->where('id_usuario', $request->id_usuario)->get();
+    if(($usuarioActual[0]->email <> $request->email) || ($usuarioActual[0]->dni <> $request->dni)){
+        return true;
+    }     
+    return false;
+    }
+   private function updateEmailDNI($request){
+    $found = Usuarios::where('email', $request->email)->get();
+    $found2 = Usuarios::where('dni', $request->dni)->get();
+    if($found->count() == 0){
+        Usuarios::where('id_usuario',$request->id_usuario)->update(["email" => $request->email]);
+        return 1;
+    }elseif($found2->count() == 0){
+        Usuarios::where('id_usuario',$request->id_usuario)->update([ "dni" => $request->dni]);
+        return 1;
+    }
+    return 0;
+} 
 
 }

@@ -6,7 +6,10 @@ use App\Models\Pasajes;
 use App\Models\Viaje_insumos;
 use App\Models\Viajes;
 use App\Http\Requests\Request;
+use App\Models\Usuarios;
+use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request as HttpRequest;
+
 
 class userController extends Controller
 {
@@ -19,6 +22,8 @@ class userController extends Controller
 
         return view('user.editarPerfilCliente');
     }
+
+   
 
     public function viajesDisponibles(){
         $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
@@ -41,7 +46,7 @@ class userController extends Controller
 
     public function crearPasaje(HttpRequest $request){
 
-        $found = Pasajes::where("id_viaje","=",$request->id_viaje );
+        $found = Pasajes::where("id_usuario","=",$request->id_usuario, "and" , "id_viaje","=",$request->id_viaje);
         if($found->count() == 0){ 
     
           $newPasaje = new Pasajes;
@@ -67,6 +72,7 @@ class userController extends Controller
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("pasajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
         "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
+        ->where("usuarios.id_usuario","=","pasajes.id_usuario","and","viajes.id_viaje","=","pasajes.id_viaje")
         ->orderByDesc('pasajes.id_viaje')
         ->get();
 
