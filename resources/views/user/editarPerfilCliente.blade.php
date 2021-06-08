@@ -7,6 +7,25 @@
 @endsection
         
 @section('content')
+@error('sucess')
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
+    @enderror
+<?php
+
+use App\Models\Usuarios;
+$usuario = Usuarios::where('id_usuario','=', session('id_usuario'))->get();
+
+?>
+
 <form action="{{route('saveCli')}}" method="POST" class="formulary">
 <h1>Actualizar Datos</h1>
 <br>
@@ -14,7 +33,8 @@
     <strong>
         Nombre:*
         <br>
-        <input type="text" name="nombre" value="{{session('nombre')}}" >
+        <input type="text" name="nombre" value="{{$usuario[0]->nombre}}" > 
+        <input type="hidden" name="id_usuario" value="{{$usuario[0]->id_usuario}}" > 
     </strong>
     @error('nombre')
     <br>
@@ -25,7 +45,7 @@
     <strong>
         Apellido:*
         <br>
-        <input type="text" name="apellido" value="{{session('apellido')}}" >
+        <input type="text" name="apellido" value="{{$usuario[0]->apellido}}" >
     </strong>
     @error('apellido')
     <br>
@@ -36,7 +56,7 @@
     <strong>
         dni:*
         <br>
-        <input type="text" name="dni" value="{{session('dni')}}"  >
+        <input type="text" name="dni" value="{{$usuario[0]->dni}}"  >
     </strong>
     @error('dni')
     <br>
@@ -47,7 +67,7 @@
     <strong>
         Email:*
         <br>
-        <input type="text" name="email" value="{{session('email')}}" >
+        <input type="text" name="email" value="{{$usuario[0]->email}}" >
     </strong>
     @error('email')
     <br>
@@ -58,14 +78,14 @@
     <strong>
         Contraseña:*
         <br>
-        <input type="password" name="contraseña" value="{{session('contraseña')}}" >
+        <input type="password" name="contraseña" value="{{$usuario[0]->contraseña}}" >
     </strong>
     @error('contraseña')
     <br>
     <small>{{$message}}</small>
     <br>
     @enderror
-    <br>
+    <br> 
 
      <h1>Actualizar datos de tarjeta si es Usuario GOLDEN</h1> <!-- EDITAR USUARIO GOLDEN------------------- -->
 
@@ -73,7 +93,7 @@
     <strong>
         Num. de tarjeta: 
         <br>
-        <input type="text" name="tarjeta" value="{{session('tarjeta')}}" >
+        <input type="text" name="tarjeta" value="{{$usuario[0]->tarjeta}}" >
     </strong>
     <br>
     @error('tarjeta')
@@ -85,7 +105,7 @@
     <strong>
         Fecha de venc. de tarjeta: 
         <br>
-        <input type="text" name="fechaVenc" value="{{session('fechaVenc')}}" >
+        <input type="text" name="fechaVenc" value="{{$usuario[0]->fechaVenc}}" >
     </strong>
     <br>
     @error('fechaVenc')
@@ -97,7 +117,7 @@
     <strong>
         cod. de tarjeta: 
         <br>
-        <input type="text" name="codigo" value="{{session('codigo')}}" >
+        <input type="text" name="codigo" value="{{$usuario[0]->codigo}}" >
     </strong>
     <br>
     @error('codigo')
@@ -108,7 +128,7 @@
 
     <h3>(si desea ser Usuario GOLDEN ingrese datos de una tarjeta valida)</h3>
 
-    <button type="submit">    ACTUALIZAR   </button>
+    <button type="submit" class="botones">    ACTUALIZAR   </button>
 </form>
 
 

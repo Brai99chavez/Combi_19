@@ -56,4 +56,7 @@ class publicController extends Controller
             return redirect()->route('login')->withErrors(['sucess'=>'usuario existenteeee']);
         }
     }
+
+
+ 
 }

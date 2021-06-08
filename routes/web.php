@@ -148,6 +148,8 @@ Route::post('saveCli', [RegisterController::class,'saveCli'])->name('saveCli');
 
 Route::get('viajesDisponibles', [userController::class,'viajesDisponibles'])->name('viajesDisponibles');
 
-Route::post('crearPasaje', [userController::class,'crearPasaje'])->name('crearPasaje');
+Route::post('crearPasajeYPago', [userController::class,'crearPasajeYPago'])->name('crearPasajeYPago');
+
+Route::get('crearPago', [RegisterController::class,'crearPago'])->name('crearPago');
 
 Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');

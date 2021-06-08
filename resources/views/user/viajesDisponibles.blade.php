@@ -33,14 +33,14 @@
             <th>origen</th>
             <th>destino</th>
             <th>precio</th>
-            <th>...</th>
+            <th>cantAsientos</th>
         </tr>
     </thead>
     <tbody>           
         @if($viajes->isNotEmpty())
             @foreach($viajes as $viaje)
         <tr>
-
+ 
             <td>{{$viaje->chofer}}</td>
             <td>{{$viaje->patente}}</td>
             <td>{{$viaje->categoria}}</td>
@@ -56,16 +56,17 @@
             <td>{{$viaje->origen}}</td>
             <td>{{$viaje->destino}}</td>
             <td>{{$viaje->precio}}$</td>
+            <td>{{$viaje->cant_asientos}}</td>
             
-            <td class="tableOptions">
-                <form action="{{route('crearPasaje')}}" method="POST">
+            <td>
+                 <form action="{{route('crearPago')}}" method="get">
                     @csrf
                     <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
                     <input type="hidden" name="id_usuario" value="{{session('id_usuario')}}">
-                    <button type="submit" >COMPRAR</button>
-                </form>
+                    <button type="submit">COMPRAR</button>
+                 </form>
             </td>
-
+      
 
         </tr>
         @endforeach
