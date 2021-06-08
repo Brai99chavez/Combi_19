@@ -66,4 +66,11 @@ class RegisterController extends Controller
     return 0;
 } 
 
+public function crearPago(Request $request){
+         
+  $id_viaje = $request;
+  return view('user.crearPago', compact('id_viaje'));
+}
+ 
+
 }
