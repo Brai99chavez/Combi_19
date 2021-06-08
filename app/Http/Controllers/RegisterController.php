@@ -68,8 +68,8 @@ class RegisterController extends Controller
 
 public function crearPago(Request $request){
          
-  $id_viaje = $request;
-  return view('user.crearPago', compact('id_viaje'));
+  $pasaje = $request;
+  return view('user.crearPago', compact('pasaje'));
 }
  
 

@@ -6,6 +6,7 @@ use App\Models\Pasajes;
 use App\Models\Viaje_insumos;
 use App\Models\Viajes;
 use App\Http\Requests\Request;
+use App\Models\Combis;
 use App\Models\Tarjetas;
 use App\Models\Usuarios;
 use Illuminate\Http\Client\Request as ClientRequest;
@@ -33,7 +34,7 @@ class userController extends Controller
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
-        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
+        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',"combis.cant_asientos")
         ->orderByDesc('viajes.id_viaje')
         ->get();
 
@@ -46,11 +47,16 @@ class userController extends Controller
 // crear pasaje y pagoo clienteeeeee
     public function crearPasajeYPago(HttpRequest $request){
 
+
+          $id_combi = Viajes::select("id_combi")->where('id_viaje',$request->id_viaje)->get();
+
+          Combis::where('id_combi',$id_combi)->decrement('cant_asientos');
+
           $newPago = new Tarjetas; 
-          $newPago->id_usuario = $request->id_usuario;
           $newPago->numero_tarjeta = $request->tarjeta;
           $newPago->cod_seguridad = $request->codigo;
           $newPago->vencimiento = $request->fechaVenc;
+          $newPago->id_usuario = $request->id_usuario;
           $newPago->save();
 
 

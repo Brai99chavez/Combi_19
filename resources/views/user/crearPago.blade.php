@@ -20,9 +20,9 @@
 </script>
 @enderror
 
-<form action="route('crearPasajeYPago')" method="POST" class="formulary">
+<form action="{{route('crearPasajeYPago')}}" method="POST" class="formulary">
 <h1>Pago de Pasaje</h1>
-
+    @csrf
      <br>
     <strong>
         Num. de tarjeta: 
@@ -52,8 +52,9 @@
         cod. de tarjeta: 
         <br>
         <input type="text" name="codigo" value="" placeholder="876">
-        <input type="hidden" name="id_Usuario" value="{{session('id_usuario')}}" >
-        <input type="hidden" name="id_viaje" value="{{$id_viaje}}" >
+        <input type="hidden" name="id_usuario" value="{{$pasaje->id_usuario}}" >
+        <input type="hidden" name="id_viaje" value="{{$pasaje->id_viaje}}" >
+                                             
     </strong>
     <br>
     @error('codigo')
