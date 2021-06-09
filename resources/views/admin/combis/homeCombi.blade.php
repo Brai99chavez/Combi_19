@@ -41,7 +41,7 @@
                         <td>Super Comoda</td>
                     @endif
                     <td>
-                        <form action="{{route('updatecombi')}}" method="POST">
+                        <form action="{{route('updatecombi')}}" method="get">
                             @csrf
                             <input type="hidden" name="id_combi" value="{{$combi->id_combi}}">
                             <button type="submit"><i class="fas fa-edit"></i></button>

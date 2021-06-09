@@ -132,7 +132,7 @@ Route::get('create_combi',[CombisController::class,'createcombis'])->name(('crea
 
 Route::post('create_combi_process',[CombisController::class,'createcombisprocess'])->name(('createcombisprocess'));
 
-Route::post('update_combi',[CombisController::class,'updateCombi'])->name(('updatecombi'));
+Route::get('update_combi',[CombisController::class,'updateCombi'])->name(('updatecombi'));
 
 Route::post('update_combi_process',[CombisController::class,'updateCombiProcess'])->name(('updatecombiprocess'));
 
@@ -143,6 +143,10 @@ Route::post('delete_combi',[CombisController::class,'deleteCombi'])->name(('dele
 Route::get('home', [userController::class,'homeUser'])->name('homeUser');
             
 Route::get('editarPerfilCliente', [userController::class,'editarPerfilCliente'])->name('editarPerfilCliente');
+
+Route::get('updateMembresiaCliente', [userController::class,'updateMembresia'])->name('updateMembresiaCliente');
+
+Route::post('processMembresiaCliente', [userController::class,'processMembresiaCliente'])->name('processMembresiaCliente');
 
 Route::post('saveCli', [RegisterController::class,'saveCli'])->name('saveCli');
 

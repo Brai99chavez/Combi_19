@@ -2,30 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\clienteMembresiaRequest;
+use App\Http\Requests\membresiaUPRequest;
 use App\Models\Pasajes;
 use App\Models\Viaje_insumos;
 use App\Models\Viajes;
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 use App\Models\Combis;
+use App\Models\Membresias;
 use App\Models\Tarjetas;
 use App\Models\Usuarios;
-use Illuminate\Http\Client\Request as ClientRequest;
-use Illuminate\Http\Request as HttpRequest;
 
 class userController extends Controller
 {
     public function homeUser(){
-
         return view('user.userHome');
-    } //
-
+    } 
     public function editarPerfilCliente(){
-
-        return view('user.editarPerfilCliente');
+        $usuario = Usuarios::where('id_usuario',session('id_usuario'))->get();
+        return view('user.editarPerfilCliente', compact('usuario'));
     }
-
-   
-
     public function viajesDisponibles(){
         $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
         ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
@@ -37,40 +33,27 @@ class userController extends Controller
         "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',"combis.cant_asientos")
         ->orderByDesc('viajes.id_viaje')
         ->get();
-
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
         ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
         ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
 
         return view('user.viajesDisponibles',compact('viajes','viaje_insumos'));
     }
-// crear pasaje y pagoo clienteeeeee
-    public function crearPasajeYPago(HttpRequest $request){
-
-
+    public function crearPasajeYPago($request){
           $id_combi = Viajes::select("id_combi")->where('id_viaje',$request->id_viaje)->get();
-
           Combis::where('id_combi',$id_combi)->decrement('cant_asientos');
-
           $newPago = new Tarjetas; 
           $newPago->numero_tarjeta = $request->tarjeta;
           $newPago->cod_seguridad = $request->codigo;
           $newPago->vencimiento = $request->fechaVenc;
           $newPago->id_usuario = $request->id_usuario;
           $newPago->save();
-
-
           $newPasaje = new Pasajes;
           $newPasaje->id_usuario = $request->id_usuario;
           $newPasaje->id_viaje = $request->id_viaje;
           $newPasaje->save();
           return redirect()->route('misViajes')->withErrors(['sucess'=>'pasaje creado con Exito']);
-
     }
-
-
-
-
     public function misViajes(){
         $viajes = Pasajes::join("viajes","viajes.id_viaje","=","pasajes.id_viaje")
         ->join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
@@ -91,5 +74,20 @@ class userController extends Controller
 
         return view('user.misViajes',compact('viajes','viaje_insumos'));
     }
+    public function updateMembresia(){
+        $golden = Membresias::where('id_membresia',1)->get();
+        return view('user.actualizarMembresia', compact('golden'));
+    }
+    public function processMembresiaCliente(membresiaUPRequest $request){
+        return $request;
+    }
+    /*if(session('id_membresia')==1){
+        Usuarios::where('id_usuario',session('id_usuario')->update(["id_membresia" => 2, "tarjeta" => $request->tarjeta,
+        'fechaVenc' => $request, 'codigo' => $request->codigo]));
+        return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Ahora usted tiene membresia GOLDEN']);
+    }
+        Usuarios::where('id_usuario', session('id_usuario')->update(['id_membresia' => 1]));
+        return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Ahora usted tiene membresia BASIC']);   
+    }*/
 
 }

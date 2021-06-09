@@ -9,9 +9,8 @@ use GuzzleHttp\Psr7\Request;
 class AuthController extends Controller
 {
     public function autenticacion(loginRequest $request){
-        $user = Usuarios::select('id_usuario','nombre','apellido','email','contraseña','dni','id_permiso','tarjeta','fechaVenc','codigo')->where('email',$request->email)->get();
-
-        if (($user->isNotEmpty())&&($request->contraseña == $user[0]->contraseña)) {
+        $user = Usuarios::where('email',$request->email)->where('contraseña',$request->contraseña)->get();
+        if ($user->count()==1) {
             session(['nombre'=>$user[0]->nombre]); 
             session(['apellido'=>$user[0]->apellido]); 
             session(['email'=>$user[0]->email]); 
@@ -21,9 +20,9 @@ class AuthController extends Controller
             session(['tarjeta'=>$user[0]->tarjeta]); 
             session(['fechaVenc'=>$user[0]->fechaVenc]); 
             session(['codigo'=>$user[0]->codigo]); 
-            session(['id_usuario'=>$user[0]->id_usuario]); 
+            session(['id_usuario'=>$user[0]->id_usuario]);
+            session(['id_membresia'=>$user[0]->id_membresia]);
             
-
             if (session()->get('id_permiso') == 1) {
                 return redirect()->route('homeUser');
             }elseif (session()->get('id_permiso') == 2) {
@@ -35,8 +34,7 @@ class AuthController extends Controller
         }else{
             return redirect()->route('login')->withErrors(['log'=>'email inexistente o contraseña incorrecta']);
         }
-    } //
-
+    }
     public function logOut(){
         session()->flush();
         return redirect()->route('/');

@@ -15,7 +15,7 @@ class permisosSeeder extends Seeder
     public function run()
     {
         $perm = new Permisos();
-        $perm->nombre = 'usuario';
+        $perm->nombre = 'cliente';
         $perm->save();
 
         $perm2 = new Permisos();

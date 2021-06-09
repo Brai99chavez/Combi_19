@@ -49,10 +49,18 @@ class empleadosController extends Controller
         "apellido" => $request->apellido,"contraseña" => $request->contraseña]);
         if($this->newsEmailorDNI($request)){
             if($this->updateEmailDNI($request)==0){
-                return redirect()->route('homeEmp')->withErrors(['sucess'=>'Error, DNI o email ya registrados']);
+                if(session('id_permiso')==3){
+                    return redirect()->route('homeEmp')->withErrors(['sucess'=>'Error, DNI o email ya registrados']);
+                }else{
+                    return redirect()->route('editarPerfilCliente')->withErrors(['sucess'=>'Error, DNI o email ya registrados']); 
+                }
             }
         }
-        return redirect()->route('homeEmp')->withErrors(['sucess'=>'Se modificaron los datos correctamente']);       
+        if(session('id_permiso')==3){
+            return redirect()->route('homeEmp')->withErrors(['sucess'=>'Se modificaron los datos correctamente']);       
+        }else{
+            return redirect()->route('editarPerfilCliente')->withErrors(['sucess'=>'Se modificaron los datos correctamente']);    
+        }
     }
     private function newsEmailorDNI($request){
         $usuarioActual = Usuarios::select('email','dni')->where('id_usuario', $request->id_usuario)->get();

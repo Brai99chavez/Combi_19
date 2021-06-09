@@ -1,6 +1,6 @@
 @extends('user.userLayout')
 
-@section('title', 'misViajes')
+@section('title', 'Mis Viajes')
 
 @section('navTitle')
 {{session('nombre')}} {{session('apellido')}}
@@ -19,12 +19,9 @@
     })
 </script>
 @enderror
-
-
     <div class="formulary">
-        <h1>{{session('nombre')}} Tus Viajes Son:</h1>
+        <h2>Mis viajes</h2>
     </div>
-
     @if($viajes->isNotEmpty())
             @foreach($viajes as $viaje)
         <div class="formulary"> 
