@@ -35,15 +35,18 @@ class userController extends Controller
         if($ruta->count()==1){
             $found = Viajes::where('id_ruta',$ruta[0]->id_ruta)->get();
             if($found->count()>0){
-                $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
+               $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
                 ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
                 ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
                 ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
                 ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
                 ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
                 ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", 
-                "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
+                "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora'
+                ,'viajes.id_ruta','viajes.estado','viajes.cantPasajes')
                 ->where('viajes.fecha',$request->fecha)
+                ->where('viajes.id_ruta',$ruta[0]->id_ruta)
+                ->where('viajes.estado',"Pendiente")
                 ->get();
                 return view('user.buscarviaje.viajesDisponibles ',compact('viajes'));
             }
@@ -59,7 +62,7 @@ class userController extends Controller
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
-        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',"combis.cant_asientos")
+        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',"viajes.cantPasajes")
         ->orderByDesc('viajes.id_viaje')
         ->get();
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")

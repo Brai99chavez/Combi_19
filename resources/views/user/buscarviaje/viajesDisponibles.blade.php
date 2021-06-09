@@ -48,12 +48,12 @@
             <td>{{$viaje->origen}}</td>
             <td>{{$viaje->destino}}</td>
             <td>{{$viaje->precio}}$</td>
-            <td>{{$viaje->cant_asientos}}</td>
+            <td>{{$viaje->cantPasajes}}</td>
             <td>
                  <form action="{{route('crearPago')}}" method="get">
                     @csrf
                     <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
-                    <button type="submit">COMPRAR</button>
+                    <button type="submit">Comprar</button>
                  </form>
             </td>
         </tr>
