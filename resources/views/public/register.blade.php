@@ -6,6 +6,9 @@
 
 @section('content')
 
+
+
+
 <form action="{{route('guardarRegistro')}}" method="POST" class="formulary">
 <h1>Registro Basic</h1>
 <br>
