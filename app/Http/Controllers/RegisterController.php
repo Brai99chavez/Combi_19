@@ -9,9 +9,6 @@ use App\Models\Usuarios;
 class RegisterController extends Controller
 {
     public function guardarRegistro(Request $request){
-
-        
-        // return redirect()->route('public.login');
         $found = Usuarios::where("email","=",$request->email);
         if($found->count() == 0){ 
     
@@ -27,11 +24,4 @@ class RegisterController extends Controller
            return redirect()->route('login')->withErrors(['sucess'=>'usuario existenteeee']);
         } 
     }
-    
-public function crearPago(Request $request){
-  $pasaje = $request;
-  return view('user.crearPago', compact('pasaje'));
-}
- 
-
 }

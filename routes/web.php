@@ -162,7 +162,7 @@ Route::get('viajesDisponibles', [userController::class,'viajesDisponibles'])->na
 
 Route::post('crearPasajeYPago', [userController::class,'crearPasajeYPago'])->name('crearPasajeYPago');
 
-Route::get('crearPago', [RegisterController::class,'crearPago'])->name('crearPago');
+Route::get('realizandoPago', [userController::class,'crearPago'])->name('crearPago');
 
 Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
 

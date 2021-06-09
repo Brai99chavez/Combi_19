@@ -7,19 +7,6 @@
 @endsection
         
 @section('content')
-@error('sucess')
-<script>
-    Swal.fire({
-        icon: 'warning',
-        iconColor: '#48C9B0',
-        title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-        background:'#404040',
-        confirmButtonColor: '#45B39D ',
-        confirmButtonText: 'Got it!' ,
-    })
-</script>
-@enderror
-
 <form action="{{route('crearPasajeYPago')}}" method="POST" class="formulary">
 <h1>Pago de Pasaje</h1>
     @csrf
@@ -52,9 +39,7 @@
         cod. de tarjeta: 
         <br>
         <input type="text" name="codigo" value="" placeholder="876">
-        <input type="hidden" name="id_usuario" value="{{$pasaje->id_usuario}}" >
-        <input type="hidden" name="id_viaje" value="{{$pasaje->id_viaje}}" >
-                                             
+        <input type="hidden" name="id_viaje" value="{{$id_viaje}}">                                   
     </strong>
     <br>
     @error('codigo')
@@ -66,13 +51,29 @@
     <button type="submit" class="botones"> Confirmar Compra </button>
     <br>
     <a href="{{route('viajesDisponibles')}}">cancelar</a>
-    
 </form>
-
-     
-
- 
+@error('sucess')
+<script>
+    Swal.fire({
+        icon: 'warning',
+        iconColor: '#48C9B0',
+        title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+        background:'#404040',
+        confirmButtonColor: '#45B39D ',
+        confirmButtonText: 'Got it!' ,
+    })
+</script>
+@enderror
 @error('permiso')
-    <small>{{$message}}</small>
+<script>
+    Swal.fire({
+        icon: 'warning',
+        iconColor: '#48C9B0',
+        title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+        background:'#404040',
+        confirmButtonColor: '#45B39D ',
+        confirmButtonText: 'Got it!' ,
+    })
+</script>
 @enderror
 @endsection

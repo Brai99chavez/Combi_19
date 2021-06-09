@@ -71,8 +71,16 @@ class userController extends Controller
 
         return view('user.buscarviaje.viajesDisponibles',compact('viajes','viaje_insumos'));
     }
+    public function crearPago(Request $request){
+        $id_viaje = $request->id_viaje;
+        if(session('id_membresia')==1)
+            return view('user.pagarviaje.crearPago', compact('id_viaje'));
+        else{
+            $tarjeta = Usuarios::where('id_usuario',session('id_usuario'))->select('tarjeta','fechaVenc','codigo')->get();
+            return view('user.pagarviaje.realizarPagoGolden',compact('id_viaje','tarjeta'));
+        }
+      }      
     public function crearPasajeYPago(Request $request){
-
           $id_combi = Viajes::select("id_combi")->where('id_viaje',$request->id_viaje)->get();
           $cantAsientos = Combis::select("cant_asientos")->where('id_combi',$id_combi[0]->id_combi)->get();
           $pasajesDeUnViaje = Pasajes::where('id_viaje',$request->id_viaje)->get(); 
@@ -107,11 +115,9 @@ class userController extends Controller
         ->where("usuarios.id_usuario","=","pasajes.id_usuario","and","viajes.id_viaje","=","pasajes.id_viaje")
         ->orderByDesc('pasajes.id_viaje')
         ->get();
-
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
         ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
         ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
-
         return view('user.misViajes',compact('viajes','viaje_insumos'));
     }
     public function updateMembresia(){
