@@ -19,6 +19,7 @@ use phpDocumentor\Reflection\PseudoTypes\True_;
 class ViajesController extends Controller
 {
     public function homeviajes(){
+        Viajes::where('fecha','<',date('Y-m-d'))->where('estado','<>',"Cancelado")->update(['estado' => 'Finalizado']);
         $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
         ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
         ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
@@ -180,11 +181,11 @@ class ViajesController extends Controller
     }
 
     public function deleteviajes(Request $request){
-        $found = Viajes::where('id_viaje',$request->id_viaje)->where('fecha','<',date('Y-m-d'))->get();
-        if($found->count() == 0){
+        $found = Viajes::where('id_viaje',$request->id_viaje)->where('estado','<>',"Finalizado")->get();
+        if($found->count() == 1){
             Viaje_insumos::where('id_viaje',$request->id_viaje)->delete();
             Viajes::where('id_viaje',$request->id_viaje)->delete();
-            return redirect()->route('homeviajes')->withErrors(['sucess'=>'el viaje se elimino correctamente']);
+            return redirect()->route('homeviajes')->withErrors(['sucess'=>'El viaje se elimino correctamente']);
         }
         return redirect()->route('homeviajes')->withErrors(['sucess'=>'El viaje no puede ser eliminado porque es un viaje finalizado']);
     }
