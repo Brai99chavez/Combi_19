@@ -26,13 +26,12 @@ class ViajesController extends Controller
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
-        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
+        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',
+        'viajes.estado','viajes.cantPasajes')
         ->get();
-
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
         ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
         ->select("insumos.nombre","viajes.id_viaje")->get();
-
         return view("admin.viajes.homeViajes", compact('viajes','viaje_insumos'));
     }
     public function updateviajes(Request $request){
@@ -44,7 +43,7 @@ class ViajesController extends Controller
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","viajes.id_chofer","viajes.id_combi","viajes.fecha", "viajes.hora", 
         "viajes.precio", "ciudades.nombre as origen", "c2.nombre as destino","usuarios.nombre as chofer",
-         "combis.patente as combi")
+         "combis.patente as combi", "viajes.estado", "viajes.cantPasajes")
         ->where("viajes.id_viaje", "=", $request->id_viaje)
         ->get(); 
         $ciudades = Ciudades::where("disponible",1)->get();
@@ -55,8 +54,12 @@ class ViajesController extends Controller
     public function updateviajesprocess(Request $request){
         $request->validate([
             'precio' => 'required|numeric',
-            'fecha' => 'required|after_or_equal:ladeHoy'
-        ]);
+            'fecha' => 'required|after_or_equal:ladeHoy',
+            'cantPasajes' => 'required|numeric|gte:0',
+            'estado' => 'required'
+        ],['cantPasajes.numeric' => 'La cantidad de pasajes ingresada es invalida',
+            'cantPasajes.gte' => 'El valor ingresado de pasajes es incorrecto',
+            'required' => 'Los campos no puede ser estar vacios']);
         if($request->fecha <> $request->fechaactual){
             if($this->validationupdatefecha($request)==0){
                 return redirect()->route('homeviajes')->withErrors(['sucess'=>'El chofer o la combi ingresada no esta disponible en la nueva fecha']); 
@@ -67,7 +70,7 @@ class ViajesController extends Controller
         "=", $request->destino)->first();
         Viajes::where("id_viaje", "=", $request->id_viaje)->update(["id_chofer"=> $request->id_chofer,
         "id_combi" => $request->id_combi, "id_ruta" => $aux->id_ruta, "precio"=> $request->precio, "fecha" => $request->fecha,
-        "hora" => $request->hora]);
+        "hora" => $request->hora, "cantPasajes" => $request->cantPasajes, "estado" => $request->estado]);
         return redirect()->route('homeviajes')->withErrors(['sucess'=>'La actualizacion se realizo correctamente']);
     }
     private function validationupdatefecha($request){
@@ -145,6 +148,9 @@ class ViajesController extends Controller
         $viaje->precio = $request->precio;
         $viaje->fecha = $request->fecha;
         $viaje->hora = $request->hora;
+        $cant = Combis::select('cant_asientos')->where('id_combi',$request->id_combi)->get();
+        $viaje->cantPasajes = $cant[0]->cant_asientos;
+        $viaje->estado = "Pendiente";
         $viaje->save();
         $idviaje = Viajes::select("id_viaje")->where("viajes.fecha", "=" ,$request->fecha)->where( "viajes.id_chofer", "=", 
         $request->id_chofer)->get();

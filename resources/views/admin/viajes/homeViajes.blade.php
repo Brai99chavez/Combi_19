@@ -18,15 +18,17 @@
 <table>
     <thead>
         <tr>
-            <th>chofer</th>
-            <th>patente</th>
-            <th>categoria</th>
-            <th>insumos</th>
-            <th>fecha</th>
-            <th>hora</th>
-            <th>origen</th>
-            <th>destino</th>
-            <th>precio</th>
+            <th>Chofer</th>
+            <th>Patente</th>
+            <th>Categoria</th>
+            <th>Insumos</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Precio</th>
+            <th>Pasajes Disponibles</th>
+            <th>Estado</th>
             <th>options <br><a href="{{route('filtrardatosviaje')}}"><button><i class="far fa-plus-square"></i></button></a></th>
         </tr>
     </thead>
@@ -50,6 +52,8 @@
             <td>{{$viaje->origen}}</td>
             <td>{{$viaje->destino}}</td>
             <td>{{$viaje->precio}}$</td>
+            <td>{{$viaje->cantPasajes}}</td>
+            <td>{{$viaje->estado}}</td>
             <td class="tableOptions">
                 <form action="{{route('updateviajes')}}" method="GET">
                     @csrf

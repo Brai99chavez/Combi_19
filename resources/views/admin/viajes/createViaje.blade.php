@@ -1,8 +1,8 @@
 @extends('admin.layout')
 
-@section('title', 'Registro Viaje')
+@section('title', 'Cargar Viaje')
 
-@section('headerTitle', 'Registro Viaje')
+@section('headerTitle', 'Cargar Viaje')
 
 @section('content')
     <div class="formulary">
