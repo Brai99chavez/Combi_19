@@ -31,5 +31,10 @@
         <br>
         <br>
         @yield('content')
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js%22%3E</script>
+
+            @yield('content')
+            @yield('js')
 </body>
 </html>
