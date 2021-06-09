@@ -1,17 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Requests\clienteMembresiaRequest;
+use App\Http\Requests\combisRequest;
 use App\Http\Requests\membresiaUPRequest;
 use App\Models\Pasajes;
 use App\Models\Viaje_insumos;
 use App\Models\Viajes;
-use Illuminate\Http\Request;
 use App\Models\Combis;
 use App\Models\Membresias;
 use App\Models\Tarjetas;
 use App\Models\Usuarios;
+use Illuminate\Http\Request;
 
 class userController extends Controller
 {
@@ -78,7 +78,10 @@ class userController extends Controller
         $golden = Membresias::where('id_membresia',1)->get();
         return view('user.actualizarMembresia', compact('golden'));
     }
-    public function processMembresiaCliente(membresiaUPRequest $request){
+    public function upmembresiacliente(Request $request){
+        $request->validate(['tarjeta' => 'required',
+        'vencimiento' => 'required',
+        'codigo' => 'required']);
         return $request;
     }
     /*if(session('id_membresia')==1){

@@ -24,9 +24,9 @@ class membresiaUPRequest extends FormRequest
     public function rules()
     {
         return [
-            'tarjeta' => 'required|digits:16|numeric',
+            'tarjeta' => 'required',
             'vencimiento' => 'required',
-            'codigo' => 'required|digits:3|numeric'
+            'codigo' => 'required'
         ];
     }
 }

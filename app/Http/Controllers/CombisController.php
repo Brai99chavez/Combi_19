@@ -40,15 +40,29 @@ class CombisController extends Controller
     }
     
     public function updateCombiProcess(combisRequest $request){
-        $found = Combis::where('patente', $request->patente);
-        if($found->count() == 0){ 
-            Combis::where('id_combi',$request->id_combi)->update(["patente"=> $request->patente,
-            "modelo" => $request->modelo,"color" => $request->color,"cant_asientos" => $request->cant_asientos,
-            "id_categoria" => $request->id_categoria]);
-            return redirect()->route('homecombis')->withErrors(['sucess'=>'Se modificaron los datos correctamente']);
-        } else {
-            return redirect()->route('homecombis')->withErrors(['sucess'=>'No se puedo actualizar, patente ya registrada']);
-        } 
+        if($this->newsPatente($request)){
+            if($this->updatePatente($request)==0){
+                return redirect()->route('homecombis')->withErrors(['sucess'=>'No se puedo actualizar, patente ya registrada']);
+            }
+        }
+        Combis::where('id_combi',$request->id_combi)->update(["modelo" => $request->modelo,
+        "color" => $request->color,"cant_asientos" => $request->cant_asientos,"id_categoria" => $request->id_categoria]);
+        return redirect()->route('homecombis')->withErrors(['sucess'=>'Se modificaron los datos correctamente']);
+    }
+    private function newsPatente($request){
+        $combiActual = Combis::select('patente')->where('id_combi', $request->id_combi)->get();
+        if($combiActual[0]->patente <> $request->patente){
+            return true;
+        }     
+        return false;
+    }
+    private function updatePatente($request){
+        $found = Combis::where('patente', $request->patente)->get();
+        if($found->count() == 0){
+            Combis::where('id_combi',$request->id_combi)->update(["patente" => $request->patente]);
+            return 1;
+        }
+        return 0;
     }
 
     public function deleteCombi (Request $request){
