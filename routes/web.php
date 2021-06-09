@@ -146,7 +146,7 @@ Route::get('editarPerfilCliente', [userController::class,'editarPerfilCliente'])
 
 Route::get('updateMembresiaCliente', [userController::class,'updateMembresia'])->name('updateMembresiaCliente');
 
-Route::post('processMembresiaCliente', [userController::class,'processMembresiaCliente'])->name('processMembresiaCliente');
+Route::post('processMembresiaCliente', [userController::class,'upmembresiacliente'])->name('processMembresiaCliente');
 
 Route::post('saveCli', [RegisterController::class,'saveCli'])->name('saveCli');
 
