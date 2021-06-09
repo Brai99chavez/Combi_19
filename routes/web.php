@@ -146,9 +146,17 @@ Route::get('editarPerfilCliente', [userController::class,'editarPerfilCliente'])
 
 Route::get('updateMembresiaCliente', [userController::class,'updateMembresia'])->name('updateMembresiaCliente');
 
-Route::post('processMembresiaCliente', [userController::class,'upmembresiacliente'])->name('processMembresiaCliente');
+Route::post('processMembresiaClienteGolden', [userController::class,'processingMembresiaUpdateGolden'])->name('processMembresiaClienteGolden');
+
+Route::get('processMembresiaClienteBasic', [userController::class,'processingMembresiaUpdateBasic'])->name('processingMembresiaUpdateBasic');
+
+Route::post('updateTarjetaProcess', [userController::class,'processingUpdateTarjetaCliente'])->name('processingUpdateTarjetaCliente');
 
 Route::post('saveCli', [RegisterController::class,'saveCli'])->name('saveCli');
+
+Route::get('buscarViajes', [userController::class,'buscarViajesDisponibles'])->name('buscarViajesDisponibles');
+
+Route::post('buscarViajesProcess', [userController::class,'buscarViajesProcess'])->name('buscarViajesProcess');
 
 Route::get('viajesDisponibles', [userController::class,'viajesDisponibles'])->name('viajesDisponibles');
 
@@ -157,3 +165,7 @@ Route::post('crearPasajeYPago', [userController::class,'crearPasajeYPago'])->nam
 Route::get('crearPago', [RegisterController::class,'crearPago'])->name('crearPago');
 
 Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
+
+Route::get('viewInsumosViaje', [userController::class,'insumosViajeCliente'])->name('insumosViajeCliente');
+
+

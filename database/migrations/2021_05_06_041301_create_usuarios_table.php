@@ -20,7 +20,7 @@ class CreateUsuariosTable extends Migration
             $table->integer('dni');
             $table->string('email')->unique();
             $table->string('contraseña');
-            $table->integer('tarjeta')->nullable();
+            $table->bigInteger('tarjeta')->nullable();
             $table->string('fechaVenc')->nullable();
             $table->integer('codigo')->nullable();
             $table->integer('id_membresia')->default(2);

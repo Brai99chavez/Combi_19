@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class membresiaUPRequest extends FormRequest
+class buscarViajeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,16 @@ class membresiaUPRequest extends FormRequest
     public function rules()
     {
         return [
-            'tarjeta' => 'required',
-            'vencimiento' => 'required',
-            'codigo' => 'required'
+            'origen'=> 'required',
+            'destino' => 'required|different:origen',
+            'fecha' => 'required|after_or_equal:fechaActual'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'required' => 'No pueden haber campos vacios',
+            'fecha.after_or_equal' => 'La fecha ingresada ya pasó, intentalo nuevamente'
         ];
     }
 }
