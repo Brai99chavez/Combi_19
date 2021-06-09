@@ -12,7 +12,7 @@
     Swal.fire({
         icon: 'warning',
         iconColor: '#48C9B0',
-        title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+        title: '<strong style= "color: white; font-family: arial;"> {{$message}} </strong>',
         background:'#404040',
         confirmButtonColor: '#45B39D ',
         confirmButtonText: 'Got it!' ,
@@ -25,7 +25,6 @@
     <thead>
         <tr>
             <th>chofer</th>
-            <th>patente</th>
             <th>categoria</th>
             <th>insumos</th>
             <th>fecha</th>
@@ -33,7 +32,7 @@
             <th>origen</th>
             <th>destino</th>
             <th>precio</th>
-            <th>cantAsientos</th>
+            <th>AsientDisponibles</th>
         </tr>
     </thead>
     <tbody>           
@@ -42,7 +41,6 @@
         <tr>
  
             <td>{{$viaje->chofer}}</td>
-            <td>{{$viaje->patente}}</td>
             <td>{{$viaje->categoria}}</td>
             <td>
                 @foreach($viaje_insumos as $v_i)

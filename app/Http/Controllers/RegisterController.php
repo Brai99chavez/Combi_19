@@ -8,7 +8,9 @@ use App\Models\Usuarios;
 
 class RegisterController extends Controller
 {
-    public function guardarRegistro(registerRequest $request){
+    public function guardarRegistro(Request $request){
+
+        
         // return redirect()->route('public.login');
         $found = Usuarios::where("email","=",$request->email);
         if($found->count() == 0){ 

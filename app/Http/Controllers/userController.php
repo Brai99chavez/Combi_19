@@ -39,20 +39,28 @@ class userController extends Controller
 
         return view('user.viajesDisponibles',compact('viajes','viaje_insumos'));
     }
-    public function crearPasajeYPago($request){
+    public function crearPasajeYPago(Request $request){
+
           $id_combi = Viajes::select("id_combi")->where('id_viaje',$request->id_viaje)->get();
-          Combis::where('id_combi',$id_combi)->decrement('cant_asientos');
-          $newPago = new Tarjetas; 
-          $newPago->numero_tarjeta = $request->tarjeta;
-          $newPago->cod_seguridad = $request->codigo;
-          $newPago->vencimiento = $request->fechaVenc;
-          $newPago->id_usuario = $request->id_usuario;
-          $newPago->save();
-          $newPasaje = new Pasajes;
-          $newPasaje->id_usuario = $request->id_usuario;
-          $newPasaje->id_viaje = $request->id_viaje;
-          $newPasaje->save();
-          return redirect()->route('misViajes')->withErrors(['sucess'=>'pasaje creado con Exito']);
+          $cantAsientos = Combis::select("cant_asientos")->where('id_combi',$id_combi[0]->id_combi)->get();
+          $pasajesDeUnViaje = Pasajes::where('id_viaje',$request->id_viaje)->get(); 
+        $asientosDisponibles = $cantAsientos[0]->cant_asientos  -  $pasajesDeUnViaje->count();
+          if( $asientosDisponibles >= 0 ){
+             $newPago = new Tarjetas; 
+             $newPago->numero_tarjeta = $request->tarjeta;
+             $newPago->cod_seguridad = $request->codigo;
+             $newPago->vencimiento = $request->fechaVenc;
+             $newPago->id_usuario = $request->id_usuario;
+             $newPago->save();
+             $newPasaje = new Pasajes;
+             $newPasaje->id_usuario = $request->id_usuario;
+             $newPasaje->id_viaje = $request->id_viaje;
+             $newPasaje->save();
+             return redirect()->route('misViajes')->withErrors(['sucess'=>'pasaje creado con Exito']);
+          }else{
+
+              return redirect()->route('viajesDisponibles')->withErrors(['sucess'=>'error pasajes agotadosss ']);
+          }
     }
     public function misViajes(){
         $viajes = Pasajes::join("viajes","viajes.id_viaje","=","pasajes.id_viaje")
