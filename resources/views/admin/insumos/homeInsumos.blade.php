@@ -3,21 +3,6 @@
 @section('headerTitle', 'Insumos')
 @section('content')
     <h2 style="color: white; text-align:center">ACTIVOS</h2>
-
-
-    @error('alert')
-    <script>
-        Swal.fire({
-        title: '{{$message}}',
-        icon: 'success',
-        iconColor: '#105671',
-        confirmButtonColor: '#105671',
-        confirmButtonText: 'ok'
-    })
-        </script>
-    @enderror
-@enderror
-
     <table>
         <thead>
             <tr>
@@ -28,30 +13,29 @@
             </tr>
         </thead>
         @foreach($insumosDisponibles as $insumo)
-        <tbody>
-            <tr>
-                <td>{{$insumo->nombre}}</td>
-                <td>{{$insumo->precio}}</td>
-                <td>{{$insumo->descripcion}}</td>
-                <td class="tableOptions">
-                    <form action="{{route('updateinsumos')}}" method="get">
-                        @csrf
-                        <input type="hidden" name="id_insumo" value="{{$insumo->id_insumos}}">
-                        <button type="submit"><i class="fas fa-edit"></i></button>
-                    </form>
-                    <form action="{{route('deleteinsumos')}}" method="POST" class="formulario-eliminar">
-                        @csrf
-                        <input type="hidden" name="id_insumo" value="{{$insumo->id_insumos}}">
-                        <button type="submit"><i class="fas fa-trash-alt"></i></button>
-                    </form>
-                </td>
-            </tr> 
-        </tbody>
+            <tbody>
+                <tr>
+                    <td>{{$insumo->nombre}}</td>
+                    <td>{{$insumo->precio}}</td>
+                    <td>{{$insumo->descripcion}}</td>
+                    <td class="tableOptions">
+                        <form action="{{route('updateinsumos')}}" method="get">
+                            @csrf
+                            <input type="hidden" name="id_insumo" value="{{$insumo->id_insumos}}">
+                            <button type="submit"><i class="fas fa-edit"></i></button>
+                        </form>
+                        <form action="{{route('deleteinsumos')}}" method="POST" class="formulario-eliminar">
+                            @csrf
+                            <input type="hidden" name="id_insumo" value="{{$insumo->id_insumos}}">
+                            <button type="submit"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                    </td>
+                </tr> 
+            </tbody>
         @endforeach
     </table>
     <h2 style="color: white; text-align:center">DADOS DE BAJA</h2>
-    
-        <table>
+    <table>
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -60,7 +44,7 @@
                     <th>Opciones<a href="{{route('createinsumo')}}"><button><i class="far fa-plus-square"></i></button></a></th>
                 </tr>
             </thead>
-            @foreach($insumosBaja as $insumo2)
+        @foreach($insumosBaja as $insumo2)
             <tbody>
                 <tr>
                     <td>{{$insumo2->nombre}}</td>
@@ -80,10 +64,20 @@
                     </td>
                 </tr>
             </tbody>
-            @endforeach
-        </table>
+        @endforeach
+    </table>
+@error('alert')
+    <script>
+        Swal.fire({
+        title: '{{$message}}',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+        })
+    </script>
+@enderror
 @endsection
-
 @section('js')
 <script>
     $('.formulario-eliminar').submit (function (e) {
@@ -104,5 +98,4 @@
     })
     });
 </script>
-
 @endsection
