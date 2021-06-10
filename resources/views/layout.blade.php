@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="../resources/css/formulary.css">
     <link rel="stylesheet" href="../resources/css/table.css">
     <script src="https://kit.fontawesome.com/0172a1fd00.js" crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
     @yield('head')
 </head>
-<body>
+    <body>
         <!-- HEADER ENCABEZADO-->
         <header class="header">
             <div class="logo">
@@ -30,11 +32,9 @@
         <br>
         <br>
         <br>
-        @yield('content')
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js%22%3E</script>
 
             @yield('content')
             @yield('js')
-</body>
+    </body>
+    
 </html>
