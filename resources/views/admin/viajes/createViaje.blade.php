@@ -95,13 +95,13 @@
         @error('hora')
         <script>
             Swal.fire({
-            title: '{{$message}}',
+            title: '<em>{{$message}}</em>',
             icon: 'success',
             iconColor: '#105671',
             confirmButtonColor: '#105671',
             confirmButtonText: 'ok'
         })
-            </script>
+        </script>
         @enderror
         <br>
         <label>
@@ -111,13 +111,13 @@
         @error('precio')
         <script>
             Swal.fire({
-            title: '{{$message}}',
+            title: '<em>{{$message}}</em>',
             icon: 'success',
             iconColor: '#105671',
             confirmButtonColor: '#105671',
             confirmButtonText: 'ok'
         })
-            </script>
+        </script>
         @enderror
         <br>
         <label>
@@ -132,26 +132,26 @@
                 @else
                 <script>
                     Swal.fire({
-                    title: ' no hay ciudades disponibles',
+                    title: '<em>No hay ciudades disponibles</em>',
                     icon: 'success',
                     iconColor: '#105671',
                     confirmButtonColor: '#105671',
                     confirmButtonText: 'ok'
                 })
-                    </script>
+                </script>
                 @endif
             </select>
         </label>
         @error('origen')
         <script>
             Swal.fire({
-            title: '{{$message}}',
+            title: '<em>{{$message}}</em>',
             icon: 'success',
             iconColor: '#105671',
             confirmButtonColor: '#105671',
             confirmButtonText: 'ok'
         })
-            </script>
+        </script>
         @enderror
         <br>
         <label>
@@ -167,13 +167,13 @@
         @error('destino')
         <script>
             Swal.fire({
-            title: '{{$message}}',
+            title: '<em>{{$message}}</em>',
             icon: 'success',
             iconColor: '#105671',
             confirmButtonColor: '#105671',
             confirmButtonText: 'ok'
         })
-            </script>
+        </script>
         @enderror
         <br>
         <button type="submit"> Cargar viaje</button>

@@ -55,13 +55,12 @@
             @else
             <script>
                 Swal.fire({
-                    icon: 'warning',
-                    iconColor: '#48C9B0',
-                    title: '<strong style= "color: white; font-family: arial;"> Aun no hay ciudades cargadas</strong>',
-                    background:'#404040',
-                    confirmButtonColor: '#45B39D ',
-                    confirmButtonText: 'Got it!' ,
-                })
+                title: '<em> Aun no hay ciudades cargadas</em>',
+                icon: 'success',
+                iconColor: '#105671',
+                confirmButtonColor: '#105671',
+                confirmButtonText: 'ok'
+            })
             </script>
             @endif
         </tbody>
