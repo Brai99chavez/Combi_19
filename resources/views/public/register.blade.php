@@ -7,10 +7,10 @@
 @section('content')
 
 
-
-
-<form action="{{route('guardarRegistro')}}" method="POST" class="formulary">
-<h1>Registro Basic</h1>
+<div class="formulary">
+    
+<h1>Registrar Como Basic</h1>
+<form action="{{route('guardarRegistro')}}" method="POST">
 <br>
     @csrf
     <strong>
@@ -18,7 +18,7 @@
         <br>
         <input type="text" name="nombre" value="{{old('nombre')}}" placeholder="carlos.....">
     </strong>
-    @error('nombre')
+    @error('nombre') 
     <script>
         Swal.fire({
             icon: 'warning',
@@ -52,7 +52,8 @@
     <strong>
         dni:*
         <br>
-        <input type="text" name="dni" value="{{old('dni')}}" placeholder="987654321....">
+      
+        <input type="number" name="dni" value="{{old('dni')}}" placeholder="987654321....">
     </strong>
     @error('dni')
     <script>
@@ -70,7 +71,8 @@
     <strong>
         Email:*
         <br>
-        <input type="text" name="email" value="{{old('email')}}" placeholder="example@gmail.com.....">
+        
+        <input type="email" name="email" value="{{old('email')}}" placeholder="example@gmail.com.....">
     </strong>
     @error('email')
     <script>
@@ -103,6 +105,12 @@
     </script>
     @enderror
     <br>
-    <button type="submit"> Registrarse</button>
+    <button type="submit" class="botones"> Registrarse</button>
+
 </form>
+<a href="{{route('registerGolden')}}"><button class="botones">Registrar Como Golden</button></a>
+
+<h3>* Si se registra como golden tendra un Descuento de 10% en cada compra de pasaje</h3>
+
+</div>
 @endsection
