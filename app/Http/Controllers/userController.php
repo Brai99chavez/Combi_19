@@ -207,7 +207,8 @@ class userController extends Controller
     }
     public function viewComentariosViaje(Request $request){
         $comentarios = Comentarios::join('usuarios','usuarios.id_usuario','=','comentarios.id_usuario')
-        ->select('usuarios.nombre','usuarios.apellido','comentarios.descripcion','comentarios.created_at')
+        ->select('usuarios.nombre','usuarios.apellido','usuarios.id_usuario','comentarios.descripcion','comentarios.created_at')
+        ->where('id_viaje',$request->id_viaje) 
         ->orderByDesc('comentarios.created_at')
         ->get();
         $id_viaje = session('id_usuario');
