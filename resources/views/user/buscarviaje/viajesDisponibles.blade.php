@@ -50,7 +50,7 @@
             <td>{{$viaje->precio}}$</td>
             <td>{{$viaje->cantPasajes}}</td>
             <td>
-                 <form action="{{route('crearPago')}}" method="get">
+                 <form action="{{route('resumenCompraViaje')}}" method="get">
                     @csrf
                     <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
                     <button type="submit">Comprar</button>

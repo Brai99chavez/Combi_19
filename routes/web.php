@@ -160,9 +160,13 @@ Route::post('buscarViajesProcess', [userController::class,'buscarViajesProcess']
 
 Route::get('viajesDisponibles', [userController::class,'viajesDisponibles'])->name('viajesDisponibles');
 
-Route::post('crearPasajeYPago', [userController::class,'crearPasajeYPago'])->name('crearPasajeYPago');
+Route::post('pagoConTarjetaNueva', [userController::class,'pagoConTarjetaNueva'])->name('pagoConTarjetaNueva');
 
-Route::get('realizandoPago', [userController::class,'crearPago'])->name('crearPago');
+Route::post('pagoConTarjetaGuardada', [userController::class,'pagoConTarjetaGuardada'])->name('pagoConTarjetaGuardada');
+
+Route::get('resumenCompraViaje', [userController::class,'resumenCompra'])->name('resumenCompraViaje');
+
+Route::get('processingPago', [userController::class,'crearPago'])->name('crearPago');
 
 Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
 

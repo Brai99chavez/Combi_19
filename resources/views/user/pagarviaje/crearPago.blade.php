@@ -1,79 +1,82 @@
 @extends('user.userLayout')
-
 @section('title', 'Pago de Tarjeta')
-
-@section('navTitle')
-{{session('nombre')}} {{session('apellido')}}
-@endsection
-        
+@section('headerTitle')
+<h1>Pago de Pasajes</h1>
+@endsection        
 @section('content')
-<form action="{{route('crearPasajeYPago')}}" method="POST" class="formulary">
-<h1>Pago de Pasaje</h1>
+<form action="{{route('pagoConTarjetaNueva')}}" method="POST">
     @csrf
-     <br>
-    <strong>
-        Num. de tarjeta: 
-        <br>
-        <input type="text" name="tarjeta" value="" placeholder="12345678">
-    </strong>
-    <br>
-    @error('tarjeta')
-    <br>
-    <small>{{$message}}</small>
-    <br>
-    @enderror
+    <input type="hidden" value="{{$cantPasajesCompra}}" name="cantPasajesCompra">
+    <input type="hidden" name="id_viaje" value="{{$id_viaje}}">
     <br>
     <strong>
-        Fecha de venc. de tarjeta: 
+        Numero de Tarjeta 
         <br>
-        <input type="text" name="fechaVenc" value="" placeholder="23/02">
+        <input type="text" name="tarjeta" placeholder="16 digitos">
     </strong>
-    <br>
-    @error('fechaVenc')
-    <br>
-    <small>{{$message}}</small>
-    <br>
-    @enderror
-    <br>
+    <br><br>
     <strong>
-        cod. de tarjeta: 
+        Vencimiento
         <br>
-        <input type="text" name="codigo" value="" placeholder="876">
-        <input type="hidden" name="id_viaje" value="{{$id_viaje}}">                                   
+        <input type="month" name="fechaVenc">
     </strong>
+    <br><br>
+    <strong>
+        Codigo de seguridad - CVV
+        <br>
+        <input type="text" name="codigo" placeholder="3 digitos">                      
+    </strong>
+    <br><br>
+    <button type="submit" class="botones">Realizar Pago</button>
     <br>
-    @error('codigo')
-    <br>
-    <small>{{$message}}</small>
-    <br>
-    @enderror
-    <br>
-    <button type="submit" class="botones"> Confirmar Compra </button>
-    <br>
-    <a href="{{route('viajesDisponibles')}}">cancelar</a>
 </form>
-@error('sucess')
+</div>
+@error('codigo')
 <script>
-    Swal.fire({
-        icon: 'warning',
-        iconColor: '#48C9B0',
-        title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-        background:'#404040',
-        confirmButtonColor: '#45B39D ',
-        confirmButtonText: 'Got it!' ,
-    })
+Swal.fire({
+    icon: 'warning',
+    iconColor: '#48C9B0',
+    title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+    background:'#404040',
+    confirmButtonColor: '#45B39D ',
+    confirmButtonText: 'Got it!' ,
+})
 </script>
 @enderror
-@error('permiso')
+@error('fechaVenc')
 <script>
-    Swal.fire({
-        icon: 'warning',
-        iconColor: '#48C9B0',
-        title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-        background:'#404040',
-        confirmButtonColor: '#45B39D ',
-        confirmButtonText: 'Got it!' ,
-    })
+Swal.fire({
+    icon: 'warning',
+    iconColor: '#48C9B0',
+    title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+    background:'#404040',
+    confirmButtonColor: '#45B39D ',
+    confirmButtonText: 'Got it!' ,
+})
+</script>
+@enderror
+@error('tarjeta')
+<script>
+Swal.fire({
+    icon: 'warning',
+    iconColor: '#48C9B0',
+    title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+    background:'#404040',
+    confirmButtonColor: '#45B39D ',
+    confirmButtonText: 'Got it!' ,
+})
+</script>
+@enderror
+@error('sucess')
+<script>
+Swal.fire({
+    icon: 'warning',
+    iconColor: '#48C9B0',
+    title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+    background:'#404040',
+    confirmButtonColor: '#45B39D ',
+    confirmButtonText: 'Got it!' ,
+})
 </script>
 @enderror
 @endsection

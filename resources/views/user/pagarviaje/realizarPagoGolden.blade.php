@@ -5,34 +5,41 @@
 @endsection  
 @section('content')
 <div class="formulary">
-<form action="{{route('crearPasajeYPago')}}" method="POST">
-    <h1>Pago de Pasaje</h1>
+    <strong><p>Realizar pago con la tarjeta registrada</p></strong>
+    <p>Terminado en XXXX-XXXX-XXXX-{{$resultado}}</p>
+    <form action="" method="GET">
+    @csrf
+        <input type="hidden" value="{{$cantPasajesCompra}}" name="cantPasajesCompra">
+        <input type="hidden" value="{{$id_viaje}}" name="id_viaje">
+        <button type="submit" class="botones">Realizar Pago</button>
+    </form>
+    <hr>
+    <strong><p>Realizar pago con una tarjeta nueva</p></strong>
+    <form action="{{route('pagoConTarjetaNueva')}}" method="POST">
         @csrf
-         <br>
-        <strong>
-            Num. de tarjeta: 
-            <br>
-            <input type="text" name="tarjeta" value="" placeholder="12345678">
-        </strong>
-        <br>
-        
+        <input type="hidden" value="{{$cantPasajesCompra}}" name="cantPasajesCompra">
+        <input type="hidden" name="id_viaje" value="{{$id_viaje}}">
         <br>
         <strong>
-            Fecha de venc. de tarjeta: 
+            Numero de Tarjeta 
             <br>
-            <input type="text" name="fechaVenc" value="" placeholder="23/02">
+            <input type="text" name="tarjeta" placeholder="16 digitos">
         </strong>
         <br><br>
         <strong>
-            cod. de tarjeta: 
+            Vencimiento
             <br>
-            <input type="text" name="codigo" value="" placeholder="876">
-            <input type="hidden" name="id_viaje" value="{{$id_viaje}}">                      
+            <input type="month" name="fechaVenc">
         </strong>
         <br><br>
-        <button type="submit" class="botones"> Confirmar Compra </button>
+        <strong>
+            Codigo de seguridad - CVV
+            <br>
+            <input type="text" name="codigo" placeholder="3 digitos">                      
+        </strong>
+        <br><br>
+        <button type="submit" class="botones">Realizar Pago</button>
         <br>
-        <a href="{{route('viajesDisponibles')}}">cancelar</a>
     </form>
 </div>
 @error('codigo')
