@@ -17,14 +17,12 @@
     @if($comentarios->isNotEmpty())
         @foreach($comentarios as $com)
             <hr>
-            <ul>    
-                <li>
+
                     {{$com->nombre}} {{$com->apellido}} - realizado:{{$com->created_at}}
                     <br>
                     Comentario: {{$com->descripcion}} 
                     <br>
-                </li>
-            </ul>
+
         @endforeach
     @else
         <h2>Se el primero en agregar un comentario...</h2>  
