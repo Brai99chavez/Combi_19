@@ -168,6 +168,8 @@ Route::get('resumenCompraViaje', [userController::class,'resumenCompra'])->name(
 
 Route::get('processingPago', [userController::class,'crearPago'])->name('crearPago');
 
+Route::post('reembolso', [userController::class,'reembolso'])->name('reembolso');
+
 Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
 
 Route::get('viewInsumosViaje', [userController::class,'insumosViajeCliente'])->name('insumosViajeCliente');

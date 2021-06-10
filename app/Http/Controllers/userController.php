@@ -137,7 +137,7 @@ class userController extends Controller
         ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
-        ->select("pasajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
+        ->select("pasajes.id_viaje","pasajes.id_pasaje","categorias.nombre as categoria",
         "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
         ->where('pasajes.id_usuario',session('id_usuario'))->get();
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
@@ -213,5 +213,18 @@ class userController extends Controller
         ->get();
         $id_viaje = session('id_usuario');
         return view('user.misviajes.comentariosDeUnViaje',compact('comentarios','id_viaje'));
+    }
+
+
+    public function reembolso(Request $request){
+
+        Pasajes::where("id_pasaje",$request->id_pasaje)->delete();
+
+        $aux = Viajes::select('cantPasajes')->where("id_viaje",$request->id_viaje)->get();
+        $aux = $aux[0]->cantPasajes + 1 ;
+        
+        Viajes::where("id_viaje",$request->id_viaje)->update(['cantPasajes'=>$aux]);
+
+        return redirect()->route('misViajes')->withErrors(['sucess'=>'El pasaje se reembolso correctamente']);
     }
 }
