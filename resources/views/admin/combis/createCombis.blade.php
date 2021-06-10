@@ -49,14 +49,7 @@
                 <small>{{$message}}</small>
             <br>
         @enderror
-        <strong>Disponible:</strong><br>
-        <select name="disponible" id="">
-            <option value="1">SI</option>
-            <option value="2">NO</option>
-        </select>
-        <br>
         <button class="botones" type="submit">Cargar Combi</button>
-
     </form>
 </div>
 @endsection

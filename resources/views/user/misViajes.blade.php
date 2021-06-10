@@ -9,23 +9,13 @@
     </div>
     @if($viajes->isNotEmpty())
             @foreach($viajes as $viaje)
-        <div class="formulary"> 
+        <div class="formulary">
         <tr>
-            Chofer: <td>{{$viaje->chofer}}</td><br>
-            Patente: <td>{{$viaje->patente}}</td><br>
-            Categoria: <td>{{$viaje->categoria}}</td><br>
-            Insumos: <td>
-                   @foreach($viaje_insumos as $v_i)
-                       @if($viaje->id_viaje == $v_i->id_viaje)
-                        {{$v_i->nombre}},
-                       @endif
-                   @endforeach
-                  </td><br>
-            Fecha: <td>{{$viaje->fecha}} </td> 
-            // Hora: <td>{{$viaje->hora}}</td> <br>
-            Origen: <td>{{$viaje->origen}}</td> 
-            // Destino: <td>{{$viaje->destino}}</td> <br>
-            Precio: <td>{{$viaje->precio}}$</td> <br>
+             <td>Fecha: {{$viaje->fecha}} </td> 
+             <td>Hora: {{$viaje->hora}}</td> <br>
+             <td>Origen: {{$viaje->origen}}</td> 
+             <td>Destino: {{$viaje->destino}}</td> <br>
+             <td>Precio: {{$viaje->precio}}$</td> <br>
         </tr>
         <br>
         <form action="{{route('guardarComentario')}}" method="post" >
@@ -35,8 +25,6 @@
             <textarea name="descripcion" id="" cols="30" rows="" placeholder="escriba un comentario..." style="min-width: 100%"></textarea>
             <button type="submit" class="botones">Publicar Comentario</button>
         </form>
-
-       
          @if($viajes->isNotEmpty())
             @foreach($comentarios as $com)
 

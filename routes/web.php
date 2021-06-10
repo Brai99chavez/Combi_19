@@ -68,7 +68,7 @@ Route::get('home_admin', [AdminController::class,'homeadmin'])->name('homeadmin'
 
 Route::get('create_viaje',[ViajesController::class,'createviaje'])->name(('createviaje'));
 
-Route::post('working',[ViajesController::class,'createviajeprocess'])->name(('createviajeprocess'));
+Route::post('createviaje_process',[ViajesController::class,'createviajeprocess'])->name(('createviajeprocess'));
 
 Route::get('home_viajes',[ViajesController::class,'homeviajes'])->name(('homeviajes'));
 
@@ -172,8 +172,10 @@ Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
 
 Route::get('viewInsumosViaje', [userController::class,'insumosViajeCliente'])->name('insumosViajeCliente');
 
-
 Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
 
 Route::post('guardarComentario', [userController::class,'guardarComentario'])->name('guardarComentario');
+
+Route::get('historialDeViajes', [userController::class,'historialDeViajes'])->name('historialDeViajes');
+
 

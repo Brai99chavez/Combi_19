@@ -23,16 +23,15 @@
                     @endforeach
                 </select>
             @else
-            <script>
-                Swal.fire({
-                    icon: 'warning',
-                    iconColor: '#48C9B0',
-                    title: '<strong style= "color: white; font-family: arial;">No hay choferes disponibles</strong>',
-                    background:'#404040',
-                    confirmButtonColor: '#45B39D ',
-                    confirmButtonText: 'Got it!' ,
+                <script>
+                    Swal.fire({
+                    title: 'No hay choferes disponibles',
+                    icon: 'success',
+                    iconColor: '#105671',
+                    confirmButtonColor: '#105671',
+                    confirmButtonText: 'ok'
                 })
-            </script>
+                    </script>
             <select name="id_chofer">
                 <option value="">NO HAY CHOFERES DISPONIBLES</option>
             </select>
@@ -41,14 +40,13 @@
         @error('id_chofer')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
-        </script>
+            title: '{{$message}}',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+            </script>
         @enderror
         <br>
         <label>
@@ -63,28 +61,26 @@
                 @else
                 <script>
                     Swal.fire({
-                        icon: 'warning',
-                        iconColor: '#48C9B0',
-                        title: '<strong style= "color: white; font-family: arial;">No hay combis disponibles</strong>',
-                        background:'#404040',
-                        confirmButtonColor: '#45B39D ',
-                        confirmButtonText: 'Got it!' ,
-                    })
-                </script>
+                    title: 'No hay combis disponibles',
+                    icon: 'success',
+                    iconColor: '#105671',
+                    confirmButtonColor: '#105671',
+                    confirmButtonText: 'ok'
+                })
+                    </script>
                 @endif
             </select>
         </label>
         @error('id_combi')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
-        </script>
+            title: '{{$message}}',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+            </script>
         @enderror
         <br>
         <label>
@@ -99,14 +95,13 @@
         @error('hora')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
-        </script>
+            title: '{{$message}}',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+            </script>
         @enderror
         <br>
         <label>
@@ -116,14 +111,13 @@
         @error('precio')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
-        </script>
+            title: '{{$message}}',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+            </script>
         @enderror
         <br>
         <label>
@@ -138,28 +132,26 @@
                 @else
                 <script>
                     Swal.fire({
-                        icon: 'warning',
-                        iconColor: '#48C9B0',
-                        title: '<strong style= "color: white; font-family: arial;">No hay ciudades disponibles</strong>',
-                        background:'#404040',
-                        confirmButtonColor: '#45B39D ',
-                        confirmButtonText: 'Got it!' ,
-                    })
-                </script>
+                    title: ' no hay ciudades disponibles',
+                    icon: 'success',
+                    iconColor: '#105671',
+                    confirmButtonColor: '#105671',
+                    confirmButtonText: 'ok'
+                })
+                    </script>
                 @endif
             </select>
         </label>
         @error('origen')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
-        </script>
+            title: '{{$message}}',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+            </script>
         @enderror
         <br>
         <label>
@@ -175,14 +167,13 @@
         @error('destino')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
-        </script>
+            title: '{{$message}}',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+            </script>
         @enderror
         <br>
         <button type="submit"> Cargar viaje</button>
