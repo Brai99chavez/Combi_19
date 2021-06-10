@@ -104,7 +104,7 @@ class userController extends Controller
             $resultado = substr($numero[0]->tarjeta, 12, 4);
             return view('user.pagarviaje.realizarPagoGolden',compact('id_viaje','resultado','cantPasajesCompra','precioConDescuento'));
         }
-      }      
+    }     
     public function pagoConTarjetaNueva(clienteMembresiaRequest $request){
         for ($i = 0; $i < $request->cantPasajesCompra;$i++){
             $pasaje = new Pasajes;

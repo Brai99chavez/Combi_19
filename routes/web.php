@@ -172,8 +172,10 @@ Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
 
 Route::get('viewInsumosViaje', [userController::class,'insumosViajeCliente'])->name('insumosViajeCliente');
 
-
 Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
 
 Route::post('guardarComentario', [userController::class,'guardarComentario'])->name('guardarComentario');
+
+Route::get('historialDeViajes', [userController::class,'historialDeViajes'])->name('historialDeViajes');
+
 
