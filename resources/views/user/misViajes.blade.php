@@ -1,24 +1,9 @@
 @extends('user.userLayout')
-
 @section('title', 'Mis Viajes')
-
-@section('navTitle')
-{{session('nombre')}} {{session('apellido')}}
-@endsection
-        
+@section('headerTitle')
+<h1>Mis Viajes</h1>
+@endsection   
 @section('content')
-@error('sucess')
-<script>
-    Swal.fire({
-        icon: 'warning',
-        iconColor: '#48C9B0',
-        title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-        background:'#404040',
-        confirmButtonColor: '#45B39D ',
-        confirmButtonText: 'Got it!' ,
-    })
-</script>
-@enderror
     <div class="formulary">
         <h2>Mis viajes</h2>
     </div>
@@ -26,7 +11,6 @@
             @foreach($viajes as $viaje)
         <div class="formulary"> 
         <tr>
-
             Chofer: <td>{{$viaje->chofer}}</td><br>
             Patente: <td>{{$viaje->patente}}</td><br>
             Categoria: <td>{{$viaje->categoria}}</td><br>
@@ -42,9 +26,6 @@
             Origen: <td>{{$viaje->origen}}</td> 
             // Destino: <td>{{$viaje->destino}}</td> <br>
             Precio: <td>{{$viaje->precio}}$</td> <br>
-            
-
-
         </tr>
         <br>
         <form action="{{route('guardarComentario')}}" method="post" >
@@ -89,11 +70,17 @@
             })
         </script>
         @endif
-
-
- 
-@error('permiso')
-    <small>{{$message}}</small>
+@error('success')
+<script>
+    Swal.fire({
+        icon: 'warning',
+        iconColor: '#48C9B0',
+        title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
+        background:'#404040',
+        confirmButtonColor: '#45B39D ',
+        confirmButtonText: 'Got it!' ,
+    })
+</script>
 @enderror
 @endsection
 

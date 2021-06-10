@@ -25,11 +25,11 @@ class clienteMembresiaRequest extends FormRequest
     {
         return [
             'tarjeta' => 'required|digits:16|numeric',
-            'vencimiento' => 'required',
+            'fechaVenc' => 'required',
             'codigo' => 'required|digits:3|numeric'
         ];
     }
-    /*public function messages()
+    public function messages()
     {
         return [
             'tarjeta.digits' => 'El numero de tarjeta debe constar de 16 digitos',
@@ -38,5 +38,5 @@ class clienteMembresiaRequest extends FormRequest
             'tarjeta.numeric' => 'Numero de tarjeta invalido',
             'codigo.numeric'=> 'Codigo de seguridad invalido'
         ];
-    }*/
+    }
 }

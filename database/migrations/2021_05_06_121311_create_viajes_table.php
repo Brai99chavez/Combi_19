@@ -21,6 +21,8 @@ class CreateViajesTable extends Migration
             $table->double('precio');
             $table->date('fecha');
             $table->time('hora');
+            $table->integer('cantPasajes');
+            $table->string('estado');
             $table->timestamps();
         });
     }

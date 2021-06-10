@@ -1,15 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\buscarViajeRequest;
 use App\Http\Requests\clienteMembresiaRequest;
-use App\Http\Requests\combisRequest;
-use App\Http\Requests\membresiaUPRequest;
+use App\Models\Categorias;
+use App\Models\Ciudades;
 use App\Models\Pasajes;
 use App\Models\Viaje_insumos;
 use App\Models\Viajes;
 use App\Models\Combis;
 use App\Models\Comentarios;
+use App\Models\Insumos;
 use App\Models\Membresias;
+use App\Models\Rutas;
 use App\Models\Tarjetas;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
@@ -23,6 +27,34 @@ class userController extends Controller
         $usuario = Usuarios::where('id_usuario',session('id_usuario'))->get();
         return view('user.editarPerfilCliente', compact('usuario'));
     }
+    public function buscarViajesDisponibles(){
+        $ciudades = Ciudades::where('disponible',1)->get();
+        return view('user.buscarviaje.buscarViajes',compact('ciudades'));
+    }
+    public function buscarViajesProcess(buscarViajeRequest $request){
+        $ruta = Rutas::select('id_ruta')->where('id_ciudadOrigen',$request->origen)->where('id_ciudadDestino',$request->destino)->get();
+        if($ruta->count()==1){
+            $found = Viajes::where('id_ruta',$ruta[0]->id_ruta)->get();
+            if($found->count()>0){
+               $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
+                ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
+                ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
+                ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
+                ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
+                ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
+                ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", 
+                "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora'
+                ,'viajes.id_ruta','viajes.estado','viajes.cantPasajes')
+                ->where('viajes.fecha',$request->fecha)
+                ->where('viajes.id_ruta',$ruta[0]->id_ruta)
+                ->where('viajes.estado',"Pendiente")
+                ->get();
+                return view('user.buscarviaje.viajesDisponibles ',compact('viajes'));
+            }
+            return redirect()->route('buscarViajesDisponibles')->withErrors(['success' => 'No tenemos viajes disponibles para vos']);
+        }
+        return redirect()->route('buscarViajesDisponibles')->withErrors(['success' => 'No tenemos viajes disponibles para vos']);
+    }
     public function viajesDisponibles(){
         $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
         ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
@@ -31,37 +63,71 @@ class userController extends Controller
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
-        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',"combis.cant_asientos")
+        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',"viajes.cantPasajes")
         ->orderByDesc('viajes.id_viaje')
         ->get();
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
         ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
         ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
 
-        return view('user.viajesDisponibles',compact('viajes','viaje_insumos'));
+        return view('user.buscarviaje.viajesDisponibles',compact('viajes','viaje_insumos'));
     }
-    public function crearPasajeYPago(Request $request){
 
-          $id_combi = Viajes::select("id_combi")->where('id_viaje',$request->id_viaje)->get();
-          $cantAsientos = Combis::select("cant_asientos")->where('id_combi',$id_combi[0]->id_combi)->get();
-          $pasajesDeUnViaje = Pasajes::where('id_viaje',$request->id_viaje)->get(); 
-        $asientosDisponibles = $cantAsientos[0]->cant_asientos  -  $pasajesDeUnViaje->count();
-          if( $asientosDisponibles >= 0 ){
-             $newPago = new Tarjetas; 
-             $newPago->numero_tarjeta = $request->tarjeta;
-             $newPago->cod_seguridad = $request->codigo;
-             $newPago->vencimiento = $request->fechaVenc;
-             $newPago->id_usuario = $request->id_usuario;
-             $newPago->save();
-             $newPasaje = new Pasajes;
-             $newPasaje->id_usuario = $request->id_usuario;
-             $newPasaje->id_viaje = $request->id_viaje;
-             $newPasaje->save();
-             return redirect()->route('misViajes')->withErrors(['sucess'=>'pasaje creado con Exito']);
-          }else{
-
-              return redirect()->route('viajesDisponibles')->withErrors(['sucess'=>'error pasajes agotadosss ']);
-          }
+    public function resumenCompra(Request $request){
+        $viaje = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
+        ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
+        ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
+        ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
+        ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
+        ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
+        ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
+        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',
+        "viajes.cantPasajes")->where('viajes.id_viaje',$request->id_viaje)->get();
+        $golden = Membresias::select('descuento')->where('id_membresia',1)->get();
+        $descuento = $golden[0]->descuento * $viaje[0]->precio / 100;
+        $precioConDescuento = $viaje[0]->precio - $descuento;
+        return view('user.pagarviaje.detallesViajeCompra', compact('viaje','precioConDescuento','descuento','golden'));
+    }
+    public function crearPago(Request $request){
+        $request->validate(['cantPasajesCompra' => 'required|numeric'],['numeric' => 'El valor ingresado es invalido']);
+        $id_viaje = $request->id_viaje;
+        if(isset($request->precioConDescuento)){
+            $precioConDescuento = $request->precioConDescuento;
+        }else{
+            $precio = $request->precio;
+        }
+        $cantPasajesCompra = $request->cantPasajesCompra;
+        if(session('id_membresia')==1)
+            return view('user.pagarviaje.crearPago', compact('id_viaje','cantPasajesCompra','precio'));
+        else{
+            $numero = Usuarios::where('id_usuario',session('id_usuario'))->select('tarjeta')->get();
+            $resultado = substr($numero[0]->tarjeta, 12, 4);
+            return view('user.pagarviaje.realizarPagoGolden',compact('id_viaje','resultado','cantPasajesCompra','precioConDescuento'));
+        }
+      }      
+    public function pagoConTarjetaNueva(clienteMembresiaRequest $request){
+        for ($i = 0; $i < $request->cantPasajesCompra;$i++){
+            $pasaje = new Pasajes;
+            $pasaje->id_usuario = session('id_usuario');
+            $pasaje->id_viaje = $request->id_viaje;
+            $pasaje->save();
+        }
+        $pasajesActuales = Viajes::where('id_viaje',$request->id_viaje)->select('cantPasajes')->get();
+        $resultado = $pasajesActuales[0]->cantPasajes - $request->cantPasajesCompra;
+        Viajes::where('id_viaje',$request->id_viaje)->update(['cantPasajes' => $resultado]);
+        return redirect()->route('misViajes')->withErrors(['success' => 'Compra Exitosa']);
+    }
+    public function pagoConTarjetaGuardada(Request $request){
+        for ($i = 0; $i < $request->cantPasajesCompra;$i++){
+            $pasaje = new Pasajes;
+            $pasaje->id_usuario = session('id_usuario');
+            $pasaje->id_viaje = $request->id_viaje;
+            $pasaje->save();
+        }
+        $pasajesActuales = Viajes::where('id_viaje',$request->id_viaje)->select('cantPasajes')->get();
+        $resultado = $pasajesActuales[0]->cantPasajes - $request->cantPasajesCompra;
+        Viajes::where('id_viaje',$request->id_viaje)->update(['cantPasajes' => $resultado]);
+        return redirect()->route('misViajes')->withErrors(['success' => 'Compra Exitosa']);
     }
     public function misViajes(){
     
@@ -93,20 +159,38 @@ class userController extends Controller
         $golden = Membresias::where('id_membresia',1)->get();
         return view('user.actualizarMembresia', compact('golden'));
     }
-    public function upmembresiacliente(Request $request){
-        $request->validate(['tarjeta' => 'required',
-        'vencimiento' => 'required',
-        'codigo' => 'required']);
-        return $request;
+    public function processingMembresiaUpdateGolden(clienteMembresiaRequest $request){
+        if(session('id_membresia')==1){
+            Usuarios::where('id_usuario',session('id_usuario'))->update(['id_membresia' => 2, 'tarjeta' => $request->tarjeta,
+            'fechaVenc' => $request->fechaVenc, 'codigo' => $request->codigo]);
+            session(['id_membresia'=> 2]);
+            session(['tarjeta'=> $request->tarjeta]);session(['fechaVenc' => $request->fechaVenc]);session(['codigo' => $request->codigo]);
+            return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Ahora usted tiene membresia GOLDEN']);
+        }
     }
-    /*if(session('id_membresia')==1){
-        Usuarios::where('id_usuario',session('id_usuario')->update(["id_membresia" => 2, "tarjeta" => $request->tarjeta,
-        'fechaVenc' => $request, 'codigo' => $request->codigo]));
-        return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Ahora usted tiene membresia GOLDEN']);
+    public function processingMembresiaUpdateBasic(){
+        Usuarios::where('id_usuario', session('id_usuario'))->update(['id_membresia' => 1, 'tarjeta' => null,
+        'fechaVenc' => null, 'codigo' => null]);
+        session(['id_membresia'=> 1]);session(['tarjeta' => null]);session(['fechaVenc' => null]);session(['codigo' => null]);
+        return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Ahora usted tiene membresia BASIC']);  
     }
+    public function processingUpdateTarjetaCliente(clienteMembresiaRequest $request){
+        if(session('tarjeta') <> $request->tarjeta){
+            Usuarios::where('id_usuario',session('id_usuario'))->update(['tarjeta' => $request->tarjeta,
+            'fechaVenc' => $request->fechaVenc, 'codigo' => $request->codigo]);
+            return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Tarjeta actualizada']);
+        }
+        return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'La tarjeta ingresada es la actual, ingrese otra']);
+    }
+    public function insumosViajeCliente(Request $request){
+        $insumos = Insumos::join('viaje_insumo','id_insumos','=','id_insumo')
+        ->where('viaje_insumo.id_viaje',$request->id_viaje)
+        ->select('insumos.nombre','insumos.descripcion','insumos.precio')->get();
+        return view('user.viewInsumosViaje', compact('insumos'));
+    
         Usuarios::where('id_usuario', session('id_usuario')->update(['id_membresia' => 1]));
         return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Ahora usted tiene membresia BASIC']);   
-    }*/
+    }
 
     public function guardarComentario(Request $request){
 

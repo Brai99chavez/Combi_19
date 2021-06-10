@@ -35,16 +35,19 @@ class ciudadesController extends Controller
         return view('admin.ciudades.updateCiudades',compact('ciudades'));
     }
     
-    public function updateCiudadProcess(ciudadesRequest $request){              
+    public function updateCiudadProcess(ciudadesRequest $request){          
+        
         if($this->newNombre($request)){
             if($this->validateNewNombre($request)==0){
                 return redirect()->route('homeciudades')->withErrors(['sucess'=>'Error, el nombre ya esta registrado']);
             } 
-            Ciudades::where('id_ciudad',$request->id_ciudad)->update(["nombre"=> $request->nombre,
-            "direccion" => $request->direccion,"disponible" => $request->disponible]);
-        return redirect()->route('homeciudades')->withErrors(['sucess'=>'Los datos han sido actualizados']);
+            Ciudades::where('id_ciudad',$request->id_ciudad)->update(["nombre"=> $request->nombre]);
         }
+        Ciudades::where('id_ciudad',$request->id_ciudad)->update(["direccion" => $request->direccion,"disponible" => $request->disponible]);
+        return redirect()->route('homeciudades')->withErrors(['sucess'=>'Los datos han sido actualizados']);
+
     }
+
     private function newNombre($request){
         $found = Ciudades::where('id_ciudad',$request->id_ciudad)->get();
         if($found[0]->nombre <> $request->nombre){

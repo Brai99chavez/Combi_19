@@ -15,18 +15,6 @@
         <label> Fecha 
             <input type="date" name="fecha" value="{{$viaje[0]->fecha}}">
         </label><br><br>
-        @error('fecha')
-        <script>
-            Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
-        </script>
-        @enderror
         <label>
             Chofer
             <select name="id_chofer">
@@ -56,19 +44,6 @@
             <input type="text"  name="precio" value="{{$viaje[0]->precio}}" autocomplete="off" >
         </label>
         <br><br>
-        @error('precio')
-        <script>
-            Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
-        </script>
-        @enderror
-        <br><br>
         <label>
             Origen
             <select name="origen">
@@ -93,9 +68,63 @@
                     @endif
                 @endforeach
             </select>
-        </label><br>
-        <br>
-        <button type="submit">Guardar cambios</button>
+        </label>
+        <br><br>
+        <label>
+            N° Pasajes
+            <input type="text" value="{{$viaje[0]->cantPasajes}}" name="cantPasajes">
+        </label>
+        <br><br>
+        <label>
+            Estado
+            <select name="estado">
+                @if($viaje[0]->estado == "Pendiente")
+                    <option value="Pendiente" selected>Pendiente</option>
+                    <option value="Cancelado">Cancelado</option>
+                @else
+                    <option value="Cancelado" selected>Cancelado</option>
+                    <option value="Pendiente">Pendiente</option>
+                @endif
+            </select>
+        </label>
+        <br><br>
+        <button type="submit" class="botones">Guardar cambios</button>
     </form>
 </div>
+@error('fecha')
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
+@enderror
+@error('precio')
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                iconColor: '#48C9B0',
+                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+                background:'#404040',
+                confirmButtonColor: '#45B39D ',
+                confirmButtonText: 'Got it!' ,
+            })
+        </script>
+@enderror
+@error('cantPasajes')
+<script>
+    Swal.fire({
+        icon: 'warning',
+        iconColor: '#48C9B0',
+        title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+        background:'#404040',
+        confirmButtonColor: '#45B39D ',
+        confirmButtonText: 'Got it!' ,
+    })
+</script>
+@enderror
 @endsection

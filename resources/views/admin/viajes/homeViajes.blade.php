@@ -4,29 +4,31 @@
 @section('content')
 
 @error('sucess')
+
 <script>
     Swal.fire({
-        icon: 'warning',
-        iconColor: '#48C9B0',
-        title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-        background:'#404040',
-        confirmButtonColor: '#45B39D ',
-        confirmButtonText: 'Got it!' ,
-    })
-</script>
+    title: '{{$message}}',
+    icon: 'success',
+    iconColor: '#105671',
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'ok'
+})
+    </script>
 @enderror
 <table>
     <thead>
         <tr>
-            <th>chofer</th>
-            <th>patente</th>
-            <th>categoria</th>
-            <th>insumos</th>
-            <th>fecha</th>
-            <th>hora</th>
-            <th>origen</th>
-            <th>destino</th>
-            <th>precio</th>
+            <th>Chofer</th>
+            <th>Patente</th>
+            <th>Categoria</th>
+            <th>Insumos</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Precio</th>
+            <th>Pasajes Disponibles</th>
+            <th>Estado</th>
             <th>options <br><a href="{{route('filtrardatosviaje')}}"><button><i class="far fa-plus-square"></i></button></a></th>
         </tr>
     </thead>
@@ -50,13 +52,15 @@
             <td>{{$viaje->origen}}</td>
             <td>{{$viaje->destino}}</td>
             <td>{{$viaje->precio}}$</td>
+            <td>{{$viaje->cantPasajes}}</td>
+            <td>{{$viaje->estado}}</td>
             <td class="tableOptions">
                 <form action="{{route('updateviajes')}}" method="GET">
                     @csrf
                     <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
                     <button type="submit"><i class="fas fa-edit"></i></button>
                 </form>
-                <form action="{{route('deleteviajes')}}" method="POST">
+                <form action="{{route('deleteviajes')}}" method="POST" class="formulario-eliminar">
                     @csrf
                     <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
                     <button type="submit"><i class="fas fa-trash-alt"></i></button>
@@ -79,4 +83,27 @@
         @endif
     </tbody>
 </table>
+@endsection
+
+@section('js')
+<script>
+    $('.formulario-eliminar').submit (function (e) {
+        e.preventDefault();
+        Swal.fire({
+    title: 'Confirmar eliminacion',
+    text: "no podras revertir esto!",
+    icon: 'warning',
+    iconColor: '#105671',
+    showCancelButton: true,
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'Si, eliminar!',
+    cancelButtonText: 'Cancelar'
+    }).then((result) => {
+    if (result.isConfirmed){
+        this.submit();
+    }
+    })
+    });
+</script>
+
 @endsection
