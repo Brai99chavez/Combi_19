@@ -4,17 +4,18 @@
 @section('content')
     <h2 style="color: white; text-align:center">ACTIVOS</h2>
 
+
     @error('alert')
     <script>
         Swal.fire({
-            icon: 'warning',
-            iconColor: '#48C9B0',
-            title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-            background:'#404040',
-            confirmButtonColor: '#45B39D ',
-            confirmButtonText: 'Got it!' ,
-        })
-    </script>
+        title: '{{$message}}',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+        </script>
+    @enderror
 @enderror
 
     <table>
@@ -38,7 +39,7 @@
                         <input type="hidden" name="id_insumo" value="{{$insumo->id_insumos}}">
                         <button type="submit"><i class="fas fa-edit"></i></button>
                     </form>
-                    <form action="{{route('deleteinsumos')}}" method="POST">
+                    <form action="{{route('deleteinsumos')}}" method="POST" class="formulario-eliminar">
                         @csrf
                         <input type="hidden" name="id_insumo" value="{{$insumo->id_insumos}}">
                         <button type="submit"><i class="fas fa-trash-alt"></i></button>
@@ -71,7 +72,7 @@
                             <input type="hidden" name="id_insumo" value="{{$insumo2->id_insumos}}">
                             <button type="submit"><i class="fas fa-edit"></i></button>
                         </form>
-                        <form action="{{route('deleteinsumos')}}" method="POST">
+                        <form action="{{route('deleteinsumos')}}" method="POST" class="formulario-eliminar">
                             @csrf
                             <input type="hidden" name="id_insumo" value="{{$insumo2->id_insumos}}">
                             <button type="submit"><i class="fas fa-trash-alt"></i></button>
@@ -81,4 +82,27 @@
             </tbody>
             @endforeach
         </table>
+@endsection
+
+@section('js')
+<script>
+    $('.formulario-eliminar').submit (function (e) {
+        e.preventDefault();
+        Swal.fire({
+    title: 'Confirmar eliminacion',
+    text: "no podras revertir esto!",
+    icon: 'warning',
+    iconColor: '#105671',
+    showCancelButton: true,
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'Si, eliminar!',
+    cancelButtonText: 'Cancelar'
+    }).then((result) => {
+    if (result.isConfirmed){
+        this.submit();
+    }
+    })
+    });
+</script>
+
 @endsection

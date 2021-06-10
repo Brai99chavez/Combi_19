@@ -3,18 +3,25 @@
 @section('headerTitle', 'Combis')
 @section('content')
 
-        @error('sucess')
-        <script>
-            Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
-        </script>
+
+@error('sucess')
+<script>
+    Swal.fire({
+    title: '{{$message}}',
+    icon: 'success',
+    iconColor: '#105671',
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'ok'
+})
+    </script>
+@enderror
+
+        @error('combiprocess')
+            <br>
+                <small>{{$message}}</small>
+            <br>
         @enderror
+
     <table>
         <thead>
             <tr>
@@ -46,7 +53,7 @@
                             <input type="hidden" name="id_combi" value="{{$combi->id_combi}}">
                             <button type="submit"><i class="fas fa-edit"></i></button>
                         </form>
-                        <form action="{{route('deleteCombi')}}" method="POST">
+                        <form action="{{route('deleteCombi')}}" method="POST" class="formulario-eliminar">
                             @csrf
                             <input type="hidden" name="id_combi" value="{{$combi->id_combi}}">
                             <button type="submit"><i class="fas fa-trash-alt"></i></button>
@@ -69,8 +76,27 @@
         </tbody>
     </table>
 @endsection
-@error('combiprocess')
-    <br>
-        <small>{{$message}}</small>
-    <br>
-@enderror
+
+
+@section('js')
+<script>
+    $('.formulario-eliminar').submit (function (e) {
+        e.preventDefault();
+        Swal.fire({
+    title: 'Confirmar eliminacion',
+    text: "no podras revertir esto!",
+    icon: 'warning',
+    iconColor: '#105671',
+    showCancelButton: true,
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'Si, eliminar!',
+    cancelButtonText: 'Cancelar'
+    }).then((result) => {
+    if (result.isConfirmed){
+        this.submit();
+    }
+    })
+    });
+</script>
+
+@endsection

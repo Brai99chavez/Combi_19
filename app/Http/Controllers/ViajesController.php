@@ -189,6 +189,7 @@ class ViajesController extends Controller
         }
         return redirect()->route('homeviajes')->withErrors(['sucess'=>'El viaje no puede ser eliminado porque es un viaje finalizado']);
     }
+    
     public function editinsumosviaje(Request $request){
         $insumos = Viaje_insumos::join("insumos", "id_insumos", "=" ,"id_insumo")
                 ->where("id_viaje",$request->id_viaje)
