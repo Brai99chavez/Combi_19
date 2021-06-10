@@ -16,6 +16,8 @@ use App\Models\Membresias;
 use App\Models\Rutas;
 use App\Models\Tarjetas;
 use App\Models\Usuarios;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class userController extends Controller
@@ -130,20 +132,19 @@ class userController extends Controller
         return redirect()->route('misViajes')->withErrors(['success' => 'Compra Exitosa']);
     }
     public function misViajes(){
-        $viajes = Viajes::join('pasajes','pasajes.id_viaje','=','viajes.id_viaje')
+        $viajes = Pasajes::join('viajes','viajes.id_viaje','=','pasajes.id_viaje')
         ->join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
         ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
         ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
         ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
-        ->select("pasajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
-        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
-        ->where('pasajes.id_usuario',session('id_usuario'))->get();
-        $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
-        ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
-        ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
-        return view('user.misViajes',compact('viajes','viaje_insumos','comentarios'));
+        ->select("pasajes.id_pasaje","categorias.nombre as categoria","viajes.precio as precio",
+         "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora','viajes.id_viaje')
+        ->where('pasajes.id_usuario',session('id_usuario'))
+        ->where('viajes.estado','<>',"Finalizado")
+        ->get();
+        return view('user.misviajes.misViajes',compact('viajes'));
     }
     public function updateMembresia(){
         $golden = Membresias::where('id_membresia',1)->get();
@@ -228,5 +229,15 @@ class userController extends Controller
     public function deleteComentarioProcess(Request $request){
         Comentarios::where('id_comentario',$request->id_comentario)->delete();
         return $this->viewComentariosViaje($request);
+    }
+    public function reembolsoProcessCliente(Request $request){
+        $found = Pasajes::where('id_pasaje',$request->id_pasaje)->get();
+        $dias = Carbon::createFromTimeStamp(strtotime($found[0]->created_at))->diffForHumans();
+        Pasajes::where('id_pasaje',$request->id_pasaje)->delete();
+        if($dias < 2 ){
+            return "tengo menos de 2 dias";
+        }
+        return "tengo mas";
+        //SIN TERMINAAAAAR PERO EL CODIGO YA ME DEVUELVE LA CANTIDAD DE DIAS GG IZI NO MENTIRA ESTUVE DOS HORAS PARA SABER ESTA MRD CARBON DEL ORTO NO MENTIRA I LOVE YOU UWU
     }
 }

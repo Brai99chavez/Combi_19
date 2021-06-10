@@ -6,20 +6,26 @@
 @section('content')
     @if($viajes->isNotEmpty())
         @foreach($viajes as $viaje)
-            <div class="formulary">
+            <div class="formulary" style="width: 1000px">
                 <tr>
+                    <td>N° Pasaje: {{$viaje->id_pasaje}}</td>
                     <td>Fecha: {{$viaje->fecha}} </td> 
-                    <td>Hora: {{$viaje->hora}}</td> <br>
+                    <td>Hora: {{$viaje->hora}}</td>
                     <td>Origen: {{$viaje->origen}}</td> 
-                    <td>Destino: {{$viaje->destino}}</td> <br>
-                    <td>Precio: {{$viaje->precio}}$</td> <br>
+                    <td>Destino: {{$viaje->destino}}</td>
+                    <td>Precio: {{$viaje->precio}}$</td>
                 </tr>
+                <form action="{{route('reembolsoProcessCliente')}}" method="GET">
+                    <input type="hidden" name="id_pasaje" value="{{$viaje->id_pasaje}}">
+                    <br>
+                    <button type="submit" class="botones" style="width: 150px">Solicitar Reembolso</button>
+                </form>
             </div>   
         @endforeach
     @else
         <div class="formulary">
-            <h2>Haz tu primer compra</h2>
-            <a href="{{route('buscarViajesDisponibles')}}"><button>Comprar</button></a>
+            <strong><em>Haz tu primer compra</em></strong><br><br>
+            <a href="{{route('buscarViajesDisponibles')}}"><button class="botones">Comprar</button></a>
         </div>
     @endif
 @error('success')
