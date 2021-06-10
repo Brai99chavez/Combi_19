@@ -143,7 +143,7 @@ class userController extends Controller
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
         ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
         ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
-        return view('user.misViajes.misViajes',compact('viajes','viaje_insumos'));
+        return view('user.misViajes',compact('viajes','viaje_insumos','comentarios'));
     }
     public function updateMembresia(){
         $golden = Membresias::where('id_membresia',1)->get();
@@ -189,7 +189,7 @@ class userController extends Controller
         $newComentario->id_usuario = session('id_usuario');
         $newComentario->id_viaje = $request->id_viaje;
         $newComentario->save();
-        return redirect()->route('historialDeViajes')->withErrors(['sucess'=>'Comentario subido']);
+        return redirect()->route('historialDeViajes')->withErrors(['success'=>'Comentario subido']);   
     }
     public function historialDeViajes(){
         $viajes = Viajes::join('pasajes','pasajes.id_viaje','=','viajes.id_viaje')

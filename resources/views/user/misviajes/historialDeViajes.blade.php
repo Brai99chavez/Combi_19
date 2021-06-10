@@ -21,4 +21,16 @@
         <a href="{{route('buscarViajesDisponibles')}}"><button class="botones">Comprar</button></a>
     @endif
 </div>
+@error('success')
+<script>
+    Swal.fire({
+        icon: 'warning',
+        iconColor: '#48C9B0',
+        title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+        background:'#404040',
+        confirmButtonColor: '#45B39D ',
+        confirmButtonText: 'Got it!' ,
+    })
+</script>
+@enderror
 @endsection
