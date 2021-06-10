@@ -8,13 +8,12 @@
     @if($viajes->isNotEmpty())
     <ul>
         @foreach($viajes as $viaje)
-            <li style="list-style:none">
-                <p>Origen: {{$viaje->origen}} | Destino: {{$viaje->destino}} | Fecha: {{$viaje->fecha}} | Categoria: {{$viaje->categoria}}</p>
-                <form action="{{route('viewComentariosViaje')}}" method="GET">
-                    <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
-                    <button type="submit" class="botones" style="width: 300px">Ver Comentarios</button>
-                </form> 
-            </li>   
+            <hr>
+            <p>Origen: {{$viaje->origen}} | Destino: {{$viaje->destino}} | Fecha: {{$viaje->fecha}} | Categoria: {{$viaje->categoria}}</p>
+            <form action="{{route('viewComentariosViaje')}}" method="GET">
+                <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
+                <button type="submit" class="botones" style="width: 300px">Ver Comentarios</button>
+            </form> 
         @endforeach
     </ul>
     @else

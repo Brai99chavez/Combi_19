@@ -34,7 +34,6 @@
                 </form>    
             @endif
         @endforeach
-        </ul>
     @else
         <em>Se el primero en agregar un comentario...</em>  
     @endif

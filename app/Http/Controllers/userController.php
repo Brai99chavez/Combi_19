@@ -143,7 +143,7 @@ class userController extends Controller
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
         ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
         ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
-        return view('user.misViajes',compact('viajes','viaje_insumos','comentarios'));
+        return view('user.misViajes.misViajes',compact('viajes','viaje_insumos'));
     }
     public function updateMembresia(){
         $golden = Membresias::where('id_membresia',1)->get();
