@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            @if($Admin->isNotEmpty() && $Choferes->isNotEmpty())
+            @if($Admin->isNotEmpty() || $Choferes->isNotEmpty())
                 @foreach($Admin as $admin)
                 <tr>
                     <td>{{$admin->nombre}}</td>
@@ -78,14 +78,13 @@
             @else
             <script>
                 Swal.fire({
-                    icon: 'warning',
-                    iconColor: '#48C9B0',
-                    title: '<strong style= "color: white; font-family: arial;"> No hay empleados</strong>',
-                    background:'#404040',
-                    confirmButtonColor: '#45B39D ',
-                    confirmButtonText: 'Got it!' ,
-                })
-            </script>
+                title: 'No hay empleados',
+                icon: 'success',
+                iconColor: '#105671',
+                confirmButtonColor: '#105671',
+                confirmButtonText: 'ok'
+            })
+                </script>
             @endif        
         </tbody>
     </table>
