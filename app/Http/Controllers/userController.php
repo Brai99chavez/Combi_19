@@ -130,7 +130,6 @@ class userController extends Controller
         return redirect()->route('misViajes')->withErrors(['success' => 'Compra Exitosa']);
     }
     public function misViajes(){
-    
         $viajes = Viajes::join('pasajes','pasajes.id_viaje','=','viajes.id_viaje')
         ->join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
         ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
@@ -138,21 +137,12 @@ class userController extends Controller
         ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
-        ->select("pasajes.id_pasaje","pasajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
+        ->select("pasajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
         "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
         ->where('pasajes.id_usuario',session('id_usuario'))->get();
-
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
         ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
         ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
-
-
-        $comentarios = Comentarios::join("pasajes","pasajes.id_pasaje","=","comentarios.id_pasaje")
-        ->join("usuarios","usuarios.id_usuario","=","comentarios.id_usuario")
-       // ->where('pasajes.id_usuario',session('id_usuario'))->get();
-       ->where('pasajes.id_pasaje','comentarios.id_usuario')->get();
-
-
         return view('user.misViajes',compact('viajes','viaje_insumos','comentarios'));
     }
     public function updateMembresia(){
@@ -193,19 +183,34 @@ class userController extends Controller
     }
 
     public function guardarComentario(Request $request){
-
-        // return $request;
-
+        $request->validate(['descripcion' => 'required']);
         $newComentario = new Comentarios();
         $newComentario->descripcion = $request->descripcion;
         $newComentario->id_usuario = session('id_usuario');
-        $newComentario->id_pasaje = $request->id_pasaje;
-        $newComentario->fecha = date("y-m-d");
-        $newComentario->hora = date("h:i:s");
-
+        $newComentario->id_viaje = $request->id_viaje;
         $newComentario->save();
-        return redirect()->route('misViajes')->withErrors(['sucess'=>'comentario creado con Exito']);
-
+        return redirect()->route('historialDeViajes')->withErrors(['sucess'=>'Comentario subido']);
     }
-
+    public function historialDeViajes(){
+        $viajes = Viajes::join('pasajes','pasajes.id_viaje','=','viajes.id_viaje')
+        ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
+        ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
+        ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
+        ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
+        ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
+        ->select("viajes.id_viaje","categorias.nombre as categoria","viajes.precio as precio",
+         "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha")
+        ->where('pasajes.id_usuario',session('id_usuario'))
+        ->where('viajes.estado',"Finalizado")
+        ->get();
+        return view('user.misviajes.historialDeViajes',compact('viajes'));
+    }
+    public function viewComentariosViaje(Request $request){
+        $comentarios = Comentarios::join('usuarios','usuarios.id_usuario','=','comentarios.id_usuario')
+        ->select('usuarios.nombre','usuarios.apellido','comentarios.descripcion','comentarios.created_at')
+        ->orderByDesc('comentarios.created_at')
+        ->get();
+        $id_viaje = session('id_usuario');
+        return view('user.misviajes.comentariosDeUnViaje',compact('comentarios','id_viaje'));
+    }
 }

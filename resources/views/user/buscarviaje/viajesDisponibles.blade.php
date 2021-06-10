@@ -9,7 +9,7 @@
 @error('sucess')
 <script>
     Swal.fire({
-    title: '{{$message}}',
+    title: '<em>{{$message}}</em>',
     icon: 'success',
     iconColor: '#105671',
     confirmButtonColor: '#105671',
@@ -48,14 +48,17 @@
             <td>{{$viaje->destino}}</td>
             <td>{{$viaje->precio}}$</td>
             <td>{{$viaje->cantPasajes}}</td>
-            
+            @if($viaje->cantPasajes>0)
             <td>
-                 <form action="{{route('resumenCompraViaje')}}" method="get">
-                    @csrf
-                    <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
-                    <button type="submit">Comprar</button>
-                 </form>
+                <form action="{{route('resumenCompraViaje')}}" method="get">
+                   @csrf
+                   <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
+                   <button type="submit">Comprar</button>
+                </form>
             </td>
+            @else
+            <td>Pasajes agotados</td>   
+            @endif
         </tr>
         @endforeach
         @else

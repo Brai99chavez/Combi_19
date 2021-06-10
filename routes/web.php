@@ -178,4 +178,7 @@ Route::post('guardarComentario', [userController::class,'guardarComentario'])->n
 
 Route::get('historialDeViajes', [userController::class,'historialDeViajes'])->name('historialDeViajes');
 
+Route::get('viewComentariosViaje', [userController::class,'viewComentariosViaje'])->name('viewComentariosViaje');
+
+
 

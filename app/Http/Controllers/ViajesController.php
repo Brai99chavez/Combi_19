@@ -19,7 +19,6 @@ use phpDocumentor\Reflection\PseudoTypes\True_;
 class ViajesController extends Controller
 {
     public function homeviajes(){
-        Viajes::where('fecha','<',date('Y-m-d'))->where('estado','<>',"Cancelado")->update(['estado' => 'Finalizado']);
         $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
         ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
         ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
