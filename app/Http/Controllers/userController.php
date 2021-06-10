@@ -183,7 +183,7 @@ class userController extends Controller
     }
 
     public function guardarComentario(Request $request){
-        $request->validate(['descripcion' => 'required']);
+        $request->validate(['descripcion' => 'required'],['required' => 'Ingrese un comentario']);
         $newComentario = new Comentarios();
         $newComentario->descripcion = $request->descripcion;
         $newComentario->id_usuario = session('id_usuario');
@@ -207,14 +207,14 @@ class userController extends Controller
     }
     public function viewComentariosViaje(Request $request){
         $comentarios = Comentarios::join('usuarios','usuarios.id_usuario','=','comentarios.id_usuario')
-        ->select('usuarios.nombre','usuarios.apellido','usuarios.id_usuario','comentarios.descripcion','comentarios.created_at')
+        ->select('usuarios.nombre','usuarios.apellido','usuarios.id_usuario','comentarios.id_comentario',
+        'comentarios.descripcion','comentarios.created_at')
         ->where('id_viaje',$request->id_viaje) 
         ->orderByDesc('comentarios.created_at')
         ->get();
-        $id_viaje = session('id_usuario');
+        $id_viaje = $request->id_viaje; 
         return view('user.misviajes.comentariosDeUnViaje',compact('comentarios','id_viaje'));
     }
-
 
     public function reembolso(Request $request){
 
@@ -227,4 +227,22 @@ class userController extends Controller
 
         return redirect()->route('misViajes')->withErrors(['sucess'=>'El pasaje se reembolso correctamente']);
     }
+
+
+
+    public function updateComentario(Request $request){
+        $comentario = Comentarios::where('id_comentario',$request->id_comentario)->get();
+        $id_viaje = $request->id_viaje;
+        return view('user.misviajes.updateComentario',compact('comentario','id_viaje'));
+    }
+    public function updateComentarioProcess(Request $request){
+        $request->validate(['descripcion' => 'required'],['required' => 'Ingrese un comentario']);
+        Comentarios::where('id_comentario',$request->id_comentario)->update(['descripcion' => $request->descripcion]);
+        return $this->viewComentariosViaje($request);
+    }
+    public function deleteComentarioProcess(Request $request){
+        Comentarios::where('id_comentario',$request->id_comentario)->delete();
+        return $this->viewComentariosViaje($request);
+    }
+
 }
