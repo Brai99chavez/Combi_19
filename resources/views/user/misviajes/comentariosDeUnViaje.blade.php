@@ -15,15 +15,24 @@
     <br>
     <h2>Comentarios</h2>
     @if($comentarios->isNotEmpty())
-        <ul>
         @foreach($comentarios as $com)
             <hr>
-            <li style="list-style:none">
                 <em>{{$com->nombre}} {{$com->apellido}} | {{$com->created_at}}</em>
                 <br><br>
                 {{$com->descripcion}} 
                 <br><br>
-            </li>
+            @if($com->id_usuario == session('id_usuario'))
+                <form action="{{route('updateComentario')}}" method="GET">
+                    <input type="hidden" value="{{$id_viaje}}" name="id_viaje">
+                    <input type="hidden" value="{{$com->id_comentario}}" name="id_comentario">
+                    <button type="submit" class="botones" style="width: 150px">Modificar</button>
+                </form>
+                <form action="{{route('deleteComentario')}}" method="GET">
+                    <input type="hidden" value="{{$id_viaje}}" name="id_viaje">
+                    <input type="hidden" value="{{$com->id_comentario}}" name="id_comentario">
+                    <button type="submit" class="botones" style="width: 150px">Eliminar</button>
+                </form>    
+            @endif
         @endforeach
         </ul>
     @else

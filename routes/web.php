@@ -180,5 +180,13 @@ Route::get('historialDeViajes', [userController::class,'historialDeViajes'])->na
 
 Route::get('viewComentariosViaje', [userController::class,'viewComentariosViaje'])->name('viewComentariosViaje');
 
+Route::get('updateComentario', [userController::class,'updateComentario'])->name('updateComentario');
+
+Route::post('updateComentarioProcess', [userController::class,'updateComentarioProcess'])->name('updateComentarioProcess');
+
+Route::get('deleteComentario', [userController::class,'deleteComentarioProcess'])->name('deleteComentario');
+
+
+
 
 
