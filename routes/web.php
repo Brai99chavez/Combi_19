@@ -162,7 +162,7 @@ Route::get('viajesDisponibles', [userController::class,'viajesDisponibles'])->na
 
 Route::post('pagoConTarjetaNueva', [userController::class,'pagoConTarjetaNueva'])->name('pagoConTarjetaNueva');
 
-Route::post('pagoConTarjetaGuardada', [userController::class,'pagoConTarjetaGuardada'])->name('pagoConTarjetaGuardada');
+Route::get('pagoConTarjetaGuardada', [userController::class,'pagoConTarjetaGuardada'])->name('pagoConTarjetaGuardada');
 
 Route::get('resumenCompraViaje', [userController::class,'resumenCompra'])->name('resumenCompraViaje');
 

@@ -82,25 +82,51 @@ class userController extends Controller
         ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
         "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',
         "viajes.cantPasajes")->where('viajes.id_viaje',$request->id_viaje)->get();
-        return view('user.pagarviaje.detallesViajeCompra', compact('viaje'));
+        $golden = Membresias::select('descuento')->where('id_membresia',1)->get();
+        $descuento = $golden[0]->descuento * $viaje[0]->precio / 100;
+        $precioConDescuento = $viaje[0]->precio - $descuento;
+        return view('user.pagarviaje.detallesViajeCompra', compact('viaje','precioConDescuento','descuento','golden'));
     }
     public function crearPago(Request $request){
         $request->validate(['cantPasajesCompra' => 'required|numeric'],['numeric' => 'El valor ingresado es invalido']);
         $id_viaje = $request->id_viaje;
+        if(isset($request->precioConDescuento)){
+            $precioConDescuento = $request->precioConDescuento;
+        }else{
+            $precio = $request->precio;
+        }
         $cantPasajesCompra = $request->cantPasajesCompra;
         if(session('id_membresia')==1)
-            return view('user.pagarviaje.crearPago', compact('id_viaje','cantPasajesCompra'));
+            return view('user.pagarviaje.crearPago', compact('id_viaje','cantPasajesCompra','precio'));
         else{
             $numero = Usuarios::where('id_usuario',session('id_usuario'))->select('tarjeta')->get();
             $resultado = substr($numero[0]->tarjeta, 12, 4);
-            return view('user.pagarviaje.realizarPagoGolden',compact('id_viaje','resultado','cantPasajesCompra'));
+            return view('user.pagarviaje.realizarPagoGolden',compact('id_viaje','resultado','cantPasajesCompra','precioConDescuento'));
         }
       }      
     public function pagoConTarjetaNueva(clienteMembresiaRequest $request){
-
+        for ($i = 0; $i < $request->cantPasajesCompra;$i++){
+            $pasaje = new Pasajes;
+            $pasaje->id_usuario = session('id_usuario');
+            $pasaje->id_viaje = $request->id_viaje;
+            $pasaje->save();
+        }
+        $pasajesActuales = Viajes::where('id_viaje',$request->id_viaje)->select('cantPasajes')->get();
+        $resultado = $pasajesActuales[0]->cantPasajes - $request->cantPasajesCompra;
+        Viajes::where('id_viaje',$request->id_viaje)->update(['cantPasajes' => $resultado]);
+        return redirect()->route('misViajes')->withErrors(['success' => 'Compra Exitosa']);
     }
     public function pagoConTarjetaGuardada(Request $request){
-
+        for ($i = 0; $i < $request->cantPasajesCompra;$i++){
+            $pasaje = new Pasajes;
+            $pasaje->id_usuario = session('id_usuario');
+            $pasaje->id_viaje = $request->id_viaje;
+            $pasaje->save();
+        }
+        $pasajesActuales = Viajes::where('id_viaje',$request->id_viaje)->select('cantPasajes')->get();
+        $resultado = $pasajesActuales[0]->cantPasajes - $request->cantPasajesCompra;
+        Viajes::where('id_viaje',$request->id_viaje)->update(['cantPasajes' => $resultado]);
+        return redirect()->route('misViajes')->withErrors(['success' => 'Compra Exitosa']);
     }
     public function misViajes(){
         $viajes = Pasajes::join("viajes","viajes.id_viaje","=","pasajes.id_viaje")
