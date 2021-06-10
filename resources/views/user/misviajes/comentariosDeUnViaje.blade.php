@@ -38,7 +38,7 @@
         <em>Se el primero en agregar un comentario...</em>  
     @endif
 </div>
-@error('sucess')
+@error('success')
 <script>
     Swal.fire({
     title: '<em>{{$message}}</em>',

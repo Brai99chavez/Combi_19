@@ -54,6 +54,7 @@
             <td>{{$viaje->precio}}$</td>
             <td>{{$viaje->cantPasajes}}</td>
             <td>{{$viaje->estado}}</td>
+            @if($viaje->estado<>"Finalizado")
             <td class="tableOptions">
                 <form action="{{route('updateviajes')}}" method="GET">
                     @csrf
@@ -66,6 +67,7 @@
                     <button type="submit"><i class="fas fa-trash-alt"></i></button>
                 </form>
             </td>
+            @endif
         </tr>
         @endforeach
         

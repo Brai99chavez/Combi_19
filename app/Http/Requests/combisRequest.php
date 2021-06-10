@@ -27,7 +27,7 @@ class combisRequest extends FormRequest
             'patente' =>'required',
             'modelo' =>'required',
             'color' =>'required',
-            'cant_asientos' =>'required|gt:0'
+            'cant_asientos' =>'required|numeric|gt:0'
         ];
     }
 }

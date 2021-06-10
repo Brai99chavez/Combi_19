@@ -23,6 +23,11 @@ class pasajesSeeder extends Seeder
         $pasaje2->id_usuario=2;
         $pasaje2->id_viaje=2;
         $pasaje2->save();
+        
+        $pasaje2 = new Pasajes();
+        $pasaje2->id_usuario=2;
+        $pasaje2->id_viaje=1;
+        $pasaje2->save();
 
         $pasaje3 = new Pasajes();
         $pasaje3->id_usuario=3;
