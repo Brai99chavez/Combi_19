@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuarios;
 use App\Http\Requests\loginRequest;
-use GuzzleHttp\Psr7\Request;
+use App\Models\Viajes;
 
 class AuthController extends Controller
 {
@@ -22,6 +22,7 @@ class AuthController extends Controller
             session(['codigo'=>$user[0]->codigo]); 
             session(['id_usuario'=>$user[0]->id_usuario]);
             session(['id_membresia'=>$user[0]->id_membresia]);
+            Viajes::where('fecha','<',date('Y-m-d'))->where('estado','<>',"Cancelado")->update(['estado' => 'Finalizado']);
             
             if (session()->get('id_permiso') == 1) {
                 return redirect()->route('homeUser');

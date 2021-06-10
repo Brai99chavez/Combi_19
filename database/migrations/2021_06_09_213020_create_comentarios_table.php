@@ -17,10 +17,8 @@ class CreateComentariosTable extends Migration
             
             $table->bigIncrements('id_comentario');
             $table->integer('id_usuario');
-            $table->integer('id_pasaje');
+            $table->integer('id_viaje');
             $table->string('descripcion');
-            $table->date('fecha');
-            $table->time('hora');
             $table->timestamps();
         });
     }
