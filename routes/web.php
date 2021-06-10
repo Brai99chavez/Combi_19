@@ -157,3 +157,5 @@ Route::post('crearPasajeYPago', [userController::class,'crearPasajeYPago'])->nam
 Route::get('crearPago', [RegisterController::class,'crearPago'])->name('crearPago');
 
 Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
+
+Route::post('guardarComentario', [userController::class,'guardarComentario'])->name('guardarComentario');
