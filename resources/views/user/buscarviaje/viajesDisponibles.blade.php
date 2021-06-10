@@ -9,13 +9,12 @@
 @error('sucess')
 <script>
     Swal.fire({
-        icon: 'warning',
-        iconColor: '#48C9B0',
-        title: '<strong style= "color: white; font-family: arial;"> {{$message}} </strong>',
-        background:'#404040',
-        confirmButtonColor: '#45B39D ',
-        confirmButtonText: 'Got it!' ,
-    })
+    title: '{{$message}}',
+    icon: 'success',
+    iconColor: '#105671',
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'ok'
+})
 </script>
 @enderror
      <table>
@@ -49,6 +48,7 @@
             <td>{{$viaje->destino}}</td>
             <td>{{$viaje->precio}}$</td>
             <td>{{$viaje->cantPasajes}}</td>
+            
             <td>
                  <form action="{{route('resumenCompraViaje')}}" method="get">
                     @csrf
@@ -61,27 +61,26 @@
         @else
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">Por el momento no hay viajes disponibles</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>Por el momento no hay viajes disponibles</em>',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @endif
     </tbody>
+    
 </table>
 @error('success')
 <script>
     Swal.fire({
-        icon: 'warning',
-        iconColor: '#48C9B0',
-        title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-        background:'#404040',
-        confirmButtonColor: '#45B39D ',
-        confirmButtonText: 'Got it!' ,
-    })
+    title: '<em>{{$message}}</em>',
+    icon: 'success',
+    iconColor: '#105671',
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'ok'
+})
 </script>
 @enderror
 @endsection

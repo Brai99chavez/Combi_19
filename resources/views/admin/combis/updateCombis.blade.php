@@ -8,13 +8,12 @@
         @error('patente')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>{{$message}}</em>',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @enderror
         <strong>Patente</strong><br>
@@ -22,13 +21,12 @@
         @error('modelo')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>{{$message}}</em>',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @enderror
         <strong>Modelo:</strong><br>
@@ -36,13 +34,12 @@
         @error('color')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>{{$message}}</em>',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @enderror
         <strong>Color:</strong><br>
@@ -50,13 +47,12 @@
         @error('cant_asientos')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>{{$message}}</em>',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @enderror
         <strong>Cantidad Asientos:</strong><br>
@@ -64,13 +60,12 @@
         @error('categoria')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>{{$message}}</em>',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @enderror
         <strong>Categoria:</strong><br>
