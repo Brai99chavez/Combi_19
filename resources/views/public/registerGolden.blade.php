@@ -49,7 +49,7 @@
     <strong>
         dni:*
         <br>
-        <input type="text" name="dni" value="{{old('dni')}}" placeholder="987654321....">
+        <input type="number" name="dni" value="{{old('dni')}}" placeholder="987654321....">
     </strong>
     @error('dni')
     <script>
@@ -67,7 +67,7 @@
     <strong>
         Email:*
         <br>
-        <input type="text" name="email" value="{{old('email')}}" placeholder="example@gmail.com.....">
+        <input type="email" name="email" value="{{old('email')}}" placeholder="example@gmail.com.....">
     </strong>
     @error('email')
     <script>

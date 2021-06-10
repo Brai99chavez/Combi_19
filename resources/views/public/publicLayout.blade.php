@@ -21,7 +21,7 @@
         <nav class="menu">
             <a href="{{route('/')}}">Home Publico</a>
             <a href="{{route('login')}}">Iniciar Sesion</a>
-            <a href="{{route('registerEleccion')}}">Registrarse</a>
+            <a href="{{route('register')}}">Registrarse</a>
 
         </nav>
     </header>
