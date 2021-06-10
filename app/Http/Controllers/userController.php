@@ -8,6 +8,7 @@ use App\Models\Pasajes;
 use App\Models\Viaje_insumos;
 use App\Models\Viajes;
 use App\Models\Combis;
+use App\Models\Comentarios;
 use App\Models\Membresias;
 use App\Models\Tarjetas;
 use App\Models\Usuarios;
@@ -63,24 +64,30 @@ class userController extends Controller
           }
     }
     public function misViajes(){
-        $viajes = Pasajes::join("viajes","viajes.id_viaje","=","pasajes.id_viaje")
+    
+        $viajes = Viajes::join('pasajes','pasajes.id_viaje','=','viajes.id_viaje')
         ->join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
         ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
         ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
         ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
-        ->select("pasajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
+        ->select("pasajes.id_pasaje","pasajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
         "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
-        ->where("usuarios.id_usuario","=","pasajes.id_usuario","and","viajes.id_viaje","=","pasajes.id_viaje")
-        ->orderByDesc('pasajes.id_viaje')
-        ->get();
+        ->where('pasajes.id_usuario',session('id_usuario'))->get();
 
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
         ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
         ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
 
-        return view('user.misViajes',compact('viajes','viaje_insumos'));
+
+        $comentarios = Comentarios::join("pasajes","pasajes.id_pasaje","=","comentarios.id_pasaje")
+        ->join("usuarios","usuarios.id_usuario","=","comentarios.id_usuario")
+       // ->where('pasajes.id_usuario',session('id_usuario'))->get();
+       ->where('pasajes.id_pasaje','comentarios.id_usuario')->get();
+
+
+        return view('user.misViajes',compact('viajes','viaje_insumos','comentarios'));
     }
     public function updateMembresia(){
         $golden = Membresias::where('id_membresia',1)->get();
@@ -100,5 +107,21 @@ class userController extends Controller
         Usuarios::where('id_usuario', session('id_usuario')->update(['id_membresia' => 1]));
         return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Ahora usted tiene membresia BASIC']);   
     }*/
+
+    public function guardarComentario(Request $request){
+
+        // return $request;
+
+        $newComentario = new Comentarios();
+        $newComentario->descripcion = $request->descripcion;
+        $newComentario->id_usuario = session('id_usuario');
+        $newComentario->id_pasaje = $request->id_pasaje;
+        $newComentario->fecha = date("y-m-d");
+        $newComentario->hora = date("h:i:s");
+
+        $newComentario->save();
+        return redirect()->route('misViajes')->withErrors(['sucess'=>'comentario creado con Exito']);
+
+    }
 
 }
