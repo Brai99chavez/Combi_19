@@ -68,7 +68,7 @@ Route::get('home_admin', [AdminController::class,'homeadmin'])->name('homeadmin'
 
 Route::get('create_viaje',[ViajesController::class,'createviaje'])->name(('createviaje'));
 
-Route::post('working',[ViajesController::class,'createviajeprocess'])->name(('createviajeprocess'));
+Route::post('createviaje_process',[ViajesController::class,'createviajeprocess'])->name(('createviajeprocess'));
 
 Route::get('home_viajes',[ViajesController::class,'homeviajes'])->name(('homeviajes'));
 

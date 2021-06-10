@@ -5,7 +5,7 @@
 @endsection        
 @section('content')
 <div class="formulary">
-    <strong>Total a cobrar: ${{$precio}}</strong>
+    <strong>Total a cobrar: ${{$precio * $cantPasajesCompra}}</strong>
     <form action="{{route('pagoConTarjetaNueva')}}" method="POST">
         @csrf
         <input type="hidden" value="{{$cantPasajesCompra}}" name="cantPasajesCompra">
