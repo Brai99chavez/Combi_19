@@ -15,19 +15,19 @@
     <br>
     <h2>Comentarios</h2>
     @if($comentarios->isNotEmpty())
+        <ul>
         @foreach($comentarios as $com)
             <hr>
-            <ul>    
-                <li>
-                    {{$com->nombre}} {{$com->apellido}} - realizado:{{$com->created_at}}
-                    <br>
-                    Comentario: {{$com->descripcion}} 
-                    <br>
-                </li>
-            </ul>
+            <li style="list-style:none">
+                <em>{{$com->nombre}} {{$com->apellido}} | {{$com->created_at}}</em>
+                <br><br>
+                {{$com->descripcion}} 
+                <br><br>
+            </li>
         @endforeach
+        </ul>
     @else
-        <h2>Se el primero en agregar un comentario...</h2>  
+        <em>Se el primero en agregar un comentario...</em>  
     @endif
 </div>
 @error('sucess')
