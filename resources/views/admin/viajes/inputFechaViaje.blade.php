@@ -10,20 +10,19 @@
         <form action="{{route('createviaje')}}" method="GET">
             @csrf
             <input type="hidden" name="ladeHoy" value="{{date("Y-m-d")}}">
-            <input type="date" name="fecha">
-            <button type="submit">Verificar disponibilidad</button>
+            <input type="date" name="fecha"><br><br>
+            <button type="submit" class="botones">Verificar disponibilidad</button>
         </form>
     </div>
     @error('fecha')
-    <script>
-        Swal.fire({
-            icon: 'warning',
-            iconColor: '#48C9B0',
-            title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-            background:'#404040',
-            confirmButtonColor: '#45B39D ',
-            confirmButtonText: 'Got it!' ,
+        <script>
+            Swal.fire({
+            title: '{{$message}}',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
         })
-    </script>
+        </script>
     @enderror
 @endsection

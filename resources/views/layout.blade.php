@@ -29,9 +29,6 @@
             </nav>
         </header>
         <br>
-        <br>
-        <br>
-        <br>
             @yield('content')
             @yield('js')
     </body>
