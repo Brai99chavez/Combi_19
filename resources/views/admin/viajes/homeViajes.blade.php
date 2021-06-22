@@ -36,7 +36,6 @@
         @if($viajes->isNotEmpty())
             @foreach($viajes as $viaje)
         <tr>
-
             <td>{{$viaje->chofer}}</td>
             <td>{{$viaje->patente}}</td>
             <td>{{$viaje->categoria}}</td>

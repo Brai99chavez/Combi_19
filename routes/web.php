@@ -141,6 +141,11 @@ Route::post('delete_combi',[CombisController::class,'deleteCombi'])->name(('dele
 
 Route::get('homeChofer',[choferController::class,'homeChofer'])->name(('homeChofer'));
 
+Route::get('updateChofer',[choferController::class,'updateChofer'])->name(('updateChofer'));
+
+Route::post('updateChoferProcess',[choferController::class,'updateChoferProcess'])->name(('updateChoferProcess'));
+
+
 
 //USUARIO
 

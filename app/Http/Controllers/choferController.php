@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\choferRequest;
+use App\Models\Usuarios;
 use App\Models\Viajes;
 use Illuminate\Http\Request;
 
@@ -19,7 +21,38 @@ class choferController extends Controller
          "combis.patente", "viajes.estado")
         ->where("viajes.id_chofer", "=", session('id_usuario'))
         ->where("viajes.estado", "Pendiente")
-        ->get(); 
+        ->where("viajes.fecha","=", date('Y-m-d'))
+        ->get();
        return view('chofer.homeChofer', compact('viajesToday'));
    }
+   
+   public function updateChofer (){
+    $usuario =  Usuarios::where('id_usuario','=',session('id_usuario'))->get();
+    return view('chofer.updatePerfilChofer',compact('usuario'));
+    }
+
+    public function updateChoferProcess(choferRequest $request){
+        if($this->newEmail($request)){
+            if($this->updateEmail($request)){
+                session(['email'=>$request->email]); 
+                return redirect()->route('updateChofer')->withErrors(['sucess'=>'Perfil actualizado correctamente']);
+            }
+        }
+        return redirect()->route('updateChofer')->withErrors(['error'=>'Ya hay otra cuenta registrada con el mismo email, intente con otra']);
+    }
+    private function newEmail($request){
+        return session('email');
+        if(session('email') <> $request->email){
+            return true;
+        }     
+        return false;
+    }
+    private function updateEmail($request){
+        $found = Usuarios::where('email', $request->email)->get();
+        if($found->count() == 0){
+            Usuarios::where('id_usuario',session('id_usuario'))->update(["email" => $request->email]);
+            return true;
+        }
+        return false;
+    }
 }
