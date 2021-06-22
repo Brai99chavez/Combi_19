@@ -39,7 +39,7 @@
         @enderror
         <br>
         <strong>DNI:*</strong><br>
-        <input type="text" name="dni" placeholder="Example:123456789..." value="{{$usuario[0]->dni}}"><br>
+        <input type="number" name="dni" placeholder="Example:123456789..." value="{{$usuario[0]->dni}}"><br>
         @error('dni')
         <script>
             Swal.fire({

@@ -18,7 +18,7 @@
                 <form action="{{route('reembolsoProcessCliente')}}" method="GET">
                     <input type="hidden" name="id_pasaje" value="{{$viaje->id_pasaje}}">
                     <br>
-                    <button type="submit" class="botones" style="width: 150px">Solicitar Reembolso</button>
+                    <button type="submit" class="botones" style="width: 150px">Reembolsar Pasaje</button>
                 </form>
             </div>   
         @endforeach

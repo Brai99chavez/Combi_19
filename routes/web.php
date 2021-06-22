@@ -9,6 +9,7 @@ use App\Http\Controllers\publicController;
 use App\Http\Controllers\ViajesController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\choferController;
 use App\Http\Controllers\ciudadesController;
 use App\Http\Controllers\empleadosController;
 use App\Http\Controllers\RegisterController;
@@ -49,8 +50,8 @@ Route::post('auth',[AuthController::class,'autenticacion'])->name('autenticacion
 Route::get('logOut', [AuthController::class,'logOut'])->name('logOut');
 
 //ADMIN
-        //ADMIN - CIUDADES
 
+        //ADMIN - CIUDADES
 Route::get('home_ciudades', [ciudadesController::class,'showCiudades'])->name('homeciudades');
 
 Route::get('create_ciudad', [ciudadesController::class,'createciudades'])->name('createciudad');
@@ -89,8 +90,6 @@ Route::post('createviajeprocess_insumos',[ViajesController::class,'createviajepr
 Route::post('addInsumos',[ViajesController::class,'addInsumos'])->name(('addInsumos'));
 
 Route::post('addInsumos_process',[ViajesController::class,'addInsumos_process'])->name(('addInsumos.process'));
-
-
 
         //ADMIN - INSUMOS
 Route::get('home_insumos',[InsumosController::class,'homeinsumos'])->name(('homeinsumos'));
@@ -137,6 +136,11 @@ Route::get('update_combi',[CombisController::class,'updateCombi'])->name(('updat
 Route::post('update_combi_process',[CombisController::class,'updateCombiProcess'])->name(('updatecombiprocess'));
 
 Route::post('delete_combi',[CombisController::class,'deleteCombi'])->name(('deleteCombi'));
+
+//CHOFER
+
+Route::get('homeChofer',[choferController::class,'homeChofer'])->name(('homeChofer'));
+
 
 //USUARIO
 

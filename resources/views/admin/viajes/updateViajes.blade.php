@@ -113,7 +113,7 @@
 })
 </script>
 @enderror
-@error('cantPasajes')
+@error('destino')
 <script>
     Swal.fire({
     title: '<em>{{$message}}</em>',
@@ -124,4 +124,5 @@
 })
 </script>
 @enderror
+
 @endsection

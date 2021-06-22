@@ -26,7 +26,7 @@ class empleadosRequest extends FormRequest
         return [
             'nombre'=>'required|max:40',
             'apellido'=>'required|max:40',
-            'dni'=>'required|numeric|unique:Usuarios',
+            'dni'=>'required|max:10|unique:Usuarios',
             'email'=>'required|email|unique:Usuarios',
             'contraseña'=>'required',
             'contraseñavalidation' => 'required|same:contraseña'
@@ -38,7 +38,9 @@ class empleadosRequest extends FormRequest
             'dni.unique' => 'El DNI ingresado ya pertenece a un empleado registrado',
             'email.unique' => 'El email ingresado ya pertenece a un empleado registrado',
             'contraseñavalidation.same' => 'Las contraseñas no coinciden',
-            'max' => 'El nombre o apellido debe tener menos de 40 caracteres',
+            'nombre.max' => 'El nombre debe tener menos de 40 caracteres',
+            'apellido.max' => 'El apellido debe tener menos de 40 caracteres',
+            'dni.max' => 'DNI invalido',
             'required' => 'Los campos no pueden estar vacios'
         ];
     }

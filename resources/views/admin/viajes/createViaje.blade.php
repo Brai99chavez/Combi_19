@@ -37,17 +37,6 @@
             </select>
             @endif
         </label>
-        @error('id_chofer')
-        <script>
-            Swal.fire({
-            title: '{{$message}}',
-            icon: 'success',
-            iconColor: '#105671',
-            confirmButtonColor: '#105671',
-            confirmButtonText: 'ok'
-        })
-            </script>
-        @enderror
         <br>
         <label>
             COMBIS
@@ -71,17 +60,6 @@
                 @endif
             </select>
         </label>
-        @error('id_combi')
-        <script>
-            Swal.fire({
-            title: '{{$message}}',
-            icon: 'success',
-            iconColor: '#105671',
-            confirmButtonColor: '#105671',
-            confirmButtonText: 'ok'
-        })
-            </script>
-        @enderror
         <br>
         <label>
             FECHA
@@ -92,33 +70,11 @@
             HORA
             <input type="time" name="hora">
         </label>
-        @error('hora')
-        <script>
-            Swal.fire({
-            title: '<em>{{$message}}</em>',
-            icon: 'success',
-            iconColor: '#105671',
-            confirmButtonColor: '#105671',
-            confirmButtonText: 'ok'
-        })
-        </script>
-        @enderror
         <br>
         <label>
             PRECIO
             <input type="text" name="precio" autocomplete="off">
         </label>
-        @error('precio')
-        <script>
-            Swal.fire({
-            title: '<em>{{$message}}</em>',
-            icon: 'success',
-            iconColor: '#105671',
-            confirmButtonColor: '#105671',
-            confirmButtonText: 'ok'
-        })
-        </script>
-        @enderror
         <br>
         <label>
             ORIGEN
@@ -142,17 +98,6 @@
                 @endif
             </select>
         </label>
-        @error('origen')
-        <script>
-            Swal.fire({
-            title: '<em>{{$message}}</em>',
-            icon: 'success',
-            iconColor: '#105671',
-            confirmButtonColor: '#105671',
-            confirmButtonText: 'ok'
-        })
-        </script>
-        @enderror
         <br>
         <label>
             DESTINO
@@ -164,7 +109,44 @@
                 @endforeach
             </select>
         </label>
-        @error('destino')
+        <br>
+        <button type="submit" class="botones"> Cargar viaje</button>
+    </form>
+    </div>
+@error('id_chofer')
+<script>
+    Swal.fire({
+    title: '{{$message}}',
+    icon: 'success',
+    iconColor: '#105671',
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'ok'
+    })
+</script>
+@enderror
+@error('id_combi')
+    <script>
+        Swal.fire({
+            title: '{{$message}}',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+    </script>
+@enderror
+@error('hora')
+    <script>
+        Swal.fire({
+            title: '<em>{{$message}}</em>',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+    </script>
+@enderror
+@error('precio')
         <script>
             Swal.fire({
             title: '<em>{{$message}}</em>',
@@ -174,9 +156,16 @@
             confirmButtonText: 'ok'
         })
         </script>
-        @enderror
-        <br>
-        <button type="submit"> Cargar viaje</button>
-    </form>
-    </div>
+@enderror
+@error('destino')
+        <script>
+            Swal.fire({
+            title: '<em>{{$message}}</em>',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+        </script>
+@enderror
 @endsection

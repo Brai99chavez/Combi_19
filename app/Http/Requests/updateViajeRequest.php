@@ -26,6 +26,7 @@ class updateViajeRequest extends FormRequest
         return [
             'precio' => 'required|numeric',
             'fecha' => 'required|after_or_equal:ladeHoy',
+            'destino' => 'different:origen',
             'cantPasajes' => 'required|numeric|gte:0',
             'estado' => 'required'
         ];
