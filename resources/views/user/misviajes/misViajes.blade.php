@@ -1,7 +1,7 @@
 @extends('user.userLayout')
-@section('title', 'Mis Viajes')
+@section('title', 'Mis Pasajes')
 @section('headerTitle')
-<h1>Mis Viajes</h1>
+<h1>Mis Pasajes</h1>
 @endsection   
 @section('content')
     @if($viajes->isNotEmpty())
@@ -28,19 +28,44 @@
             <a href="{{route('buscarViajesDisponibles')}}"><button class="botones">Comprar</button></a>
         </div>
     @endif
-@error('success')
-<script>
-    Swal.fire({
-        icon: 'warning',
-        iconColor: '#48C9B0',
-        title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
-        background:'#404040',
-        confirmButtonColor: '#45B39D ',
-        confirmButtonText: 'Got it!' ,
+    @error('sucess')
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
     })
-</script>
-@enderror
+    </script>
+    @enderror
 @endsection
+
+@section('js')
+<script>
+    $('.reembolsar-pasaje').submit (function (e) {
+
+        e.preventDefault();
+
+        Swal.fire({
+    title: 'Confirmar Reembolso',
+    text: "no podras revertir esto!",
+    icon: 'warning',
+    iconColor: '#105671',
+    showCancelButton: true,
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'Si, eliminar!',
+    cancelButtonText: 'Cancelar'
+    }).then((result) => {
+    if (result.isConfirmed){
+        this.submit();
+    }
+    })
+    });
+</script>
+
+@endsection
+
 
 
 

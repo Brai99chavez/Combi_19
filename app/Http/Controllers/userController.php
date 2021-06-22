@@ -216,6 +216,31 @@ class userController extends Controller
         $id_viaje = $request->id_viaje; 
         return view('user.misviajes.comentariosDeUnViaje',compact('comentarios','id_viaje'));
     }
+
+    public function reembolso(Request $request){
+
+        Pasajes::where("id_pasaje",$request->id_pasaje)->delete();
+
+        $aux = Viajes::select('cantPasajes')->where("id_viaje",$request->id_viaje)->get();
+        $aux = $aux[0]->cantPasajes + 1 ;
+        
+        Viajes::where("id_viaje",$request->id_viaje)->update(['cantPasajes'=>$aux]);
+
+        return redirect()->route('misViajes')->withErrors(['sucess'=>'El pasaje se reembolso correctamente']);
+    }
+
+    public function reembolsoProcessCliente(Request $request){
+        $found = Pasajes::where('id_pasaje',$request->id_pasaje)->get();
+        $dias = Carbon::createFromTimeStamp(strtotime($found[0]->created_at))->diffForHumans();
+        Pasajes::where('id_pasaje',$request->id_pasaje)->delete();
+        if($dias < 2 ){
+            return "tengo menos de 2 dias";
+        }
+        return "tengo mas";
+        //SIN TERMINAAAAAR PERO EL CODIGO YA ME DEVUELVE LA CANTIDAD DE DIAS GG IZI NO MENTIRA ESTUVE DOS HORAS PARA SABER ESTA MRD CARBON DEL ORTO NO MENTIRA I LOVE YOU UWU
+    }
+
+
     public function updateComentario(Request $request){
         $comentario = Comentarios::where('id_comentario',$request->id_comentario)->get();
         $id_viaje = $request->id_viaje;
@@ -229,15 +254,5 @@ class userController extends Controller
     public function deleteComentarioProcess(Request $request){
         Comentarios::where('id_comentario',$request->id_comentario)->delete();
         return $this->viewComentariosViaje($request);
-    }
-    public function reembolsoProcessCliente(Request $request){
-        $found = Pasajes::where('id_pasaje',$request->id_pasaje)->get();
-        $dias = Carbon::createFromTimeStamp(strtotime($found[0]->created_at))->diffForHumans();
-        Pasajes::where('id_pasaje',$request->id_pasaje)->delete();
-        if($dias < 2 ){
-            return "tengo menos de 2 dias";
-        }
-        return "tengo mas";
-        //SIN TERMINAAAAAR PERO EL CODIGO YA ME DEVUELVE LA CANTIDAD DE DIAS GG IZI NO MENTIRA ESTUVE DOS HORAS PARA SABER ESTA MRD CARBON DEL ORTO NO MENTIRA I LOVE YOU UWU
     }
 }
