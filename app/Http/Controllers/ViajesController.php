@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\updateViajeRequest;
 use App\Http\Requests\viajesRequest;
 use App\Models\Ciudades;
 use App\Models\Combis;
 use App\Models\Insumos;
+use App\Models\Pasajes;
 use App\Models\Rutas;
 use App\Models\Usuarios;
 use App\Models\Viaje_insumos;
@@ -19,7 +21,6 @@ use phpDocumentor\Reflection\PseudoTypes\True_;
 class ViajesController extends Controller
 {
     public function homeviajes(){
-        Viajes::where('fecha','<',date('Y-m-d'))->where('estado','<>',"Cancelado")->update(['estado' => 'Finalizado']);
         $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
         ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
         ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
@@ -52,15 +53,7 @@ class ViajesController extends Controller
         $Choferes = $this->createviajechoferdisponible($viaje[0]->fecha);
         return view("admin.viajes.updateViajes", compact('viaje','ciudades','Choferes','Combis'));
     }
-    public function updateviajesprocess(Request $request){
-        $request->validate([
-            'precio' => 'required|numeric',
-            'fecha' => 'required|after_or_equal:ladeHoy',
-            'cantPasajes' => 'required|numeric|gte:0',
-            'estado' => 'required'
-        ],['cantPasajes.numeric' => 'La cantidad de pasajes ingresada es invalida',
-            'cantPasajes.gte' => 'El valor ingresado de pasajes es incorrecto',
-            'required' => 'Los campos no puede ser estar vacios']);
+    public function updateviajesprocess(updateViajeRequest $request){
         if($request->fecha <> $request->fechaactual){
             if($this->validationupdatefecha($request)==0){
                 return redirect()->route('homeviajes')->withErrors(['sucess'=>'El chofer o la combi ingresada no esta disponible en la nueva fecha']); 
@@ -72,7 +65,19 @@ class ViajesController extends Controller
         Viajes::where("id_viaje", "=", $request->id_viaje)->update(["id_chofer"=> $request->id_chofer,
         "id_combi" => $request->id_combi, "id_ruta" => $aux->id_ruta, "precio"=> $request->precio, "fecha" => $request->fecha,
         "hora" => $request->hora, "cantPasajes" => $request->cantPasajes, "estado" => $request->estado]);
+        if($request->estado == "Cancelado"){
+            $aux = $this->reembolsoViaje($request);    
+            return redirect()->route('homeviajes')->withErrors(['sucess'=>'El viaje ha sido cancelado, reembolso a clientes se realizo correctamente']);
+        }
         return redirect()->route('homeviajes')->withErrors(['sucess'=>'La actualizacion se realizo correctamente']);
+    }
+    private function reembolsoViaje($request){
+        $cantPasajes = Pasajes::where('id_viaje',$request->id_viaje)->get();
+        $viajesActuales = Viajes::select('cantPasajes')->where('id_viaje',$request->id_viaje)->get();
+        $resultado = $viajesActuales[0]->cantPasajes + $cantPasajes->count();
+        Viajes::where('id_viaje',$request->id_viaje)->update(['cantPasajes' => $resultado]);
+        Pasajes::where('id_viaje',$request->id_viaje)->delete();
+        return 1;
     }
     private function validationupdatefecha($request){
         $foundCombi = Combis::whereExists(function ($query) use ($request) {

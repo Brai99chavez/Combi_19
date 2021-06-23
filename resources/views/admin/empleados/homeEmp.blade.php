@@ -10,13 +10,13 @@
 @error('sucess')
 <script>
     Swal.fire({
-    title: '{{$message}}',
+    title: '<em>{{$message}}</em>',
     icon: 'success',
     iconColor: '#105671',
     confirmButtonColor: '#105671',
     confirmButtonText: 'ok'
 })
-    </script>
+</script>
 @enderror
 
 
@@ -78,13 +78,13 @@
             @else
             <script>
                 Swal.fire({
-                title: 'No hay empleados',
+                title: '<em>{{$message}}</em>',
                 icon: 'success',
                 iconColor: '#105671',
                 confirmButtonColor: '#105671',
                 confirmButtonText: 'ok'
             })
-                </script>
+            </script>
             @endif        
         </tbody>
     </table>

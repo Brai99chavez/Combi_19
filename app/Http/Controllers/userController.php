@@ -16,6 +16,8 @@ use App\Models\Membresias;
 use App\Models\Rutas;
 use App\Models\Tarjetas;
 use App\Models\Usuarios;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class userController extends Controller
@@ -130,30 +132,19 @@ class userController extends Controller
         return redirect()->route('misViajes')->withErrors(['success' => 'Compra Exitosa']);
     }
     public function misViajes(){
-    
-        $viajes = Viajes::join('pasajes','pasajes.id_viaje','=','viajes.id_viaje')
+        $viajes = Pasajes::join('viajes','viajes.id_viaje','=','pasajes.id_viaje')
         ->join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
         ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
         ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
         ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
-        ->select("pasajes.id_pasaje","pasajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
-        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora')
-        ->where('pasajes.id_usuario',session('id_usuario'))->get();
-
-        $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
-        ->join("insumos","insumos.id_insumos","=","viaje_insumo.id_insumo")
-        ->select("insumos.nombre","viajes.id_viaje")->orderBy('viajes.id_viaje','asc')->get();
-
-
-        $comentarios = Comentarios::join("pasajes","pasajes.id_pasaje","=","comentarios.id_pasaje")
-        ->join("usuarios","usuarios.id_usuario","=","comentarios.id_usuario")
-       // ->where('pasajes.id_usuario',session('id_usuario'))->get();
-       ->where('pasajes.id_pasaje','comentarios.id_usuario')->get();
-
-
-        return view('user.misViajes',compact('viajes','viaje_insumos','comentarios'));
+        ->select("pasajes.id_pasaje","categorias.nombre as categoria","viajes.precio as precio",
+         "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora','viajes.id_viaje')
+        ->where('pasajes.id_usuario',session('id_usuario'))
+        ->where('viajes.estado','<>',"Finalizado")
+        ->get();
+        return view('user.misviajes.misViajes',compact('viajes'));
     }
     public function updateMembresia(){
         $golden = Membresias::where('id_membresia',1)->get();
@@ -193,19 +184,75 @@ class userController extends Controller
     }
 
     public function guardarComentario(Request $request){
-
-        // return $request;
-
+        $request->validate(['descripcion' => 'required'],['required' => 'Ingrese un comentario']);
         $newComentario = new Comentarios();
         $newComentario->descripcion = $request->descripcion;
         $newComentario->id_usuario = session('id_usuario');
-        $newComentario->id_pasaje = $request->id_pasaje;
-        $newComentario->fecha = date("y-m-d");
-        $newComentario->hora = date("h:i:s");
-
+        $newComentario->id_viaje = $request->id_viaje;
         $newComentario->save();
-        return redirect()->route('misViajes')->withErrors(['sucess'=>'comentario creado con Exito']);
-
+        return redirect()->route('historialDeViajes')->withErrors(['success'=>'Comentario subido']);   
+    }
+    public function historialDeViajes(){
+        $viajes = Viajes::join('pasajes','pasajes.id_viaje','=','viajes.id_viaje')
+        ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
+        ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
+        ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
+        ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
+        ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
+        ->select("viajes.id_viaje","categorias.nombre as categoria","viajes.precio as precio",
+         "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha")
+        ->where('pasajes.id_usuario',session('id_usuario'))
+        ->where('viajes.estado',"Finalizado")
+        ->get();
+        return view('user.misviajes.historialDeViajes',compact('viajes'));
+    }
+    public function viewComentariosViaje(Request $request){
+        $comentarios = Comentarios::join('usuarios','usuarios.id_usuario','=','comentarios.id_usuario')
+        ->select('usuarios.nombre','usuarios.apellido','usuarios.id_usuario','comentarios.id_comentario',
+        'comentarios.descripcion','comentarios.created_at')
+        ->where('id_viaje',$request->id_viaje) 
+        ->orderByDesc('comentarios.created_at')
+        ->get();
+        $id_viaje = $request->id_viaje; 
+        return view('user.misviajes.comentariosDeUnViaje',compact('comentarios','id_viaje'));
     }
 
+    public function reembolso(Request $request){
+
+        Pasajes::where("id_pasaje",$request->id_pasaje)->delete();
+
+        $aux = Viajes::select('cantPasajes')->where("id_viaje",$request->id_viaje)->get();
+        $aux = $aux[0]->cantPasajes + 1 ;
+        
+        Viajes::where("id_viaje",$request->id_viaje)->update(['cantPasajes'=>$aux]);
+
+        return redirect()->route('misViajes')->withErrors(['sucess'=>'El pasaje se reembolso correctamente']);
+    }
+
+    public function reembolsoProcessCliente(Request $request){
+        $found = Pasajes::where('id_pasaje',$request->id_pasaje)->get();
+        $dias = Carbon::createFromTimeStamp(strtotime($found[0]->created_at))->diffForHumans();
+        Pasajes::where('id_pasaje',$request->id_pasaje)->delete();
+        if($dias < 2 ){
+            return "tengo menos de 2 dias";
+        }
+        return "tengo mas";
+        //SIN TERMINAAAAAR PERO EL CODIGO YA ME DEVUELVE LA CANTIDAD DE DIAS GG IZI NO MENTIRA ESTUVE DOS HORAS PARA SABER ESTA MRD CARBON DEL ORTO NO MENTIRA I LOVE YOU UWU
+    }
+
+
+    public function updateComentario(Request $request){
+        $comentario = Comentarios::where('id_comentario',$request->id_comentario)->get();
+        $id_viaje = $request->id_viaje;
+        return view('user.misviajes.updateComentario',compact('comentario','id_viaje'));
+    }
+    public function updateComentarioProcess(Request $request){
+        $request->validate(['descripcion' => 'required'],['required' => 'Ingrese un comentario']);
+        Comentarios::where('id_comentario',$request->id_comentario)->update(['descripcion' => $request->descripcion]);
+        return $this->viewComentariosViaje($request);
+    }
+    public function deleteComentarioProcess(Request $request){
+        Comentarios::where('id_comentario',$request->id_comentario)->delete();
+        return $this->viewComentariosViaje($request);
+    }
 }

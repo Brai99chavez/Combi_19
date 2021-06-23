@@ -10,13 +10,12 @@
         @error('nombre')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>{{$message}}</em>',
+            icon: 'error',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @enderror
         <br>
@@ -26,13 +25,12 @@
         @error('apellido')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>{{$message}}</em>',
+            icon: 'error',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @enderror
         <br>
@@ -41,28 +39,26 @@
         @error('dni')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>{{$message}}</em>',
+            icon: 'error',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @enderror
         <br>
         <strong>DNI:*</strong><br>
-        <input type="text" name="dni" placeholder="Example:123456789..." value="{{old('dni')}}"><br>
+        <input type="number" name="dni" placeholder="Example:123456789..." value="{{old('dni')}}"><br>
         @error('email')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>{{$message}}</em>',
+            icon: 'error',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @enderror
         <br>
@@ -74,13 +70,12 @@
         @error('contraseñavalidation')
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>{{$message}}</em>',
+            icon: 'error',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @enderror
         <br>

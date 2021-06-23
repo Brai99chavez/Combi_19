@@ -41,10 +41,11 @@ class empleadosController extends Controller
         $request->validate([
             'nombre'=>'required|max:40',
             'apellido'=>'required|max:40',
-            'dni' => 'required|numeric',
+            'dni' => 'required|numeric|max:10',
             'email' => 'required|email',
             'contraseña' => 'required'
-        ],['required' => 'Los campos no pueden estar vacios','max' => 'El nombre o apellido debe tener menos de 40 caracteres']);
+        ],['required' => 'Los campos no pueden estar vacios','nombre.max' => 'El nombre debe tener menos de 40 caracteres',
+        'apellido.max' => 'El apellido debe tener menos de 40 caracteres', 'dni.max' => 'DNI invalido' ]);
         Usuarios::where('id_usuario',$request->id_usuario)->update(["nombre"=> $request->nombre,
         "apellido" => $request->apellido,"contraseña" => $request->contraseña]);
         if($this->newsEmailorDNI($request)){

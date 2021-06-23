@@ -7,13 +7,13 @@
 
 <script>
     Swal.fire({
-    title: '{{$message}}',
+    title: '<em>{{$message}}</em>',
     icon: 'success',
     iconColor: '#105671',
     confirmButtonColor: '#105671',
     confirmButtonText: 'ok'
 })
-    </script>
+</script>
 @enderror
 <table>
     <thead>
@@ -36,7 +36,6 @@
         @if($viajes->isNotEmpty())
             @foreach($viajes as $viaje)
         <tr>
-
             <td>{{$viaje->chofer}}</td>
             <td>{{$viaje->patente}}</td>
             <td>{{$viaje->categoria}}</td>
@@ -54,6 +53,7 @@
             <td>{{$viaje->precio}}$</td>
             <td>{{$viaje->cantPasajes}}</td>
             <td>{{$viaje->estado}}</td>
+            @if($viaje->estado<>"Finalizado")
             <td class="tableOptions">
                 <form action="{{route('updateviajes')}}" method="GET">
                     @csrf
@@ -66,19 +66,19 @@
                     <button type="submit"><i class="fas fa-trash-alt"></i></button>
                 </form>
             </td>
+            @endif
         </tr>
         @endforeach
         
         @else
         <script>
             Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;"> No hay viajes</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
+            title: '<em>No hay viajes</em>',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
         </script>
         @endif
     </tbody>

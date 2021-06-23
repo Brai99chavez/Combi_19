@@ -8,16 +8,15 @@
         
 @section('content')
 @error('sucess')
-        <script>
-            Swal.fire({
-                icon: 'warning',
-                iconColor: '#48C9B0',
-                title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-                background:'#404040',
-                confirmButtonColor: '#45B39D ',
-                confirmButtonText: 'Got it!' ,
-            })
-        </script>
+<script>
+    Swal.fire({
+    title: '<em>{{$message}}</em>',
+    icon: 'success',
+    iconColor: '#105671',
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'ok'
+})
+</script>
     @enderror
 <?php
 
@@ -37,13 +36,12 @@ use App\Models\Usuarios;
     @error('nombre')
     <script>
         Swal.fire({
-            icon: 'warning',
-            iconColor: '#48C9B0',
-            title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-            background:'#404040',
-            confirmButtonColor: '#45B39D ',
-            confirmButtonText: 'Got it!' ,
-        })
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
     </script>
     @enderror
     <br>
@@ -55,13 +53,12 @@ use App\Models\Usuarios;
     @error('apellido')
     <script>
         Swal.fire({
-            icon: 'warning',
-            iconColor: '#48C9B0',
-            title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-            background:'#404040',
-            confirmButtonColor: '#45B39D ',
-            confirmButtonText: 'Got it!' ,
-        })
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
     </script>
     @enderror
     <br>
@@ -73,13 +70,12 @@ use App\Models\Usuarios;
     @error('dni')
     <script>
         Swal.fire({
-            icon: 'warning',
-            iconColor: '#48C9B0',
-            title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-            background:'#404040',
-            confirmButtonColor: '#45B39D ',
-            confirmButtonText: 'Got it!' ,
-        })
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
     </script>
     @enderror
     <br>
@@ -91,13 +87,12 @@ use App\Models\Usuarios;
     @error('email')
     <script>
         Swal.fire({
-            icon: 'warning',
-            iconColor: '#48C9B0',
-            title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-            background:'#404040',
-            confirmButtonColor: '#45B39D ',
-            confirmButtonText: 'Got it!' ,
-        })
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
     </script>
     @enderror
     <br>
@@ -108,14 +103,13 @@ use App\Models\Usuarios;
     </strong>
     @error('contraseña')
     <script>
-        Swal.fire({ 
-            icon: 'warning',
-            iconColor: '#48C9B0',
-            title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-            background:'#404040',
-            confirmButtonColor: '#45B39D ',
-            confirmButtonText: 'Got it!' ,
-        })
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
     </script>
     @enderror
     <br> 
@@ -127,13 +121,12 @@ use App\Models\Usuarios;
 @error('permiso')
 <script>
     Swal.fire({
-        icon: 'warning',
-        iconColor: '#48C9B0',
-        title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-        background:'#404040',
-        confirmButtonColor: '#45B39D ',
-        confirmButtonText: 'Got it!' ,
-    })
+    title: '<em>{{$message}}</em>',
+    icon: 'success',
+    iconColor: '#105671',
+    confirmButtonColor: '#105671',
+    confirmButtonText: 'ok'
+})
 </script>
 @enderror
 @endsection
