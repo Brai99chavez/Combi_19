@@ -34,6 +34,8 @@
         <input type="text" name="email" value="{{$usuario[0]->email}}" >
     </strong>
     <br>
+    <i><small>En caso de haber olvidado su contraseña contáctese con personal administrativo</small></i>
+    <br><br>
     <button type="submit" class="botones">Guardar Cambios</button>
 </form>
 @error('sucess')
