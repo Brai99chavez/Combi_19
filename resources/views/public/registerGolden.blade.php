@@ -64,7 +64,7 @@
     </script>
     @enderror
     <br>
-    <strong>
+    <strong>     
         Email:*
         <br>
         <input type="email" name="email" value="{{old('email')}}" placeholder="example@gmail.com.....">
@@ -72,7 +72,7 @@
     @error('email')
     <script>
         Swal.fire({
-            icon: 'warning',
+            icon: 'warning',  
             iconColor: '#48C9B0',
             title: '<strong style= "color: white; font-family: arial;"> {{$message}}</strong>',
             background:'#404040',

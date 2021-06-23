@@ -108,7 +108,7 @@ use App\Models\Usuarios;
     </strong>
     @error('contraseña')
     <script>
-        Swal.fire({
+        Swal.fire({ 
             icon: 'warning',
             iconColor: '#48C9B0',
             title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
