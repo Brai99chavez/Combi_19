@@ -33,23 +33,23 @@ class choferController extends Controller
 
     public function updateChoferProcess(choferRequest $request){
         if($this->newEmail($request)){
-            if($this->updateEmail($request)){
-                session(['email'=>$request->email]); 
-                return redirect()->route('updateChofer')->withErrors(['sucess'=>'Perfil actualizado correctamente']);
+            if($this->updateEmail($request)==0){
+                return redirect()->route('updateChofer')->withErrors(['error'=>'Ya hay otra cuenta registrada con el mismo email, intente con otra']);
             }
         }
-        return redirect()->route('updateChofer')->withErrors(['error'=>'Ya hay otra cuenta registrada con el mismo email, intente con otra']);
+        Usuarios::where('id_usuario',session('id_usuario'))->update(["nombre" => $request->nombre, "apellido" => $request->apellido]);
+        session(['email'=>$request->email]); 
+        return redirect()->route('updateChofer')->withErrors(['sucess'=>'Perfil actualizado correctamente']);
     }
     private function newEmail($request){
-        return session('email');
-        if(session('email') <> $request->email){
-            return true;
+        if(session('email') == $request->email){
+            return false;
         }     
-        return false;
+        return true;
     }
     private function updateEmail($request){
         $found = Usuarios::where('email', $request->email)->get();
-        if($found->count() == 0){
+        if($found->count()==0){
             Usuarios::where('id_usuario',session('id_usuario'))->update(["email" => $request->email]);
             return true;
         }
