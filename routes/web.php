@@ -145,8 +145,12 @@ Route::get('updateChofer',[choferController::class,'updateChofer'])->name(('upda
 
 Route::post('updateChoferProcess',[choferController::class,'updateChoferProcess'])->name(('updateChoferProcess'));
 
+Route::get('misViajesChofer',[choferController::class,'misViajesChofer'])->name(('misViajesChofer'));
+
+Route::get('finalizarViaje',[choferController::class,'finalizarViaje'])->name(('finalizarViaje'));
 
 
+ 
 //USUARIO
 
 Route::get('home', [userController::class,'homeUser'])->name('homeUser');

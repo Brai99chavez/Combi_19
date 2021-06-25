@@ -17,6 +17,7 @@ class RegisterController extends Controller
           $newUser->apellido = $request->apellido;
           $newUser->dni = $request->dni;
           $newUser->email = $request->email;
+          $newUser->id_membresia = 1; 
           $newUser->contraseña = $request->contraseña;
           $newUser->save();
           return redirect()->route('login')->withErrors(['sucess'=>'usuario creado con Exito']);

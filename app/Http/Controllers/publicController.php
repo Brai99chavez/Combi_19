@@ -46,7 +46,7 @@ class publicController extends Controller
             $newUser->tarjeta = $request->tarjeta;
             $newUser->fechaVenc = $request->fechaVenc;
             $newUser->codigo = $request->codigo;
-            $newUser->id_membresia = 1; 
+            $newUser->id_membresia = 2; 
             $newUser->email = $request->email;
             $newUser->contraseña = $request->contraseña;
             $newUser->save();

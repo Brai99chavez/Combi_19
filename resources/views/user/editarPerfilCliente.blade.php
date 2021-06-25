@@ -46,7 +46,7 @@ use App\Models\Usuarios;
     @enderror
     <br>
     <strong>
-        Apellido:*
+        Apellido:* 
         <br>
         <input type="text" name="apellido" value="{{$usuario[0]->apellido}}" >
     </strong>
@@ -57,7 +57,7 @@ use App\Models\Usuarios;
         icon: 'success',
         iconColor: '#105671',
         confirmButtonColor: '#105671',
-        confirmButtonText: 'ok'
+        confirmButtonText: 'ok' 
     })
     </script>
     @enderror
@@ -103,13 +103,14 @@ use App\Models\Usuarios;
     </strong>
     @error('contraseña')
     <script>
-        Swal.fire({
-        title: '<em>{{$message}}</em>',
-        icon: 'success',
-        iconColor: '#105671',
-        confirmButtonColor: '#105671',
-        confirmButtonText: 'ok'
-    })
+        Swal.fire({ 
+            icon: 'warning',
+            iconColor: '#48C9B0',
+            title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
+            background:'#404040',
+            confirmButtonColor: '#45B39D ',
+            confirmButtonText: 'Got it!' ,
+        })
     </script>
     @enderror
     <br> 

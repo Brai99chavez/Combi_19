@@ -55,4 +55,48 @@ class choferController extends Controller
         }
         return false;
     }
+
+    public function misViajesChofer(){
+        $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
+        ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
+        ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
+        ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
+        ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
+        ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
+        ->select("viajes.id_viaje","viajes.fecha", "viajes.hora", 
+        "viajes.precio", "ciudades.nombre as origen", "c2.nombre as destino",
+         "combis.patente","combis.modelo","combis.color","combis.cant_asientos", "viajes.estado")
+        ->where("viajes.id_chofer", "=", session('id_usuario'))
+        ->get();
+        return view('chofer.misViajesChofer',compact('viajes'));
+    }
+
+   public function finalizarViaje(Request $request){
+       $query = Viajes::where("viajes.id_viaje","=",$request->id_viaje)
+       ->where("viajes.estado","=","FINALIZADO" )->get();
+       if($query->count() == 0 ){
+          Viajes::where("viajes.id_viaje","=",$request->id_viaje)->update(["estado"=> "FINALIZADO"]);
+          return redirect()->route('misViajesChofer')->withErrors(['error'=>'se finalizo el viaje correctamente']);
+       } else {
+        return redirect()->route('misViajesChofer')->withErrors(['error'=>'el viaje ya se encuentra finalizado']);
+
+       }
+       
+
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
