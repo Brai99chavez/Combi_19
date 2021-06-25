@@ -35,29 +35,29 @@
             @endif
         @endforeach
     @else
-        <em>Se el primero en agregar un comentario...</em>  
+        <small><em>Agrega tu primer comentario...</em></small>
     @endif
 </div>
 @error('success')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'error',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
 @enderror
 @error('descripcion')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'error',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
 @enderror
 @endsection

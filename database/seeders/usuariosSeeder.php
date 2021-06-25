@@ -31,8 +31,11 @@ class usuariosSeeder extends Seeder
         $usu2->dni = 126789;
         $usu2->email = 'tomas@gmail.com';
         $usu2->contraseña = 'tomas123';
-        $usu2->id_membresia = 1;
+        $usu2->id_membresia = 2;
         $usu2->id_permiso = 1; 
+        $usu2->tarjeta = 5236242879521452;
+        $usu2->fechaVenc = 2021-12;
+        $usu2->codigo = 963;
         $usu2->save();
 
         $usu3 = new Usuarios();

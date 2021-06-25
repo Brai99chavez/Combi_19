@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTarjetasTable extends Migration
+class SintomasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateTarjetasTable extends Migration
      */
     public function up()
     {
-        Schema::create('tarjetas', function (Blueprint $table) {
-            $table->bigIncrements('id_tarjeta');
-            $table->integer('numero_tarjeta');
-            $table->integer('cod_seguridad');
-            $table->string('vencimiento');
-            $table->integer('id_usuario');
+        Schema::create('sintomas', function (Blueprint $table) {
+            $table->bigIncrements('id_sintoma');
+            $table->integer('nombre');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateTarjetasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tarjetas');
+        Schema::dropIfExists('sintomas');
     }
 }

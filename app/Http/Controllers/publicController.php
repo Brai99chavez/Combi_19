@@ -50,10 +50,10 @@ class publicController extends Controller
             $newUser->email = $request->email;
             $newUser->contraseña = $request->contraseña;
             $newUser->save();
-            return redirect()->route('login')->withErrors(['sucess'=>'usuario creado con Exito']);
+            return redirect()->route('login')->withErrors(['sucess'=>'Usuario creado con exito']);
       
         } else {
-            return redirect()->route('login')->withErrors(['sucess'=>'usuario existenteeee']);
+            return redirect()->route('login')->withErrors(['sucess'=>'Usuario existente']);
         }
     }
 
