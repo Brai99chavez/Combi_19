@@ -26,24 +26,31 @@
                             <td>{{$viaje->origen}}</td> 
                             <td>{{$viaje->destino}}</td>
                             <td>{{$viaje->precio}}$</td>
-                            @if(session('id_membresia') == 1)
-                                <td>
-                                    <form action="{{route('reembolsoProcessClienteGolden')}}" method="GET" class="reembolsar-pasaje">
-                                    <input type="hidden" name="id_pasaje" value="{{$viaje->id_pasaje}}">
-                                    <br>
-                                    <button type="submit" class="botones" style="width: 100px">Reembolsar Pasaje</button>
-                                    </form>
-                                </td>    
+                            @if($viaje->estado <> "Ausente")
+                                @if(session('id_membresia') == 1)
+                                    <td>
+                                        <form action="{{route('reembolsoProcessClienteGolden')}}" method="GET" class="reembolsar-pasaje">
+                                            <input type="hidden" name="id_pasaje" value="{{$viaje->id_pasaje}}">
+                                            <br>
+                                            @if($viaje->reembolsar == "SI" || $viaje->estado == "Pendiente")
+                                            <button type="submit" class="botones" style="width: 100px">Reembolsar Pasaje</button>
+                                            @endif
+                                        </form>
+                                    </td>    
+                                @else
+                                    <td>
+                                        <form action="{{route('reembolsoTarjetaBasic')}}" method="GET" class="reembolsar-pasaje">
+                                        <input type="hidden" name="id_pasaje" value="{{$viaje->id_pasaje}}">
+                                        <br>
+                                        @if($viaje->reembolsar == "SI" || $viaje->estado == "Pendiente")
+                                            <button type="submit" class="botones" style="width: 100px">Reembolsar Pasaje</button>
+                                        @endif
+                                        </form>
+                                    </td>   
+                                @endif
                             @else
-                                <td>
-                                    <form action="{{route('reembolsoTarjetaBasic')}}" method="GET" class="reembolsar-pasaje">
-                                    <input type="hidden" name="id_pasaje" value="{{$viaje->id_pasaje}}">
-                                    <br>
-                                    <button type="submit" class="botones" style="width: 100px">Reembolsar Pasaje</button>
-                                    </form>
-                                </td>   
+                                <td><em>Reembolso no disponible</em></td>
                             @endif
-                            
                         </tr>
                     </tbody>
                 </table>

@@ -153,6 +153,12 @@ Route::get('listarPasajeros',[choferController::class,'listarPasajeros'])->name(
 
 Route::get('viajesFinalizados',[choferController::class,'viajesFinalizados'])->name(('viajesFinalizados'));
 
+Route::get('registrarSintomasCovid',[choferController::class,'registrarSintomasCovid'])->name(('registrarSintomasCovid'));
+
+Route::post('registrarSintomasProcess',[choferController::class,'registrarSintomasProcess'])->name(('registrarSintomasProcess'));
+
+
+
 
 //USUARIO
 

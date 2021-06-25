@@ -18,6 +18,7 @@ class CreatePasajesTable extends Migration
             $table->integer('id_usuario');
             $table->integer('id_viaje');
             $table->string('estado');
+            $table->string('reembolsar');
             $table->integer('precio');
             $table->timestamps();
         });

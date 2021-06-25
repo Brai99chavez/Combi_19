@@ -1,31 +1,44 @@
 @extends('chofer.choferLayout')
 @section('title', 'pasajeros')
 @section('headerTitle')
-<h1>pasajeros</h1>
+<h1>Pasajeros</h1>
 @endsection   
 @section('content')
 
-<div class="formulary" style="width: 700px">
-<h1>pasajeros</h1>
-@if($pasajeros->isNotEmpty())
-        @foreach($pasajeros as $pasajero)
+<div class="formulary" style="width: 900px">
+    @if($pasajeros->isNotEmpty())
+        <table>
+            <thead>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Estado de Pasajero</th>
+            </thead>
+            <tbody>
+                @foreach($pasajeros as $pasajero)
                 <tr>
-                    <td><strong>PASAJE N°: </strong> {{$pasajero->id_pasaje}} </td> 
-                    <td><strong>nombre: </strong>  {{$pasajero->nombre}}</td>
-                    <td><strong>apellido: </strong>  {{$pasajero->apellido}}</td> 
-                    <td><strong>Dni: </strong>  {{$pasajero->dni}}</td>
+                    <td>{{$pasajero->nombre}}</td>
+                    <td>{{$pasajero->apellido}}</td> 
+                    <td>{{$pasajero->dni}}</td>
+                    <td>{{$pasajero->estado}}</td>
+                    @if($pasajero->estado == "Pendiente")
+                        <td>
+                            <form action="{{route('registrarSintomasCovid')}}" method="GET">
+                                <input type="hidden" name="id_usuario" value="{{$pasajero->id_usuario}}">
+                                <input type="hidden" name="id_viaje" value="{{$id_viaje}}">
+                                <button type="submit" class="botones">Registrar Sintomas</button>
+                            </form>
+                        </td>    
+                    @endif
                 </tr>
-                <hr>
-
-        @endforeach
-
-       <a href="{{route('misViajesChofer')}}"><button type="submit" class="botones" style="width: 150px">VolverAtras</button></a> 
+                @endforeach 
+            </tbody>
+        </table>
     @else
-        <div class="formulary">
-            <h1><strong>Este Viaje No Tiene Pasajeros </strong></h1>
-           
-            <a href="{{route('misViajesChofer')}}"><button type="submit" class="botones" style="width: 150px">VolverAtras</button></a> 
-        </div>
+        <em><strong>Viaje sin ventas</strong></em>
+        @if($fecha[0]->fecha == date('Y-m-d'))
+            <a href=""><button type="submit" class="botones" style="width: 150px">Cancelar Viaje</button></a>
+        @endif
     @endif
 </div>
 

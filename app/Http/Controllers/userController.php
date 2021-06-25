@@ -71,7 +71,8 @@ class userController extends Controller
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
-        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',"viajes.cantPasajes")
+        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',"viajes.cantPasajes","viajes.estado")
+        ->where("viajes.estado","=","Pendiente")
         ->orderByDesc('viajes.id_viaje')
         ->get();
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
@@ -132,6 +133,7 @@ class userController extends Controller
             $pasaje->id_viaje = $request->id_viaje;
             $pasaje->estado = "Pendiente";
             $pasaje->precio = $request->precio;
+            $pasaje->reembolsar = "NO";
             $pasaje->save();
         }
         $pasajesActuales = Viajes::where('id_viaje',$request->id_viaje)->select('cantPasajes')->get();
@@ -148,9 +150,11 @@ class userController extends Controller
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("pasajes.id_pasaje","categorias.nombre as categoria","pasajes.precio",
-         "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora','viajes.id_viaje',"pasajes.estado")
+         "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora','viajes.id_viaje',"pasajes.estado"
+         ,"pasajes.reembolsar")
         ->where('pasajes.id_usuario',session('id_usuario'))
-        ->where('pasajes.estado','=',"Pendiente")
+        ->where('pasajes.estado','<>',"Confirmado")
+        ->where('pasajes.estado','<>',"Cancelado")
         ->get();
         return view('user.misviajes.misViajes',compact('viajes'));
     }
@@ -224,14 +228,18 @@ class userController extends Controller
     }
 
     public function reembolsoProcess($request){
-        $found = Pasajes::select('created_at')->where('id_pasaje',$request->id_pasaje)->get();
-        $dias = Carbon::now()->diffInDays($found[0]->created_at);
-        Pasajes::where('id_pasaje',$request->id_pasaje)->update(['estado' => 'Cancelado']);
-        if($dias < 2){
-            return 0;
+        $found = Pasajes::select('created_at','estado','id_viaje')->where('id_pasaje',$request->id_pasaje)->get();
+        Viajes::where('id_viaje',$found[0]->id_viaje)->increment('cantPasajes');
+        if($found[0]->estado <> "Cancelado COVID"){
+            $dias = Carbon::now()->diffInDays($found[0]->created_at);
+            Pasajes::where('id_pasaje',$request->id_pasaje)->update(['estado' => 'Cancelado', 'reembolsar' => "NO"]);
+            if($dias < 2){
+                return 0;
+            }
+            return 1;
         }
-        return 1;
-        
+        Pasajes::where('id_pasaje',$request->id_pasaje)->update(['reembolsar' => "NO"]);
+        return 0;
     }
     public function reembolsoProcessClienteGolden(Request $request){
         if($this->reembolsoProcess($request)==0){
