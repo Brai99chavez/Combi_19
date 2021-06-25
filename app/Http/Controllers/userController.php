@@ -23,7 +23,13 @@ use Illuminate\Http\Request;
 class userController extends Controller
 {
     public function homeUser(){
-        return view('user.userHome');
+        $comentarios = Comentarios::join('usuarios','usuarios.id_usuario','=','comentarios.id_usuario')
+        ->select('usuarios.nombre','usuarios.apellido','usuarios.id_usuario','comentarios.id_comentario',
+        'comentarios.descripcion','comentarios.created_at')
+        ->orderByDesc('comentarios.created_at')
+        ->limit(10)
+        ->get();
+        return view('user.userHome', compact('comentarios'));
     } 
     public function editarPerfilCliente(){
         $usuario = Usuarios::where('id_usuario',session('id_usuario'))->get();

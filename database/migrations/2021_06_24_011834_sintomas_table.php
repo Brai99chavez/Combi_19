@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCasosTable extends Migration
+class SintomasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateCasosTable extends Migration
      */
     public function up()
     {
-        Schema::create('casos', function (Blueprint $table) {
-            $table->id();
-            $table->integer('id_usuario');
-            $table->integer('id_viaje');
-            $table->text('descripcion');
+        Schema::create('sintomas', function (Blueprint $table) {
+            $table->bigIncrements('id_sintoma');
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateCasosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('casos');
+        Schema::dropIfExists('sintomas');
     }
 }

@@ -15,23 +15,31 @@ class pasajesSeeder extends Seeder
     public function run()
     {
         $pasaje = new Pasajes();
-        $pasaje->id_usuario=1;
+        $pasaje->id_usuario=2;
         $pasaje->id_viaje=1;
+        $pasaje->estado = "Pendiente";
+        $pasaje->precio=8000;
         $pasaje->save();
 
         $pasaje2 = new Pasajes();
         $pasaje2->id_usuario=2;
         $pasaje2->id_viaje=2;
+        $pasaje2->precio=8000;
+        $pasaje2->estado = "Confirmado";
         $pasaje2->save();
         
         $pasaje2 = new Pasajes();
-        $pasaje2->id_usuario=2;
+        $pasaje2->id_usuario=5;
         $pasaje2->id_viaje=1;
+        $pasaje2->estado = "Pendiente";
+        $pasaje2->precio=10000;
         $pasaje2->save();
 
         $pasaje3 = new Pasajes();
-        $pasaje3->id_usuario=3;
+        $pasaje3->id_usuario=6;
         $pasaje3->id_viaje=3;
+        $pasaje3->precio=15000;
+        $pasaje3->estado = "Pendiente";
         $pasaje3->save();
     }
 }
