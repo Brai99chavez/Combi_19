@@ -6,17 +6,6 @@
 <h1>Viajes Disponibles</h1>
 @endsection
 @section('content')
-@error('sucess')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
-@enderror
      <table>
     <thead>
         <tr>
@@ -53,6 +42,7 @@
                 <form action="{{route('resumenCompraViaje')}}" method="get">
                    @csrf
                    <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
+                   <input type="hidden" name="cantPasajes" value="{{$viaje->cantPasajes}}">
                    <button type="submit">Comprar</button>
                 </form>
             </td>
@@ -75,17 +65,6 @@
     </tbody>
     
 </table>
-@error('success')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
-@enderror
 @endsection
 
 

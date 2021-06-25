@@ -6,7 +6,7 @@
         
 @section('content')
   <div class="formulary">
-      <i>¿Sabias que actualmente en estas épocas de pandemia somos la primer empresa que ofrece viajes a nivel nacional? 
+      <i>¿Sabias que actualmente en estas tiempos de pandemia somos la primer empresa que ofrece viajes a nivel nacional? 
         Siempre cumpliendo con todos los protocolos de bioseguridad.</i>
     @if($comentarios->isNotEmpty())
         <i><strong><h2>Comentarios de nuestros clientes</h2></strong></i>

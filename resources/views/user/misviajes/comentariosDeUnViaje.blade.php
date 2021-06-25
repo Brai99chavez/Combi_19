@@ -42,7 +42,7 @@
     <script>
         Swal.fire({
         title: '<em>{{$message}}</em>',
-        icon: 'error',
+        icon: 'success',
         iconColor: '#105671',
         confirmButtonColor: '#105671',
         confirmButtonText: 'ok'

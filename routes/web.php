@@ -181,8 +181,6 @@ Route::get('resumenCompraViaje', [userController::class,'resumenCompra'])->name(
 
 Route::get('processingPago', [userController::class,'crearPago'])->name('crearPago');
 
-Route::post('reembolso', [userController::class,'reembolso'])->name('reembolso');
-
 Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
 
 Route::get('viewInsumosViaje', [userController::class,'insumosViajeCliente'])->name('insumosViajeCliente');
@@ -201,7 +199,12 @@ Route::post('updateComentarioProcess', [userController::class,'updateComentarioP
 
 Route::get('deleteComentario', [userController::class,'deleteComentarioProcess'])->name('deleteComentario');
 
-Route::get('reembolsoProcessCliente', [userController::class,'reembolsoProcessCliente'])->name('reembolsoProcessCliente');
+Route::get('reembolsoProcessClienteG', [userController::class,'reembolsoProcessClienteGolden'])->name('reembolsoProcessClienteGolden');
+
+Route::get('reembolsoTarjetaBasic', [userController::class,'reembolsoTarjetaBasic'])->name('reembolsoTarjetaBasic');
+
+Route::post('reembolsoProcessClienteB', [userController::class,'reembolsoProcessClienteBasic'])->name('reembolsoProcessClienteBasic');
+
 
 
 

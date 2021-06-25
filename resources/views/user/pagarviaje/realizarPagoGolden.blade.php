@@ -5,7 +5,7 @@
 @endsection  
 @section('content')
 <div class="formulary">
-    <h2><strong>Total a cobrar: ${{$precioConDescuento}}</strong></h2>
+    <h2><strong>{{$cantPasajesCompra}} pasaje/s con descuento a un total de: ${{$precioConDescuento}}</strong></h2>
     <hr>
     <strong><p>Realizar pago con la tarjeta registrada</p></strong>
     <p>Terminado en XXXX-XXXX-XXXX-{{$resultado}}</p>
@@ -13,6 +13,7 @@
     @csrf
         <input type="hidden" value="{{$cantPasajesCompra}}" name="cantPasajesCompra">
         <input type="hidden" value="{{$id_viaje}}" name="id_viaje">
+        <input type="hidden" value="{{$precioindiv}}" name="precio">
         <button type="submit" class="botones">Realizar Pago</button>
     </form>
     <hr>
@@ -22,6 +23,7 @@
         @csrf
         <input type="hidden" value="{{$cantPasajesCompra}}" name="cantPasajesCompra">
         <input type="hidden" name="id_viaje" value="{{$id_viaje}}">
+        <input type="hidden" value="{{$precioConDescuento}}" name="precio">
         <br>
         <strong>
             Numero de Tarjeta 

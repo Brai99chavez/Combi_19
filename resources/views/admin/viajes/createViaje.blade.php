@@ -114,21 +114,21 @@
     </form>
     </div>
 @error('id_chofer')
-<script>
-    Swal.fire({
-    title: '{{$message}}',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-    })
-</script>
+    <script>
+        Swal.fire({
+        title: '{{$message}}',
+        icon: 'error',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+        })
+    </script>
 @enderror
 @error('id_combi')
     <script>
         Swal.fire({
             title: '{{$message}}',
-            icon: 'success',
+            icon: 'error',
             iconColor: '#105671',
             confirmButtonColor: '#105671',
             confirmButtonText: 'ok'
@@ -139,7 +139,7 @@
     <script>
         Swal.fire({
             title: '<em>{{$message}}</em>',
-            icon: 'success',
+            icon: 'error',
             iconColor: '#105671',
             confirmButtonColor: '#105671',
             confirmButtonText: 'ok'
@@ -150,7 +150,7 @@
         <script>
             Swal.fire({
             title: '<em>{{$message}}</em>',
-            icon: 'success',
+            icon: 'error',
             iconColor: '#105671',
             confirmButtonColor: '#105671',
             confirmButtonText: 'ok'
@@ -161,7 +161,7 @@
         <script>
             Swal.fire({
             title: '<em>{{$message}}</em>',
-            icon: 'success',
+            icon: 'error',
             iconColor: '#105671',
             confirmButtonColor: '#105671',
             confirmButtonText: 'ok'

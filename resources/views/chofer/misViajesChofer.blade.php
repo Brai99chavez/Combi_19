@@ -6,15 +6,15 @@
 @section('content')
 
 @error('error')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
 @enderror
     @if($viajes->isNotEmpty())
         @foreach($viajes as $viaje)
@@ -51,9 +51,6 @@
                
                     <button type="submit" class="botones" style="width: 150px">Listar pasajeros</button>
                 </form>
-
-
-
             </div>   
         @endforeach
     @else
