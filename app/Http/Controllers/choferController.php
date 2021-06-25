@@ -87,8 +87,33 @@ class choferController extends Controller
 
 
 
+   public function listarPasajeros(Request $request){
+    $pasajeros = Usuarios::join("pasajes","pasajes.id_usuario", "=", "usuarios.id_usuario")
+    ->select( "pasajes.id_pasaje","usuarios.id_usuario","usuarios.nombre", "usuarios.apellido", 
+    "usuarios.dni")
+    ->where("pasajes.id_viaje", "=", $request->id_viaje)->get();
+
+    return view('chofer.listarPasajeros',compact('pasajeros'));
+
+   }
 
 
+   public function viajesFinalizados(){
+    $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
+    ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
+    ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
+    ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
+    ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
+    ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
+    ->select("viajes.id_viaje","viajes.fecha", "viajes.hora", 
+    "viajes.precio", "ciudades.nombre as origen", "c2.nombre as destino",
+     "combis.patente","combis.modelo","combis.color","combis.cant_asientos", "viajes.estado")
+    ->where("viajes.id_chofer", "=", session('id_usuario'))
+    ->where("viajes.estado","=","FINALIZADO" )
+    ->get();
+    return view('chofer.viajesFinalizados',compact('viajes'));
+      
+   }
 
 
 

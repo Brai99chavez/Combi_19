@@ -36,6 +36,9 @@
         @endif
     </tbody>
 </table>
+<br>
+
+<a href="{{route('viajesFinalizados')}}"><button type="submit" class="botones" style="width: 250px">Viajes Finalizados</button></a> 
 </div>
 
 @endsection

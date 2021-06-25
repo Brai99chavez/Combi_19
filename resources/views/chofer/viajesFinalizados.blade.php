@@ -1,21 +1,10 @@
 @extends('chofer.choferLayout')
-@section('title', 'Home Chofer')
+@section('title', 'viajes Finalizados')
 @section('headerTitle')
-<h1>MIS VIAJES</h1>
+<h1>Viajes Finalizados</h1>
 @endsection   
 @section('content')
 
-@error('error')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
-@enderror
     @if($viajes->isNotEmpty())
         @foreach($viajes as $viaje)
             <div class="formulary" style="width: 500px">
@@ -38,14 +27,6 @@
                     <td><strong>*ESTADO:</strong>  {{$viaje->estado}}</td>
                 </tr>
                 <hr>
-                @if($viaje->estado == "Pendiente")
-                    <form action="{{route('finalizarViaje')}}" method="GET">
-                       @csrf
-                       <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
-                       <button type="submit" class="botones" style="width: 150px">Finalizar Viaje</button>
-                    </form>
-                @endif
-
                 <form action="{{route('listarPasajeros')}}" method="GET">
                 @csrf
                     <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
@@ -59,7 +40,7 @@
         @endforeach
     @else
         <div class="formulary">
-            <strong><em>No tiene ningun viaje asignado</em></strong><br><br>
+            <strong><em>No tiene ningun viaje Finalizado</em></strong><br><br>
         </div>
     @endif
 
