@@ -18,13 +18,13 @@
 }
 
  main{
-    background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url("../../imagenes/background.jpg");
+    background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url("../imagenes/background.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-attachment: fixed;
 	background-size: cover;
     height: 35em;
-    margin-top: -20px;
+    margin-top: 0px;
     display: flex;
     vertical-align: middle;
     z-index: -1;
