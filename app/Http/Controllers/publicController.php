@@ -47,9 +47,7 @@ class publicController extends Controller
         return 0;
     }
     public function guardarRegistroGolden(Request $request){
-        $request->validate(['tarjeta' => 'required|max:16',
-        'codigo' => 'required|max:3',
-        'fechaVenc' => 'required']);
+        $request->validate([]);
         return $this->registerprocess($request);
         $found = Usuarios::select('id_usuario')->where("email","=",$request->email);
         Usuarios::where('id_usuario',$found[0]->id_usuario)->update(['tarjeta' => $request->tarjeta,
