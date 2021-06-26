@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\empleadosRequest;
 use App\Http\Requests\registerRequest;
 use App\Models\Combis;
 use App\Models\Usuarios;
@@ -34,28 +35,38 @@ class publicController extends Controller
     public function registerGolden(){
         return view(' public.registerGolden');
     }
-
-    public function guardarRegistroGolden(registerRequest $request){
-       
-        $found = Usuarios::where("email","=",$request->email);
-        if($found->count() == 0){ 
-            $newUser = new Usuarios;
-            $newUser->nombre = $request->nombre;
-            $newUser->apellido = $request->apellido;
-            $newUser->dni = $request->dni;
-            $newUser->tarjeta = $request->tarjeta;
-            $newUser->fechaVenc = $request->fechaVenc;
-            $newUser->codigo = $request->codigo;
-            $newUser->id_membresia = 2; 
-            $newUser->email = $request->email;
-            $newUser->contraseña = $request->contraseña;
-            $newUser->save();
-            return redirect()->route('login')->withErrors(['sucess'=>'Usuario creado con exito']);
-      
-        } else {
-            return redirect()->route('login')->withErrors(['sucess'=>'Usuario existente']);
-        }
+    public function registerprocess($request){
+        $newUser = new Usuarios;
+        $newUser->nombre = $request->nombre;
+        $newUser->apellido = $request->apellido;
+        $newUser->dni = $request->dni;
+        $newUser->email = $request->email;
+        $newUser->id_membresia = 1; 
+        $newUser->contraseña = $request->contraseña;
+        $newUser->save();
+        return 0;
     }
+    public function guardarRegistroGolden(Request $request){
+        $request->validate(['tarjeta' => 'required|max:16',
+        'codigo' => 'required|max:3',
+        'fechaVenc' => 'required']);
+        return $this->registerprocess($request);
+        $found = Usuarios::select('id_usuario')->where("email","=",$request->email);
+        Usuarios::where('id_usuario',$found[0]->id_usuario)->update(['tarjeta' => $request->tarjeta,
+         'fechaVenc' => $request->fechaVenc, 'codigo' => $request->codigo , 'id_membresia' => 1]);
+        return 0;
+    }
+    public function guardarRegistro(empleadosRequest $request){
+        if(isset($request->tarjeta)){
+            $this->guardarRegistroGolden($request);
+            return "Registro GOLDEN";
+            return redirect()->route('login')->withErrors(['sucess'=>'Usuario GOLDEN registrado correctamente']); 
+        }
+        $this->registerprocess($request);
+        return "Registro BASIC";
+        return redirect()->route('login')->withErrors(['sucess'=>'Usuario BASIC registrado correctamente']); 
+    }
+    
 
 
  
