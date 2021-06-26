@@ -88,7 +88,7 @@
         <br>
         <input type="password" name="contraseña" value="{{old('contraseña')}}" placeholder="password......">
     </strong>
-    @error('contraseña')
+    @error('contraseñavalidation')
         <script>
             Swal.fire({
             title: '<em>{{$message}}</em>',
@@ -100,12 +100,13 @@
         </script>
     @enderror
     <br>
+    <strong>
+        Repetir Contraseña:*
+        <br>
+        <input type="password" name="contraseñavalidation" value="{{old('contraseñarepeat')}}" placeholder="password......">
+    </strong>
     <button type="submit" class="botones"> Registrarse</button>
-
 </form>
 <a href="{{route('registerGolden')}}"><button class="botones">Registrar Como Golden</button></a>
-
-<h3>* Si se registra como golden tendra un Descuento de 10% en cada compra de pasaje</h3>
-
 </div>
 @endsection

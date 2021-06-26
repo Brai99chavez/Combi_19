@@ -98,7 +98,7 @@
    <h1>Datos de Tarjeta</h1>
     <br>
     <strong>
-        Num. de tarjeta: 
+        Numero de Tarjeta 
         <br>
         <input type="text" name="tarjeta" value="{{old('tarjeta')}}" placeholder="123456789....">
     </strong>
@@ -116,9 +116,9 @@
     @enderror
     <br>
     <strong>
-        Fecha de venc. de tarjeta: 
+        Fecha de Vencimiento
         <br>
-        <input type="text" name="fechaVenc" value="{{old('fechaVenc')}}" placeholder="01/07..">
+        <input type="month" name="fechaVenc" value="{{old('fechaVenc')}}" placeholder="01/07..">
     </strong>
     <br>
     @error('fechaVenc')
@@ -134,7 +134,7 @@
     @enderror
     <br>
     <strong>
-        cod. de tarjeta: 
+        Codigo de seguridad - CVC
         <br>
         <input type="text" name="codigo" value="{{old('codigo')}}" placeholder="456..">
     </strong>
