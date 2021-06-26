@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('navLinks')
-<a href="{{route('homeadmin')}}">Home</a>
-<a href="{{route('reports')}}">Reports</a>
-
+<li><a href="{{route('homeadmin')}}">Home</a></li>
+<li><a href="{{route('reports')}}">Reports</a></li>
 @endsection
