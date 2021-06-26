@@ -8,16 +8,16 @@
         
 @section('content')
 @error('sucess')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
-    @enderror
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
+@enderror
 <?php
 
 use App\Models\Usuarios;
@@ -34,15 +34,15 @@ use App\Models\Usuarios;
         <input type="hidden" name="id_usuario" value="{{$usuario[0]->id_usuario}}" > 
     </strong>
     @error('nombre')
-    <script>
-        Swal.fire({
-        title: '<em>{{$message}}</em>',
-        icon: 'success',
-        iconColor: '#105671',
-        confirmButtonColor: '#105671',
-        confirmButtonText: 'ok'
-    })
-    </script>
+        <script>
+            Swal.fire({
+            title: '<em>{{$message}}</em>',
+            icon: 'error',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+        </script>
     @enderror
     <br>
     <strong>
@@ -51,15 +51,15 @@ use App\Models\Usuarios;
         <input type="text" name="apellido" value="{{$usuario[0]->apellido}}" >
     </strong>
     @error('apellido')
-    <script>
-        Swal.fire({
-        title: '<em>{{$message}}</em>',
-        icon: 'success',
-        iconColor: '#105671',
-        confirmButtonColor: '#105671',
-        confirmButtonText: 'ok' 
-    })
-    </script>
+        <script>
+            Swal.fire({
+            title: '<em>{{$message}}</em>',
+            icon: 'error',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok' 
+        })
+        </script>
     @enderror
     <br>
     <strong>
@@ -68,15 +68,15 @@ use App\Models\Usuarios;
         <input type="text" name="dni" value="{{$usuario[0]->dni}}"  >
     </strong>
     @error('dni')
-    <script>
-        Swal.fire({
-        title: '<em>{{$message}}</em>',
-        icon: 'success',
-        iconColor: '#105671',
-        confirmButtonColor: '#105671',
-        confirmButtonText: 'ok'
-    })
-    </script>
+        <script>
+            Swal.fire({
+            title: '<em>{{$message}}</em>',
+            icon: 'error',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+        </script>
     @enderror
     <br>
     <strong>
@@ -85,15 +85,15 @@ use App\Models\Usuarios;
         <input type="text" name="email" value="{{$usuario[0]->email}}" >
     </strong>
     @error('email')
-    <script>
-        Swal.fire({
-        title: '<em>{{$message}}</em>',
-        icon: 'success',
-        iconColor: '#105671',
-        confirmButtonColor: '#105671',
-        confirmButtonText: 'ok'
-    })
-    </script>
+        <script>
+            Swal.fire({
+            title: '<em>{{$message}}</em>',
+            icon: 'error',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+        </script>
     @enderror
     <br>
     <strong>
@@ -102,16 +102,15 @@ use App\Models\Usuarios;
         <input type="password" name="contraseña" value="{{$usuario[0]->contraseña}}" >
     </strong>
     @error('contraseña')
-    <script>
-        Swal.fire({ 
-            icon: 'warning',
-            iconColor: '#48C9B0',
-            title: '<strong style= "color: white; font-family: arial;">{{$message}}</strong>',
-            background:'#404040',
-            confirmButtonColor: '#45B39D ',
-            confirmButtonText: 'Got it!' ,
+        <script>
+            Swal.fire({
+            title: '<em>{{$message}}</em>',
+            icon: 'error',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
         })
-    </script>
+        </script>
     @enderror
     <br> 
     <button type="submit" class="botones">Guardar Cambios</button>
@@ -120,14 +119,14 @@ use App\Models\Usuarios;
 </div>
 
 @error('permiso')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'error',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
 @enderror
 @endsection

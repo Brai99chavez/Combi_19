@@ -4,7 +4,7 @@
     <h1>Actualizar Membresia</h1>
 @endsection  
 @section('content')
-@if(session('id_membresia')==1)
+@if(session('id_membresia')==2)
     <div class="formulary">
     <h2>Membresia actual: BASIC</h2>
     <ul>
@@ -42,11 +42,10 @@
         <ul>
             <li><p>Beneficios actuales: {{$golden[0]->descuento}}% de descuento en la compra de pasajes</p></li>
         </ul>
-
-        <a href="{{route('processingMembresiaUpdateBasic')}}">
-            <button class="botones dar-baja" id="mybutton" type="submit">Dar de baja</button>
-        </a>
-
+        <form action="{{route('processingMembresiaUpdateBasic')}}" method="GET" class="dar-baja">
+            @csrf
+            <button type="submit" id="mybutton" class="botones">Dar de baja</button>
+        </form>
         <form action="{{route('processingUpdateTarjetaCliente')}}" method="POST">
             <br>
             @csrf
@@ -75,94 +74,70 @@
     </div>
 @endif
 @error('tarjeta')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'error',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
 @enderror
 @error('fechaVenc')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'error',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
 @enderror
 @error('codigo')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'error',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
 @enderror
 @error('success')   
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
 @enderror
-
 @endsection
-
 @section('js')
-<script>
+    <script>
+        $('.dar-baja').submit (function (e) {
 
-$('.dar-bajar').submit (function (e) {
+        e.preventDefault();
 
-e.preventDefault();
-
-Swal.fire({
-title: 'Confirmar eliminacion',
-text: "no podras revertir esto!",
-icon: 'warning',
-iconColor: '#105671',
-showCancelButton: true,
-confirmButtonColor: '#105671',
-confirmButtonText: 'Si, eliminar!',
-cancelButtonText: 'Cancelar'
-}).then((result) => {
-if (result.isConfirmed){
-this.submit();
-}
-})
-});
-
-
-    // var button = document.getElementById("mybutton");
-
-    // button.onclick = function(){
-        
-    //     Swal.fire({
-    //     title: 'Confirmar Baja',
-    //     icon: 'warning',
-    //     iconColor: '#105671',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#105671',
-    //     confirmButtonText: 'Si, eliminar!',
-    //     cancelButtonText: 'Cancelar'
-    //     }).then((result) => {
-    // if (result.isConfirmed){
-    //     this.submit();
-    // }
-    // })
-	// }
-
-</script>
+        Swal.fire({
+        title: '¿Estas seguro que quieres darte de baja?',
+        text: "¡No podras revertir esto!",
+        icon: 'warning',
+        iconColor: '#105671',
+        showCancelButton: true,
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'Si, dar de baja!',
+        cancelButtonText: 'Me arrepenti'
+        }).then((result) => {
+        if (result.isConfirmed){
+        this.submit();
+        }
+        })
+        });
+    </script>
 @endsection

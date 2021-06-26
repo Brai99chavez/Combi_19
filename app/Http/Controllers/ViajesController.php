@@ -236,7 +236,7 @@ class ViajesController extends Controller
                 $nuevoInsumo->id_insumo = $request->insumo[$i];
                 $nuevoInsumo->save();
             }
-            return redirect()->route('homeviajes')->withErrors(['sucess' => 'Los nuevos insumos han sido agregados']);
+            return redirect()->route('homeviajes')->withErrors(['sucess' => 'Registro cargado correctamente']);
         }
         return redirect()->route('homeviajes')->withErrors(['sucess' => 'No se realizaron cambios en los insumos']);        
     }

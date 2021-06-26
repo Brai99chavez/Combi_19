@@ -149,8 +149,17 @@ Route::get('misViajesChofer',[choferController::class,'misViajesChofer'])->name(
 
 Route::get('finalizarViaje',[choferController::class,'finalizarViaje'])->name(('finalizarViaje'));
 
+Route::get('listarPasajeros',[choferController::class,'listarPasajeros'])->name(('listarPasajeros'));
 
- 
+Route::get('viajesFinalizados',[choferController::class,'viajesFinalizados'])->name(('viajesFinalizados'));
+
+Route::get('registrarSintomasCovid',[choferController::class,'registrarSintomasCovid'])->name(('registrarSintomasCovid'));
+
+Route::post('registrarSintomasProcess',[choferController::class,'registrarSintomasProcess'])->name(('registrarSintomasProcess'));
+
+
+
+
 //USUARIO
 
 Route::get('home', [userController::class,'homeUser'])->name('homeUser');
@@ -181,8 +190,6 @@ Route::get('resumenCompraViaje', [userController::class,'resumenCompra'])->name(
 
 Route::get('processingPago', [userController::class,'crearPago'])->name('crearPago');
 
-Route::post('reembolso', [userController::class,'reembolso'])->name('reembolso');
-
 Route::get('misViajes', [userController::class,'misViajes'])->name('misViajes');
 
 Route::get('viewInsumosViaje', [userController::class,'insumosViajeCliente'])->name('insumosViajeCliente');
@@ -201,7 +208,12 @@ Route::post('updateComentarioProcess', [userController::class,'updateComentarioP
 
 Route::get('deleteComentario', [userController::class,'deleteComentarioProcess'])->name('deleteComentario');
 
-Route::get('reembolsoProcessCliente', [userController::class,'reembolsoProcessCliente'])->name('reembolsoProcessCliente');
+Route::get('reembolsoProcessClienteG', [userController::class,'reembolsoProcessClienteGolden'])->name('reembolsoProcessClienteGolden');
+
+Route::get('reembolsoTarjetaBasic', [userController::class,'reembolsoTarjetaBasic'])->name('reembolsoTarjetaBasic');
+
+Route::post('reembolsoProcessClienteB', [userController::class,'reembolsoProcessClienteBasic'])->name('reembolsoProcessClienteBasic');
+
 
 
 

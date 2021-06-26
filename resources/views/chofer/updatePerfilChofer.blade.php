@@ -6,37 +6,37 @@
 @section('content')
 
 <div class="formulary"> 
-<form action="{{route('updateChoferProcess')}}" method="POST" >
+<form action="{{route('updateChoferProcess')}}" method="POST" class="confirmar">
 <h2>Actualizar Datos</h2>
 <br>
     @csrf
     <strong>
         Nombre
         <br>
-        <input type="text" name="nombre" value="{{$usuario[0]->nombre}}" > 
+        <input type="text" name="nombre" value="{{$usuario[0]->nombre}}" autocomplete="off"> 
     </strong>
     <br>
     <strong>
         Apellido
         <br>
-        <input type="text" name="apellido" value="{{$usuario[0]->apellido}}" >
+        <input type="text" name="apellido" value="{{$usuario[0]->apellido}}" autocomplete="off">
     </strong>
     <br>
     <strong>
         DNI
         <br>
-        <input type="text" name="dni" value="{{$usuario[0]->dni}}" disabled>
+        <input type="number" name="dni" value="{{$usuario[0]->dni}}" disabled>
     </strong>
     <br>
     <strong>
         Email
         <br>
-        <input type="text" name="email" value="{{$usuario[0]->email}}" >
+        <input type="email" name="email" value="{{$usuario[0]->email}}" autocomplete="off">
     </strong>
     <br>
     <i><small>En caso de haber olvidado su contraseña contáctese con personal administrativo</small></i>
     <br><br>
-    <button type="submit" class="botones">Guardar Cambios</button>
+    <button type="submit" class="botones">Confirmar</button>
 </form>
 @error('sucess')
     <script>
@@ -93,4 +93,27 @@
     })
     </script>
 @enderror
+@endsection
+@section('js')
+    <script>
+        $('.confirmar').submit (function (e) {
+
+            e.preventDefault();
+
+            Swal.fire({
+        title: '¿Guardar Cambios?',
+        text: "Confirmar para actualizar",
+        icon: 'warning',
+        iconColor: '#105671',
+        showCancelButton: true,
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+        }).then((result) => {
+        if (result.isConfirmed){
+            this.submit();
+        }
+        })
+        });
+    </script>
 @endsection

@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        $this->call(casosSeeder::class);
         $this->call(membresiaSeeder::class);
         $this->call(permisosSeeder::class);
         $this->call(viaje_insumosSeeder::class);
@@ -24,8 +23,10 @@ class DatabaseSeeder extends Seeder
         $this->call(usuariosSeeder::class);
         $this->call(insumosSeeder::class);
         $this->call(ciudadesSeeder::class);
-        $this->call(tarjetasSeeder::class);
         $this->call(viajesSeeder::class);
         $this->call(rutasSeeder::class);
+        $this->call(sintomasSeeder::class);
+        $this->call(registrosCOVIDSeeder::class);
+        $this->call(comentariosSeeder::class);
     }
 }

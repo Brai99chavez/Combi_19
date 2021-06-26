@@ -34,8 +34,9 @@
         @else
             <i><h2>Sin viajes asignados para hoy</h2></i>
         @endif
-    </tbody>
-</table>
+        </tbody>
+    </table>
+<br>
 </div>
 
 @endsection

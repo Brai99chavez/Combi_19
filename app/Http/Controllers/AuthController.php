@@ -22,9 +22,6 @@ class AuthController extends Controller
             session(['codigo'=>$user[0]->codigo]); 
             session(['id_usuario'=>$user[0]->id_usuario]);
             session(['id_membresia'=>$user[0]->id_membresia]);
-            //ACA ACTUALIZO EL ESTADO DE LOS VIAJES EN CASO DE QUE HAYAN TERMINADO SIN NINGUN PROBLEMA
-            Viajes::where('fecha','<',date('Y-m-d'))->where('estado','<>',"Cancelado")->update(['estado' => 'Finalizado']);
-            
             if (session()->get('id_permiso') == 1) {
                 return redirect()->route('homeUser');
             }elseif (session()->get('id_permiso') == 2) {

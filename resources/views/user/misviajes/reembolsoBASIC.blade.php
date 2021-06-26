@@ -1,17 +1,17 @@
 @extends('user.userLayout')
-@section('title', 'Pago de Tarjeta')
+@section('title', 'Reembolso para usuarios BASIC')
 @section('headerTitle')
-<h1>Pago de Pasajes</h1>
+<h1>Reembolso BASIC</h1>
 @endsection        
 @section('content')
 <div class="formulary">
-    <h2><i>{{$cantPasajesCompra}} Pasaje/s a un total de : ${{$precio}}</i></h2>
-    <form action="{{route('pagoConTarjetaNueva')}}" method="POST">
+    <h2><i>N° Pasaje: {{$id_pasaje}}</i></h2>
+    <form action="{{route('reembolsoProcessClienteBasic')}}" method="POST" class="confirmar">
         @csrf
-        <input type="hidden" name="cantPasajesCompra" value="{{$cantPasajesCompra}}" >
-        <input type="hidden" name="id_viaje" value="{{$id_viaje}}">
-        <input type="hidden" name="precio" value="{{$precioindiv}}">
-        <br>
+        <input type="hidden" name="id_pasaje" value="{{$id_pasaje}}">
+        <i><em>Monto a reembolsar: ${{$monto[0]->precio}}</em></i> -
+        <i><em>Ingrese la tarjeta donde desea enviar el dinero</em></i>
+        <br><br>
         <strong>
             Numero de Tarjeta 
             <br>
@@ -25,12 +25,12 @@
         </strong>
         <br><br>
         <strong>
-            Codigo de seguridad - CVV
+            Codigo de seguridad - CVC
             <br>
-            <input type="text" name="codigo" placeholder="3 digitos">                      
+            <input type="number" name="codigo" placeholder="3 digitos">                      
         </strong>
         <br><br>
-        <button type="submit" class="botones">Realizar Pago</button>
+        <button type="submit" class="botones">Confirmar</button>
         <br>
     </form>
 </div>
@@ -67,15 +67,27 @@
     })
     </script>
 @enderror
-@error('sucess')
+@endsection
+@section('js')
     <script>
-        Swal.fire({
-        title: '<em>{{$message}}</em>',
-        icon: 'success',
+        $('.confirmar').submit (function (e) {
+
+            e.preventDefault();
+
+            Swal.fire({
+        title: '¿Estas seguro?',
+        text: "Confirma para iniciar la transferencia",
+        icon: 'warning',
         iconColor: '#105671',
+        showCancelButton: true,
         confirmButtonColor: '#105671',
-        confirmButtonText: 'ok'
-    })
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+        }).then((result) => {
+        if (result.isConfirmed){
+            this.submit();
+        }
+        })
+        });
     </script>
-@enderror
 @endsection

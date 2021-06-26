@@ -5,22 +5,27 @@
 
 
 @error('sucess')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
 @enderror
-
-        @error('combiprocess')
-            <br>
-                <small>{{$message}}</small>
-            <br>
-        @enderror
+@error('combiprocess')
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'success',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
+@enderror
 
     <table>
         <thead>
@@ -62,15 +67,15 @@
                 </tr>
                 @endforeach
             @else
-            <script>
-                Swal.fire({
-                title: '<em>No hay combis cargadas</em>',
-                icon: 'success',
-                iconColor: '#105671',
-                confirmButtonColor: '#105671',
-                confirmButtonText: 'ok'
-            })
-            </script>
+                <script>
+                    Swal.fire({
+                    title: '<em>No hay combis cargadas</em>',
+                    icon: 'success',
+                    iconColor: '#105671',
+                    confirmButtonColor: '#105671',
+                    confirmButtonText: 'ok'
+                })
+                </script>
             @endif
         </tbody>
     </table>

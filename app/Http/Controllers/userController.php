@@ -71,7 +71,8 @@ class userController extends Controller
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","categorias.nombre as categoria","usuarios.nombre as chofer", "combis.patente", 
-        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',"viajes.cantPasajes")
+        "viajes.precio as precio", "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora',"viajes.cantPasajes","viajes.estado")
+        ->where("viajes.estado","=","Pendiente")
         ->orderByDesc('viajes.id_viaje')
         ->get();
         $viaje_insumos = Viaje_insumos::join("viajes","viajes.id_viaje","=","viaje_insumo.id_viaje")
@@ -94,48 +95,51 @@ class userController extends Controller
         $golden = Membresias::select('descuento')->where('id_membresia',1)->get();
         $descuento = $golden[0]->descuento * $viaje[0]->precio / 100;
         $precioConDescuento = $viaje[0]->precio - $descuento;
-        return view('user.pagarviaje.detallesViajeCompra', compact('viaje','precioConDescuento','descuento','golden'));
+        $cantPasajes = $request->cantPasajes;
+        return view('user.pagarviaje.detallesViajeCompra', compact('viaje','precioConDescuento','descuento','golden','cantPasajes'));
     }
     public function crearPago(Request $request){
-        $request->validate(['cantPasajesCompra' => 'required|numeric'],['numeric' => 'El valor ingresado es invalido']);
+        $request->validate(['cantPasajesCompra' => 'required|numeric|lte:cantPasajes'],['lte' => 'La cantidad ingresada supera el limite de pasajes disponibles']);
         $id_viaje = $request->id_viaje;
-        if(isset($request->precioConDescuento)){
-            $precioConDescuento = $request->precioConDescuento;
-        }else{
-            $precio = $request->precio;
-        }
         $cantPasajesCompra = $request->cantPasajesCompra;
+        if(isset($request->precioConDescuento)){
+            $precioConDescuento = $request->precioConDescuento * $request->cantPasajesCompra;
+            $precioindiv = $request->precioConDescuento;
+        }else{
+            $precio = $request->precio * $request->cantPasajesCompra;
+            $precioindiv = $request->precio;
+        }
         if(session('id_membresia')==1)
-            return view('user.pagarviaje.crearPago', compact('id_viaje','cantPasajesCompra','precio'));
+            return view('user.pagarviaje.crearPago', compact('id_viaje','cantPasajesCompra','precio','precioindiv'));
         else{
             $numero = Usuarios::where('id_usuario',session('id_usuario'))->select('tarjeta')->get();
             $resultado = substr($numero[0]->tarjeta, 12, 4);
-            return view('user.pagarviaje.realizarPagoGolden',compact('id_viaje','resultado','cantPasajesCompra','precioConDescuento'));
+            return view('user.pagarviaje.realizarPagoGolden',compact('id_viaje','resultado','cantPasajesCompra','precioConDescuento','precioindiv'));
         }
     }     
     public function pagoConTarjetaNueva(clienteMembresiaRequest $request){
-        for ($i = 0; $i < $request->cantPasajesCompra;$i++){
-            $pasaje = new Pasajes;
-            $pasaje->id_usuario = session('id_usuario');
-            $pasaje->id_viaje = $request->id_viaje;
-            $pasaje->save();
-        }
-        $pasajesActuales = Viajes::where('id_viaje',$request->id_viaje)->select('cantPasajes')->get();
-        $resultado = $pasajesActuales[0]->cantPasajes - $request->cantPasajesCompra;
-        Viajes::where('id_viaje',$request->id_viaje)->update(['cantPasajes' => $resultado]);
-        return redirect()->route('misViajes')->withErrors(['success' => 'Compra Exitosa']);
+        $this->processingPagoPasajes($request);
+        return redirect()->route('misViajes')->withErrors(['sucess' => 'Compra Exitosa']);
     }
     public function pagoConTarjetaGuardada(Request $request){
+        $this->processingPagoPasajes($request);
+        return redirect()->route('misViajes')->withErrors(['sucess' => 'Compra Exitosa']);
+    }
+
+    private function processingPagoPasajes($request){
         for ($i = 0; $i < $request->cantPasajesCompra;$i++){
             $pasaje = new Pasajes;
             $pasaje->id_usuario = session('id_usuario');
             $pasaje->id_viaje = $request->id_viaje;
+            $pasaje->estado = "Pendiente";
+            $pasaje->precio = $request->precio;
+            $pasaje->reembolsar = "NO";
             $pasaje->save();
         }
         $pasajesActuales = Viajes::where('id_viaje',$request->id_viaje)->select('cantPasajes')->get();
         $resultado = $pasajesActuales[0]->cantPasajes - $request->cantPasajesCompra;
         Viajes::where('id_viaje',$request->id_viaje)->update(['cantPasajes' => $resultado]);
-        return redirect()->route('misViajes')->withErrors(['success' => 'Compra Exitosa']);
+        return 0;
     }
     public function misViajes(){
         $viajes = Pasajes::join('viajes','viajes.id_viaje','=','pasajes.id_viaje')
@@ -145,10 +149,12 @@ class userController extends Controller
         ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
         ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
-        ->select("pasajes.id_pasaje","categorias.nombre as categoria","viajes.precio as precio",
-         "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora','viajes.id_viaje')
+        ->select("pasajes.id_pasaje","categorias.nombre as categoria","pasajes.precio",
+         "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora','viajes.id_viaje',"pasajes.estado"
+         ,"pasajes.reembolsar")
         ->where('pasajes.id_usuario',session('id_usuario'))
-        ->where('viajes.estado','<>',"Finalizado")
+        ->where('pasajes.estado','<>',"Confirmado")
+        ->where('pasajes.estado','<>',"Cancelado")
         ->get();
         return view('user.misviajes.misViajes',compact('viajes'));
     }
@@ -157,18 +163,16 @@ class userController extends Controller
         return view('user.actualizarMembresia', compact('golden'));
     }
     public function processingMembresiaUpdateGolden(clienteMembresiaRequest $request){
-        if(session('id_membresia')==1){
-            Usuarios::where('id_usuario',session('id_usuario'))->update(['id_membresia' => 2, 'tarjeta' => $request->tarjeta,
-            'fechaVenc' => $request->fechaVenc, 'codigo' => $request->codigo]);
-            session(['id_membresia'=> 2]);
-            session(['tarjeta'=> $request->tarjeta]);session(['fechaVenc' => $request->fechaVenc]);session(['codigo' => $request->codigo]);
-            return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Ahora usted tiene membresia GOLDEN']);
-        }
+        Usuarios::where('id_usuario',session('id_usuario'))->update(['id_membresia' => 1, 'tarjeta' => $request->tarjeta,
+        'fechaVenc' => $request->fechaVenc, 'codigo' => $request->codigo]);
+        session(['id_membresia'=> 1]);
+        session(['tarjeta'=> $request->tarjeta]);session(['fechaVenc' => $request->fechaVenc]);session(['codigo' => $request->codigo]);
+        return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Ahora usted tiene membresia GOLDEN']);
     }
-    public function processingMembresiaUpdateBasic(){
-        Usuarios::where('id_usuario', session('id_usuario'))->update(['id_membresia' => 1, 'tarjeta' => null,
+    public function processingMembresiaUpdateBasic(Request $request){
+        Usuarios::where('id_usuario', session('id_usuario'))->update(['id_membresia' => 2, 'tarjeta' => null,
         'fechaVenc' => null, 'codigo' => null]);
-        session(['id_membresia'=> 1]);session(['tarjeta' => null]);session(['fechaVenc' => null]);session(['codigo' => null]);
+        session(['id_membresia'=> 2]);session(['tarjeta' => null]);session(['fechaVenc' => null]);session(['codigo' => null]);
         return redirect()->route('updateMembresiaCliente')->withErrors(['success'=>'Ahora usted tiene membresia BASIC']);  
     }
     public function processingUpdateTarjetaCliente(clienteMembresiaRequest $request){
@@ -223,30 +227,38 @@ class userController extends Controller
         return view('user.misviajes.comentariosDeUnViaje',compact('comentarios','id_viaje'));
     }
 
-    public function reembolso(Request $request){
-
-        Pasajes::where("id_pasaje",$request->id_pasaje)->delete();
-
-        $aux = Viajes::select('cantPasajes')->where("id_viaje",$request->id_viaje)->get();
-        $aux = $aux[0]->cantPasajes + 1 ;
-        
-        Viajes::where("id_viaje",$request->id_viaje)->update(['cantPasajes'=>$aux]);
-
-        return redirect()->route('misViajes')->withErrors(['sucess'=>'El pasaje se reembolso correctamente']);
-    }
-
-    public function reembolsoProcessCliente(Request $request){
-        $found = Pasajes::where('id_pasaje',$request->id_pasaje)->get();
-        $dias = Carbon::createFromTimeStamp(strtotime($found[0]->created_at))->diffForHumans();
-        Pasajes::where('id_pasaje',$request->id_pasaje)->delete();
-        if($dias < 2 ){
-            return "tengo menos de 2 dias";
+    public function reembolsoProcess($request){
+        $found = Pasajes::select('created_at','estado','id_viaje')->where('id_pasaje',$request->id_pasaje)->get();
+        Viajes::where('id_viaje',$found[0]->id_viaje)->increment('cantPasajes');
+        if($found[0]->estado <> "Cancelado COVID"){
+            $dias = Carbon::now()->diffInDays($found[0]->created_at);
+            Pasajes::where('id_pasaje',$request->id_pasaje)->update(['estado' => 'Cancelado', 'reembolsar' => "NO"]);
+            if($dias < 2){
+                return 0;
+            }
+            return 1;
         }
-        return "tengo mas";
-        //SIN TERMINAAAAAR PERO EL CODIGO YA ME DEVUELVE LA CANTIDAD DE DIAS GG IZI NO MENTIRA ESTUVE DOS HORAS PARA SABER ESTA MRD CARBON DEL ORTO NO MENTIRA I LOVE YOU UWU
+        Pasajes::where('id_pasaje',$request->id_pasaje)->update(['reembolsar' => "NO"]);
+        return 0;
+    }
+    public function reembolsoProcessClienteGolden(Request $request){
+        if($this->reembolsoProcess($request)==0){
+            return redirect()->route('misViajes')->withErrors(['sucess'=>'Reembolso aceptado, devolución del 100% del monto']);
+        }
+        return redirect()->route('misViajes')->withErrors(['sucess'=>'Reembolso aceptado, devolución del 50% del monto']);
+    }
+    public function reembolsoProcessClienteBasic(clienteMembresiaRequest $request){
+        if($this->reembolsoProcess($request)==0){
+            return redirect()->route('misViajes')->withErrors(['sucess'=>'Reembolso aceptado, devolución del 100% del monto']);
+        }
+        return redirect()->route('misViajes')->withErrors(['sucess'=>'Reembolso aceptado, devolución del 50% del monto']);
     }
 
-
+    public function reembolsoTarjetaBasic(Request $request){
+        $id_pasaje = $request->id_pasaje;
+        $monto = Pasajes::where('id_pasaje', $request->id_pasaje)->get();
+        return view ('user.misviajes.reembolsoBASIC', compact('id_pasaje', 'monto'));
+    }
     public function updateComentario(Request $request){
         $comentario = Comentarios::where('id_comentario',$request->id_comentario)->get();
         $id_viaje = $request->id_viaje;

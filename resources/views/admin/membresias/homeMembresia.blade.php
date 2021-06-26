@@ -16,15 +16,15 @@
             <br>
     @endforeach
     @error('updateprocess')
-    <script>
-        Swal.fire({
-        title: '<em>{{$message}}</em>',
-        icon: 'success',
-        iconColor: '#105671',
-        confirmButtonColor: '#105671',
-        confirmButtonText: 'ok'
-    })
-    </script>
-@enderror
+        <script>
+            Swal.fire({
+            title: '<em>{{$message}}</em>',
+            icon: 'success',
+            iconColor: '#105671',
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'ok'
+        })
+        </script>
+    @enderror
 </div>
 @endsection

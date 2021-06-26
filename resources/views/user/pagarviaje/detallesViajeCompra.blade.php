@@ -16,6 +16,7 @@
         <p><strong>Fecha: </strong>{{$viaje[0]->fecha}}</p>
         <p><strong>Categoria: </strong>{{$viaje[0]->categoria}}</p>
         <p><strong>Hora de salida: </strong>{{$viaje[0]->hora}}hrs</p>
+        <p><strong>Pasajes disponibles: </strong>{{$viaje[0]->cantPasajes}}</p>
         <hr>
         <h2>Ingrese la cantidad de pasajes que desea comprar</h2>
         <form action="{{route('crearPago')}}" method="GET">
@@ -24,22 +25,23 @@
             @else
                 <input type="hidden" value="{{$viaje[0]->precio}}" name="precio">
             @endif
-            <input type="hidden" value="{{$viaje[0]->id_viaje}}" name="id_viaje">  
+            <input type="hidden" value="{{$viaje[0]->id_viaje}}" name="id_viaje">
+            <input type="hidden" value="{{$viaje[0]->cantPasajes}}" name= "cantPasajes">  
             <p>N° Pasajes</p>
-            <input type="numeric" name="cantPasajesCompra">
+            <input type="number" name="cantPasajesCompra" autocomplete="off">
             <br><br>
             <button type="submit" class="botones">Procesar</button>
         </form>
     </div>
 @error('cantPasajesCompra')
-<script>
-    Swal.fire({
-    title: '<em>{{$message}}</em>',
-    icon: 'success',
-    iconColor: '#105671',
-    confirmButtonColor: '#105671',
-    confirmButtonText: 'ok'
-})
-</script>
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'error',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
 @enderror
 @endsection

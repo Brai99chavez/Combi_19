@@ -8,15 +8,15 @@
                 <input type="text" name="nombre" value="{{$insumo[0]->nombre}}">
                 <br>
                 @error('nombre')
-                <script>
-                    Swal.fire({
-                    title: '<em>{{$message}}</em>',
-                    icon: 'success',
-                    iconColor: '#105671',
-                    confirmButtonColor: '#105671',
-                    confirmButtonText: 'ok'
-                })
-                </script>
+                    <script>
+                        Swal.fire({
+                        title: '<em>{{$message}}</em>',
+                        icon: 'error',
+                        iconColor: '#105671',
+                        confirmButtonColor: '#105671',
+                        confirmButtonText: 'ok'
+                    })
+                    </script>
                 @enderror
                 <br>
                 <strong>PRECIO:</strong>
@@ -24,15 +24,15 @@
                 <input type="number" name="precio" value="{{$insumo[0]->precio}}">
                 <br>
                 @error('precio')
-                <script>
-                    Swal.fire({
-                    title: '<em>{{$message}}</em>',
-                    icon: 'success',
-                    iconColor: '#105671',
-                    confirmButtonColor: '#105671',
-                    confirmButtonText: 'ok'
-                })
-                </script>
+                    <script>
+                        Swal.fire({
+                        title: '<em>{{$message}}</em>',
+                        icon: 'error',
+                        iconColor: '#105671',
+                        confirmButtonColor: '#105671',
+                        confirmButtonText: 'ok'
+                    })
+                    </script>
                 @enderror
                 <br>
                 <strong>DESCRIPCION</strong>
