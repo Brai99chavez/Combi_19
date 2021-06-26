@@ -18,19 +18,22 @@
     })
 </script>
 @enderror
-    <form action="{{route('autenticacion')}}" method="POST" class="formulary" >
-        @csrf
-        <strong for="email">Email</strong>
-        <br>
-        <input type="text" name="email" placeholder="" value="{{old('email')}}">
-        
-        <br>
-        <strong>Contraseña</strong>
-        <br>
-        <input type="password" name="contraseña" placeholder="" >
-        <br>
-        <button type="submit" class="botones" >Iniciar Sesion</button>
-    </form>
+    <div class="formulary" style="width: 60vh;">
+        <h2>Login</h2>
+        <form action="{{route('autenticacion')}}" method="POST" " >
+            @csrf
+            <strong for="email">Email</strong>
+            <br>
+            <input type="email" name="email" placeholder="example@gmail.com" value="{{old('email')}}">
+            
+            <br>
+            <strong>Contraseña</strong>
+            <br>
+            <input type="password" name="contraseña" placeholder="**********" >
+            <br>
+            <button type="submit" class="botones" >Iniciar Sesion</button>
+        </form>
+    </div>
 @error('contraseña')
     <script>
         Swal.fire({
