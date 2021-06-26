@@ -3,16 +3,13 @@
 
 .formulary {
 	border-radius: 20px;
-    width: 40%;
+    width: 30%;
     padding: 30px;
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 30px;
     font-family: 'calibri';
     font-size: 20px;
     color: var(--font);
     text-align: center;
-    background: var(--paneles);
+    background: rgba(255, 255, 255, 0.474);
     
 }
 
@@ -32,7 +29,7 @@
 
 .formulary input[type="text"]{
     width: 50%;
-    background: var(--paneles);
+    background: var(--baCK);
     margin-bottom: 16px;
     border: none;
     border-bottom: 2px solid var(--Bordes);

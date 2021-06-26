@@ -6,10 +6,12 @@
 
 @section('content')
 
-<div class="formulary">
-    <h2>Bienvenido a Combi 19</h2>
-    <h2>Registrate e ingresa tu tarjeta de credito y obtendras descuentos en tus proximos viajes</h2>
-    <h2>Ademas tendras acceso a la membresia Golden!!</h2>
+<div class="about">
+    <h1>Bienvenido a Combi 19</h1>
+    <p>somos una empresa de combis con un renovado sistema de organizacion.</p>
+    <p>Ideal para viajar de forma segura en estos tiempos !!!</p>
+    <br>
+    <p>registrate como usuario golden para tener un 20% de descuento</p>
 </div>
 
 @endsection

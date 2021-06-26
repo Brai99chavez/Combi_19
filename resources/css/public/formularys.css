@@ -1,0 +1,109 @@
+.formulary {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.603);
+    max-width: 120vh;
+    min-width: 30vh;
+    border-radius: 10px;
+    margin: auto;
+    vertical-align: middle;
+}
+
+
+.formulary h2{
+    color: var(--primaryColor);
+    margin: 20px;
+
+    text-align: center;
+}
+
+
+.formulary form strong{
+    color: var(--primaryColor);
+}
+
+.formulary input::placeholder{
+    color: var(--placeholder);
+}
+
+.formulary input[type="text"]{
+    
+    margin: 1em;
+    background: var(--primaryColor);
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    border-bottom: 2px solid var(--primaryColor);
+    width: 70%;
+    color: var(--font);
+}
+
+.formulary input[type="number"]{
+    margin: 1em;
+    background: var(--primaryColor);
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    border-bottom: 2px solid var(--primaryColor);
+    width: 70%;
+    color: var(--font);
+}
+
+.formulary form input[type="email"]{
+    margin: 1em;
+    background: var(--primaryColor);
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    border-bottom: 2px solid var(--primaryColor);
+    width: 70%;
+    color: var(--font);
+}
+
+.formulary input[type="password"]{
+    margin: 1em;
+    background: var(--primaryColor);
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    border-bottom: 2px solid var(--primaryColor);
+    width: 70%;
+    color: var(--font);
+}
+
+.formulary button[type="submit"]{
+    margin: 20px;
+    background: var(--font);
+    border: 2px solid var(--primaryColor);
+    color: var(--primaryColor);
+    border-radius: 20px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.formulary button[type="submit"]:hover{
+    color: var(--font);
+    background: var(--primaryColor);
+    border: 2px solid var(--font);
+}
+
+.formulary button[type="reset"]{
+    margin: 20px;
+    background: var(--font);
+    border: 2px solid var(--primaryColor);
+    color: var(--primaryColor);
+    border-radius: 20px;
+    padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+}
+
+.formulary button[type="reset"]:hover{
+    color: var(--font);
+    background: var(--primaryColor);
+    border: 2px solid var(--font);
+}
