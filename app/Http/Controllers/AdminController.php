@@ -30,4 +30,8 @@ class AdminController extends Controller
 
         }
     }   
+
+    public function showReports(){
+        return view('admin.reports');
+    }
 }

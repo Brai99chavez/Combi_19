@@ -26,7 +26,7 @@
 }
 
 .formulary input[type="text"]{
-    
+    text-align: center;
     margin: 1em;
     background: var(--primaryColor);
     border: none;
@@ -39,6 +39,7 @@
 }
 
 .formulary input[type="number"]{
+    text-align: center;
     margin: 1em;
     background: var(--primaryColor);
     border: none;
@@ -51,6 +52,7 @@
 }
 
 .formulary form input[type="email"]{
+    text-align: center;
     margin: 1em;
     background: var(--primaryColor);
     border: none;
@@ -63,6 +65,20 @@
 }
 
 .formulary input[type="password"]{
+    text-align: center;
+    margin: 1em;
+    background: var(--primaryColor);
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    border-bottom: 2px solid var(--primaryColor);
+    width: 70%;
+    color: var(--font);
+}
+
+.formulary input[type="month"]{
+    
     margin: 1em;
     background: var(--primaryColor);
     border: none;

@@ -49,6 +49,8 @@ Route::get('logOut', [AuthController::class,'logOut'])->name('logOut');
 
 //ADMIN
 
+Route::get('Reports', [AdminController::class,'showReports'])->name('reports');
+
         //ADMIN - CIUDADES
 Route::get('home_ciudades', [ciudadesController::class,'showCiudades'])->name('homeciudades');
 

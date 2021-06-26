@@ -9,9 +9,10 @@
 
 <div class="formulary">
     
-<h1>Registrar Como Basic</h1>
-<form action="{{route('guardarRegistro')}}" method="POST">
-<br>
+<h2>Registro</h2>
+<form action="{{route('guardarRegistro')}}" method="POST" style="display: flex">
+    <div>
+        <br>
     @csrf
     <strong>
         Nombre:*
@@ -83,30 +84,35 @@
         </script>
     @enderror
     <br>
-    <strong>
-        Contraseña:*
+    </div>
+    <div style="margin:auto">
+        <strong >
+            Contraseña:*
+            <br>
+            <input type="password" name="contraseña" value="{{old('contraseña')}}" placeholder="password......">
+        </strong>
+        @error('contraseñavalidation')
+            <script>
+                Swal.fire({
+                title: '<em>{{$message}}</em>',
+                icon: 'error',
+                iconColor: '#105671',
+                confirmButtonColor: '#105671',
+                confirmButtonText: 'ok'
+            })
+            </script>
+        @enderror
         <br>
-        <input type="password" name="contraseña" value="{{old('contraseña')}}" placeholder="password......">
-    </strong>
-    @error('contraseñavalidation')
-        <script>
-            Swal.fire({
-            title: '<em>{{$message}}</em>',
-            icon: 'error',
-            iconColor: '#105671',
-            confirmButtonColor: '#105671',
-            confirmButtonText: 'ok'
-        })
-        </script>
-    @enderror
-    <br>
-    <strong>
-        Repetir Contraseña:*
+        <strong>
+            Repetir Contraseña:*
+            <br>
+            <input type="password" name="contraseñavalidation" value="{{old('contraseñarepeat')}}" placeholder="password......">
+        </strong>
         <br>
-        <input type="password" name="contraseñavalidation" value="{{old('contraseñarepeat')}}" placeholder="password......">
-    </strong>
-    <button type="submit" class="botones"> Registrarse</button>
+        <button type="submit" class="botones"> Finalizar Registro</button>
+        <br>
+        <button onclick=location.href="{{route('registerGolden')}}" type="reset" class="botones">Registro Golden</button>
+    </div>
 </form>
-<a href="{{route('registerGolden')}}"><button class="botones">Registrar Como Golden</button></a>
 </div>
 @endsection
