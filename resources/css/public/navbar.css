@@ -1,0 +1,99 @@
+nav {
+    color: var(--primaryColor);
+    display: flex;
+    justify-content: space-between;
+}
+nav .mainMenu {
+    display: flex;
+    list-style: none;
+    
+}
+nav .mainMenu li a {
+    display: inline-block;
+    padding: 15px;
+    margin: 25px;
+    text-decoration: none;
+    color: var(--navfont);
+    font-size: 1.5rem;
+}
+nav .mainMenu li a:hover {
+    background: var(--hover);
+    color: var(--hoverfont);
+    border-radius: 20px;
+}
+nav .openMenu {
+    font-size: 2rem;
+    margin: 20px;
+    display: none;
+    cursor: pointer;
+    
+}
+nav .mainMenu .closeMenu , .icons i {
+    font-size: 2rem;
+    display: none;
+    cursor: pointer;
+}
+.fa-facebook:hover {color: rgb(0, 110, 255);}
+.fa-twitter:hover {color: rgb(86, 154, 243);}
+.fa-instagram:hover {color: rgb(255, 0, 191);}
+
+nav .logo {
+    margin: 6px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+nav .logo img{
+    margin-left: 30px;
+    width: 4em;
+}
+@media(max-width: 800px){
+    nav .mainMenu {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 10;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: var(--background);
+        transition: top 1.2s ease;
+        display: none;
+    }
+
+    
+
+    nav .mainMenu li a {
+        margin: 0px;
+        width: 50rem;
+        color: var(--hover);
+        text-align: center;
+    }
+
+    nav .mainMenu .closeMenu {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        
+    }
+
+    nav .openMenu {
+        display: block;
+        margin-right: 50px;
+        margin-top: 8%;
+        font-size: 40px;
+    }
+    nav .mainMenu li a:hover {
+        background: var(--hover);
+        color: var(--hoverfont);
+        font-size: 1.6rem;
+    }
+    .icons i {
+        display: inline-block;
+        padding: 12px;
+        
+    }
+}
