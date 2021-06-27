@@ -147,8 +147,6 @@ Route::post('updateChoferProcess',[choferController::class,'updateChoferProcess'
 
 Route::get('misViajesChofer',[choferController::class,'misViajesChofer'])->name(('misViajesChofer'));
 
-Route::get('finalizarViaje',[choferController::class,'finalizarViaje'])->name(('finalizarViaje'));
-
 Route::get('listarPasajeros',[choferController::class,'listarPasajeros'])->name(('listarPasajeros'));
 
 Route::get('viajesFinalizados',[choferController::class,'viajesFinalizados'])->name(('viajesFinalizados'));
@@ -156,6 +154,14 @@ Route::get('viajesFinalizados',[choferController::class,'viajesFinalizados'])->n
 Route::get('registrarSintomasCovid',[choferController::class,'registrarSintomasCovid'])->name(('registrarSintomasCovid'));
 
 Route::post('registrarSintomasProcess',[choferController::class,'registrarSintomasProcess'])->name(('registrarSintomasProcess'));
+
+Route::get('iniciarViaje',[choferController::class,'iniciarViaje'])->name(('iniciarViaje'));
+
+Route::get('finalizarViaje',[choferController::class,'finalizarViaje'])->name(('finalizarViaje'));
+
+Route::get('cancelarViaje',[choferController::class,'cancelarViaje'])->name(('cancelarViaje'));
+
+
 
 
 

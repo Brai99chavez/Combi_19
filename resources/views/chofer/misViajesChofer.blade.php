@@ -38,12 +38,12 @@
                 <hr>
                 @if($viaje->fecha == date('Y-m-d'))
                     @if($viaje->estado == "Pendiente")
-                        <form action="" method="GET" class="confirmar">
+                        <form action="{{route('iniciarViaje')}}" method="GET" class="confirmar">
                             @csrf
                             <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
                             <button type="submit" class="botones" style="width: 150px">Iniciar Viaje</button>
                         </form>
-                        <form action="" method="GET" class="confirmar">
+                        <form action="{{route('cancelarViaje')}}" method="GET" class="confirmar">
                             @csrf
                             <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
                             <button type="submit" class="botones" style="width: 150px">Cancelar Viaje</button>

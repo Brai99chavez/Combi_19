@@ -22,7 +22,7 @@ class viajesSeeder extends Seeder
     $viaje1->precio = 10000;
     $viaje1->fecha = Carbon::createFromFormat('d/m/Y', '9/7/2021');
     $viaje1->hora = Carbon::createFromTime('15','30','00');
-    $viaje1->cantPasajes = 11;
+    $viaje1->cantPasajes = 10;
     $viaje1->estado = "Pendiente";
     $viaje1->save();
 

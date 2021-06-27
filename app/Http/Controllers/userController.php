@@ -4,20 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\buscarViajeRequest;
 use App\Http\Requests\clienteMembresiaRequest;
-use App\Models\Categorias;
 use App\Models\Ciudades;
 use App\Models\Pasajes;
 use App\Models\Viaje_insumos;
 use App\Models\Viajes;
-use App\Models\Combis;
 use App\Models\Comentarios;
 use App\Models\Insumos;
 use App\Models\Membresias;
 use App\Models\Rutas;
-use App\Models\Tarjetas;
 use App\Models\Usuarios;
 use Carbon\Carbon;
-use DateTime;
 use Illuminate\Http\Request;
 
 class userController extends Controller
@@ -230,7 +226,7 @@ class userController extends Controller
     public function reembolsoProcess($request){
         $found = Pasajes::select('created_at','estado','id_viaje')->where('id_pasaje',$request->id_pasaje)->get();
         Viajes::where('id_viaje',$found[0]->id_viaje)->increment('cantPasajes');
-        if($found[0]->estado <> "Cancelado COVID"){
+        if($found[0]->estado <> "Cancelado COVID" || $found[0]->estado <> "Cancelado EMPRESA"){
             $dias = Carbon::now()->diffInDays($found[0]->created_at);
             Pasajes::where('id_pasaje',$request->id_pasaje)->update(['estado' => 'Cancelado', 'reembolsar' => "NO"]);
             if($dias < 2){

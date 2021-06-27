@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class empleadosRequest extends FormRequest
+class clienteTarjetaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,9 +30,9 @@ class empleadosRequest extends FormRequest
             'email'=>'required|email|unique:Usuarios',
             'contraseña'=>'required',
             'contraseñavalidation' => 'required|same:contraseña',
-            'tarjeta' => 'required|max:16',
-            'codigo' => 'required|max:3',
-            'fechaVenc' => 'required'
+            'tarjeta' => 'required|digits:16|numeric',
+            'fechaVenc' => 'required',
+            'codigo' => 'required|digits:3|numeric'
         ];
     }
     public function messages()
@@ -45,8 +45,9 @@ class empleadosRequest extends FormRequest
             'apellido.max' => 'El apellido debe tener menos de 40 caracteres',
             'dni.max' => 'DNI invalido',
             'required' => 'Los campos no pueden estar vacios',
-            'tarjeta.max' => 'La tarjeta ingresada es invalida',
-            'codigo.max' => 'Codigo de seguridad invalido',
+            'tarjeta.digits' => 'La tarjeta debe tener 16 digitos',
+            'codigo.digits' => 'El codigo debe tener 3 digitos',
         ];
     }
 }
+

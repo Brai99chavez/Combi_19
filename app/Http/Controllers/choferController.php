@@ -84,9 +84,11 @@ class choferController extends Controller
         Pasajes::where('id_viaje',$request->id_viaje)->where('estado','=',"Pendiente")->update(["estado" => "Ausente"]);
         return redirect()->route('misViajesChofer')->withErrors(['success'=>'Viaje Iniciado']);
    }
-   public function cancelarViaje(){
-       //ACAAAAA SEGUIMOSSSSS
-   }
+   public function cancelarViaje(Request $request){
+        Viajes::where('id_viaje',$request->id_viaje)->update(["estado"=> "Cancelado"]);
+        Pasajes::where('id_viaje',$request->id_viaje)->where('estado','=',"Pendiente")->update(["estado" => "Cancelado EMPRESA", "reembolsar" => "SI"]);
+        return redirect()->route('misViajesChofer')->withErrors(['success'=>'Viaje Cancelado']);
+    }
 
 
    public function listarPasajeros(Request $request){

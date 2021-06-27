@@ -47,7 +47,7 @@
             @enderror
             <br>
             <strong>
-                dni:*
+                DNI:*
                 <br>
                 <input type="number" name="dni" value="{{old('dni')}}" placeholder="987654321....">
             </strong>
@@ -97,6 +97,22 @@
                 </script>
             @enderror
             <br>
+            <strong>
+                Repetir Contraseña:*
+                <br>
+                <input type="password" name="contraseñavalidation" value="{{old('contraseña')}}" placeholder="password......">
+            </strong>
+            @error('contraseñavalidation')
+                <script>
+                    Swal.fire({
+                    title: '<em>{{$message}}</em>',
+                    icon: 'error',
+                    iconColor: '#105671',
+                    confirmButtonColor: '#105671',
+                    confirmButtonText: 'ok'
+                })
+                </script>
+            @enderror
         </div>
         <div>
             <strong>

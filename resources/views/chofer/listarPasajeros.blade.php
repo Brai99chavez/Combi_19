@@ -21,7 +21,7 @@
                     <td>{{$pasajero->apellido}}</td> 
                     <td>{{$pasajero->dni}}</td>
                     <td>{{$pasajero->estado}}</td>
-                    @if($pasajero->estado == "Pendiente")
+                    @if($pasajero->estado == "Pendiente" && $fecha[0]->fecha == date('Y-m-d'))
                         <td>
                             <form action="{{route('registrarSintomasCovid')}}" method="GET">
                                 <input type="hidden" name="id_usuario" value="{{$pasajero->id_usuario}}">
