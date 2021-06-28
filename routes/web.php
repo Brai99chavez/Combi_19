@@ -47,6 +47,8 @@ Route::post('auth',[AuthController::class,'autenticacion'])->name('autenticacion
 
 Route::get('logOut', [AuthController::class,'logOut'])->name('logOut');
 
+Route::post('buscarViajesProcess2', [publicController::class,'buscarViajesProcess2'])->name('buscarViajesProcess2');
+
 //ADMIN
 
 Route::get('Reports', [AdminController::class,'showReports'])->name('reports');
