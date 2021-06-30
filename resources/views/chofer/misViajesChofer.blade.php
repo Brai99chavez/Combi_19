@@ -4,7 +4,6 @@
 <h1>MIS VIAJES</h1>
 @endsection   
 @section('content')
-
 @error('success')
     <script>
         Swal.fire({
@@ -34,6 +33,7 @@
 
                     <br> <br>
                     <td><strong>ESTADO:</strong>  {{$viaje->estado}}</td>
+                    <td><strong>PASAJES DISPONIBLES:</strong> {{$viaje->cantPasajes}}</td>
                 </tr>
                 <hr>
                 @if($viaje->fecha == date('Y-m-d'))
@@ -48,12 +48,23 @@
                             <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
                             <button type="submit" class="botones" style="width: 150px">Cancelar Viaje</button>
                         </form>
+                        @if($viaje->cantPasajes > 0)
+                            <form action="{{route('venderPasaje')}}" method="GET">
+                                <input type="hidden" name="precio" value="{{$viaje->precio}}">
+                                <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
+                                <button type="submit" class="botones" style="width: 150px">Vender Pasaje</button>
+                            </form>
+                        @else
+                            <strong><em>Pasajes Agotados</em></strong>
+                        @endif
                     @else
-                        <form action="{{route('finalizarViaje')}}" method="GET" class="confirmar">
-                            @csrf
-                            <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
-                            <button type="submit" class="botones" style="width: 150px">Finalizar Viaje</button>
-                        </form>
+                        @if($viaje->estado <> "Cancelado")
+                            <form action="{{route('finalizarViaje')}}" method="GET" class="confirmar">
+                                @csrf
+                                <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
+                                <button type="submit" class="botones" style="width: 150px">Finalizar Viaje</button>
+                            </form>
+                        @endif
                     @endif
                 @endif
                 <form action="{{route('listarPasajeros')}}" method="GET">

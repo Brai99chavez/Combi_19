@@ -161,6 +161,12 @@ Route::get('finalizarViaje',[choferController::class,'finalizarViaje'])->name(('
 
 Route::get('cancelarViaje',[choferController::class,'cancelarViaje'])->name(('cancelarViaje'));
 
+Route::get('venderPasaje',[choferController::class,'venderPasaje'])->name(('venderPasaje'));
+
+Route::post('venderPasajeProcess',[choferController::class,'venderPasajeProcess'])->name(('venderPasajeProcess'));
+
+
+
 
 
 

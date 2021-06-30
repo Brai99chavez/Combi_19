@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\choferRequest;
+use App\Http\Requests\clienteSinCuentaRequest;
 use App\Models\Pasajes;
 use App\Models\RegistrosCOVID;
 use App\Models\Sintomas;
@@ -68,7 +69,7 @@ class choferController extends Controller
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("viajes.id_viaje","viajes.fecha", "viajes.hora", 
         "viajes.precio", "ciudades.nombre as origen", "c2.nombre as destino",
-         "combis.patente","combis.modelo","combis.color","combis.cant_asientos", "viajes.estado")
+         "combis.patente","combis.modelo","combis.color","combis.cant_asientos", "viajes.estado", "viajes.cantPasajes")
         ->where("viajes.id_chofer", "=", session('id_usuario'))
         ->where("viajes.estado","<>","Finalizado")
         ->get();
@@ -143,7 +144,39 @@ class choferController extends Controller
     return $this->listarPasajeros($request);
    }
 
+   public function venderPasaje(Request $request){
+        $id_viaje = $request->id_viaje;
+        $precio = $request->precio;
+        return view('chofer.venderPasaje', compact('id_viaje','precio'));
+   }
 
+   public function venderPasajeProcess(clienteSinCuentaRequest $request){
+       $found = Viajes::select('cantPasajes')->where('id_viaje',$request->id_viaje)->first();
+       if($found->cantPasajes >= $request->cantPasajes){
+        $this->crearNuevoUsuario($request);
+        $nuevoUsuario = Usuarios::select('id_usuario')->where('dni',$request->dni)->first();
+            for ($i=0;$i<$request->cantPasajes;$i++){
+                $pasaje = new Pasajes;
+                $pasaje->id_viaje = $request->id_viaje;
+                $pasaje->id_usuario = $nuevoUsuario->id_usuario;
+                $pasaje->precio = $request->precio;
+                $pasaje->save();
+            }
+            return redirect()->route('misViajesChofer')->withErrors(['success'=>'Pasajes vendidos, usuario creado correctamente']);
+       } 
+       return redirect()->route('misViajesChofer')->withErrors(['success'=>'Cantidad de pasajes ingresada supera el limite de venta']);
+   }
+
+   private function crearNuevoUsuario($request){
+        $usuario = new Usuarios;
+        $usuario->nombre = $request->nombre;
+        $usuario->apellido = $request->apellido;
+        $usuario->dni = $request->dni;
+        $usuario->email = $request->email;
+        $usuario->contraseña = rand(1,900000000);
+        $usuario->save();
+        return 0;
+   }
 
 
 

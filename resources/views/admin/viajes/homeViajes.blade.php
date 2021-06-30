@@ -54,11 +54,13 @@
             <td>{{$viaje->estado}}</td>
             @if($viaje->estado<>"Finalizado")
             <td class="tableOptions">
-                <form action="{{route('updateviajes')}}" method="GET">
-                    @csrf
-                    <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
-                    <button type="submit"><i class="fas fa-edit"></i></button>
-                </form>
+                @if($viaje->estado=="Pendiente")
+                    <form action="{{route('updateviajes')}}" method="GET">
+                        @csrf
+                        <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
+                        <button type="submit"><i class="fas fa-edit"></i></button>
+                    </form>
+                @endif
                 <form action="{{route('deleteviajes')}}" method="POST" class="formulario-eliminar">
                     @csrf
                     <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">

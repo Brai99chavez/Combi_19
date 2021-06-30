@@ -66,17 +66,14 @@ class ViajesController extends Controller
         "id_combi" => $request->id_combi, "id_ruta" => $aux->id_ruta, "precio"=> $request->precio, "fecha" => $request->fecha,
         "hora" => $request->hora, "cantPasajes" => $request->cantPasajes, "estado" => $request->estado]);
         if($request->estado == "Cancelado"){
-            $aux = $this->reembolsoViaje($request);    
-            return redirect()->route('homeviajes')->withErrors(['sucess'=>'El viaje ha sido cancelado, reembolso a clientes se realizo correctamente']);
+            $this->reembolsoViaje($request);    
+            return redirect()->route('homeviajes')->withErrors(['sucess'=>'El viaje ha sido cancelado, se habilito el reembolso de los pasajes']);
         }
         return redirect()->route('homeviajes')->withErrors(['sucess'=>'La actualizacion se realizo correctamente']);
     }
     private function reembolsoViaje($request){
-        $cantPasajes = Pasajes::where('id_viaje',$request->id_viaje)->get();
-        $viajesActuales = Viajes::select('cantPasajes')->where('id_viaje',$request->id_viaje)->get();
-        $resultado = $viajesActuales[0]->cantPasajes + $cantPasajes->count();
-        Viajes::where('id_viaje',$request->id_viaje)->update(['cantPasajes' => $resultado]);
-        Pasajes::where('id_viaje',$request->id_viaje)->delete();
+        Viajes::where('id_viaje',$request->id_viaje)->update(["estado"=> "Cancelado"]);
+        Pasajes::where('id_viaje',$request->id_viaje)->where('estado','=',"Pendiente")->update(["estado" => "Cancelado EMPRESA", "reembolsar" => "SI"]);
         return 1;
     }
     private function validationupdatefecha($request){

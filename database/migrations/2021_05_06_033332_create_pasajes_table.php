@@ -17,8 +17,8 @@ class CreatePasajesTable extends Migration
             $table->bigIncrements('id_pasaje');
             $table->integer('id_usuario');
             $table->integer('id_viaje');
-            $table->string('estado');
-            $table->string('reembolsar');
+            $table->string('estado')->default("Pendiente");
+            $table->string('reembolsar')->default("NO");
             $table->integer('precio');
             $table->timestamps();
         });
