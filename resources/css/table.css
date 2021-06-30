@@ -1,12 +1,18 @@
-/*---------- TABLA ----------*/
+/* ---------- TABLA ---------- */
 
 table{
-    background-color: white;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.603);
     text-align: left ;
     border-collapse: collapse;
-    width: 100%;
+    width: 80%;
     box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.552);
     margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+tr th{
+    background: rgba(255, 255, 255, 0.603);
 }
 
 th,td{
@@ -16,7 +22,7 @@ th,td{
 }
 
 thead{
-    background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.603);
     border-bottom: 5px solid  #064141;
 }
 
@@ -55,7 +61,7 @@ table th button{
     
 	/*---------- TABLA ----------*/
 
-	table th,td{
+	 table th,td{
         padding: 16px;
         font-size: 20px;
 
@@ -106,6 +112,6 @@ table th button{
 
     .tableOptions{
         display: flex;
-    }
-
+    } 
 }
+
