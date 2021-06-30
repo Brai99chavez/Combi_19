@@ -15,7 +15,7 @@
 </div>
 
 <div class="formulary">
-    <h1>Donde Viajaras?</h1> <br> <br> 
+    <h1>Busca tu viaje</h1> <br> <br> 
         <form action="{{route('buscarViajesProcess2')}}" method="POST"  style="width: 380px;" >
             @csrf
             <input type="hidden" value="{{date('Y-m-d')}}" name="fechaActual">
