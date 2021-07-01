@@ -9,21 +9,25 @@
     @if($pasajeros->isNotEmpty())
         <table>
             <thead>
-                <th>ID Pasaje</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>DNI</th>
-                <th>Estado de Pasajero</th>
+                <th>Pasajes Comprados</th>
                 <th>Registrar Sintomas</th>
             </thead>
             <tbody>
                 @foreach($pasajeros as $pasajero)
                 <tr>
-                    <td>{{$pasajero->id_pasaje}}</td>
                     <td>{{$pasajero->nombre}}</td>
                     <td>{{$pasajero->apellido}}</td> 
                     <td>{{$pasajero->dni}}</td>
-                    <td>{{$pasajero->estado}}</td>
+                    {{$cant = 0}}
+                    @foreach($pasajes as $pasaje)
+                        @if($pasaje->id_usuario == $pasajero->id_usuario)   
+                            {{$cant=$cant+1}}
+                        @endif
+                    @endforeach
+                    <td>{{$cant}}</td>       
                     @if($pasajero->estado == "Pendiente" && $fecha[0]->fecha == date('Y-m-d'))
                         <td>
                             <form action="{{route('registrarSintomasCovid')}}" method="GET">
