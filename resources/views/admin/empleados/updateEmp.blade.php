@@ -5,7 +5,9 @@
 @section('headerTitle', 'Modificar Empleado')
 
 @section('content')
-    <form action="{{route('saveEmp')}}" method="POST" class="formulary">
+<div class="formulary">
+    <h2>Modifiar Empleado</h2>
+    <form action="{{route('saveEmp')}}" method="POST" >
         @csrf
         <input type="hidden" name="id_usuario" value="{{$usuario[0]->id_usuario}}">
         <strong>Nombre:*</strong><br>
@@ -82,7 +84,8 @@
         <select name="rol" id="">
             <option value="2" >Chofer</option>
             <option value="3" >Admin</option>
-        </select>
+        </select><br>
         <button class="botones" type="submit">Modificar</button>
     </form>
+</div>
 @endsection

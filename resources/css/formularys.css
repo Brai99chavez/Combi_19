@@ -1,8 +1,6 @@
 .formulary {
     text-align: center;
     background: rgba(255, 255, 255, 0.603);
-    max-width: 120vh;
-    min-width: 30vh;
     margin: auto;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -10,11 +8,29 @@
     vertical-align: middle;
 }
 
+.formulary form{
+    max-width: 120vh;
+    min-width: 50vh;
+}
 
 .formulary h2{
     color: var(--primaryColor);
     margin: 20px;
 
+    text-align: center;
+}
+
+.formulary button{
+    text-align: center;
+    margin: 1em;
+    background: var(--primaryColor);
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    border-bottom: 2px solid var(--primaryColor);
+    min-width: 30vh;
+    color: var(--font);
     text-align: center;
 }
 
@@ -27,7 +43,7 @@
     padding: 10px;
     outline: none;
     border-bottom: 2px solid var(--primaryColor);
-    width: 70%;
+    min-width: 30vh;
     color: var(--font);
 }
 
@@ -49,7 +65,7 @@
     padding: 10px;
     outline: none;
     border-bottom: 2px solid var(--primaryColor);
-    width: 70%;
+    min-width: 30vh;
     color: var(--font);
 }
 
@@ -62,7 +78,7 @@
     padding: 10px;
     outline: none;
     border-bottom: 2px solid var(--primaryColor);
-    width: 70%;
+    min-width: 30vh;
     color: var(--font);
 }
 
@@ -75,11 +91,11 @@
     padding: 10px;
     outline: none;
     border-bottom: 2px solid var(--primaryColor);
-    width: 70%;
+    min-width: 30vh;
     color: var(--font);
 }
 
-.formulary form input[type="email"]{
+.formulary input[type="email"]{
     text-align: center;
     margin: 1em;
     background: var(--primaryColor);
@@ -88,7 +104,7 @@
     padding: 10px;
     outline: none;
     border-bottom: 2px solid var(--primaryColor);
-    width: 70%;
+    min-width: 30vh;
     color: var(--font);
 }
 
@@ -101,7 +117,7 @@
     padding: 10px;
     outline: none;
     border-bottom: 2px solid var(--primaryColor);
-    width: 70%;
+    min-width: 30vh;
     color: var(--font);
 }
 
@@ -114,7 +130,7 @@
     padding: 10px;
     outline: none;
     border-bottom: 2px solid var(--primaryColor);
-    width: 70%;
+    min-width: 30vh;
     color: var(--font);
 }
 
@@ -127,7 +143,7 @@
     padding: 10px;
     outline: none;
     border-bottom: 2px solid var(--primaryColor);
-    width: 70%;
+    min-width: 30vh;
     color: var(--font);
 }
 

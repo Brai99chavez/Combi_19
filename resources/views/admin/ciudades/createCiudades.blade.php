@@ -50,7 +50,7 @@
         <select name="disponible" id="">
             <option value="1">SI</option>
             <option value="0">NO</option>
-        </select>
+        </select><br>
 
         <button class="botones" type="submit">Registrar Ciudad</button>
 

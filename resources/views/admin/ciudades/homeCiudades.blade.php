@@ -8,12 +8,11 @@
 <script>
     Swal.fire({
         title: '{{$message}}',
-        icon: 'success',
+        icon: 'warning',
         iconColor: '#105671',
         confirmButtonColor: '#105671',
         confirmButtonText: 'ok'
     })
-
 </script>
 @enderror
 
@@ -58,7 +57,7 @@
         <script>
             Swal.fire({
                 title: '<em> Aun no hay ciudades cargadas</em>',
-                icon: 'success',
+                icon: 'error',
                 iconColor: '#105671',
                 confirmButtonColor: '#105671',
                 confirmButtonText: 'ok'

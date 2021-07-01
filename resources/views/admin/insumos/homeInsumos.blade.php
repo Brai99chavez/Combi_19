@@ -2,17 +2,20 @@
 @section('title','Home Insumos')
 @section('headerTitle', 'Insumos')
 @section('content')
-    <h2 style="color: white; text-align:center">ACTIVOS</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Descripcion</th>
-                <th>Opciones<a href="{{route('createinsumo')}}"><button><i class="far fa-plus-square"></i></button></a></th>
-            </tr>
-        </thead>
-        @foreach($insumosDisponibles as $insumo)
+<div style="display: flex; margin:auto">
+    <div>
+        <h2 style="color: white; text-align:center">ACTIVOS</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Descripcion</th>
+                    <th>Opciones<a href="{{route('createinsumo')}}"><button><i
+                                    class="far fa-plus-square"></i></button></a></th>
+                </tr>
+            </thead>
+            @foreach($insumosDisponibles as $insumo)
             <tbody>
                 <tr>
                     <td>{{$insumo->nombre}}</td>
@@ -30,21 +33,25 @@
                             <button type="submit"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </td>
-                </tr> 
+                </tr>
             </tbody>
-        @endforeach
-    </table>
-    <h2 style="color: white; text-align:center">DADOS DE BAJA</h2>
-    <table>
+            @endforeach
+        </table>
+    </div>
+    <div>
+        <h2 style="color: white; text-align:center">DADOS DE BAJA</h2>
+        <table>
             <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Descripcion</th>
-                    <th>Opciones<a href="{{route('createinsumo')}}"><button><i class="far fa-plus-square"></i></button></a></th>
+                    <th>Opciones<a href="{{route('createinsumo')}}"><button><i
+                                    class="far fa-plus-square"></i></button></a>
+                    </th>
                 </tr>
             </thead>
-        @foreach($insumosBaja as $insumo2)
+            @foreach($insumosBaja as $insumo2)
             <tbody>
                 <tr>
                     <td>{{$insumo2->nombre}}</td>
@@ -64,38 +71,42 @@
                     </td>
                 </tr>
             </tbody>
-        @endforeach
-    </table>
+            @endforeach
+        </table>
+    </div>
+</div>
 @error('alert')
-    <script>
-        Swal.fire({
+<script>
+    Swal.fire({
         title: '<em>{{$message}}</em>',
         icon: 'error',
         iconColor: '#105671',
         confirmButtonColor: '#105671',
         confirmButtonText: 'ok'
     })
-    </script>
+
+</script>
 @enderror
 @endsection
 @section('js')
-    <script>
-        $('.formulario-eliminar').submit (function (e) {
-            e.preventDefault();
-            Swal.fire({
-        title: 'Confirmar eliminacion',
-        text: "no podras revertir esto!",
-        icon: 'warning',
-        iconColor: '#105671',
-        showCancelButton: true,
-        confirmButtonColor: '#105671',
-        confirmButtonText: 'Si, eliminar!',
-        cancelButtonText: 'Cancelar'
+<script>
+    $('.formulario-eliminar').submit(function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Confirmar eliminacion',
+            text: "no podras revertir esto!",
+            icon: 'warning',
+            iconColor: '#105671',
+            showCancelButton: true,
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'Si, eliminar!',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
-        if (result.isConfirmed){
-            this.submit();
-        }
+            if (result.isConfirmed) {
+                this.submit();
+            }
         })
-        });
-    </script>
+    });
+
+</script>
 @endsection

@@ -3,9 +3,10 @@
 @section('headerTitle', 'Registrar Insumo')
 @section('content')
 
-    <form action="{{route('createinsumoshow')}}" method="POST" class="formulary">
+<div class="formulary">
+    <h2> Agregar Insumo</h2>
+    <form action="{{route('createinsumoshow')}}" method="POST" >
         @csrf
-
             <strong>NOMBRE:</strong>
             <br>
             <input type="text" name="nombre">
@@ -51,4 +52,5 @@
             <br>
         <button class="botones" type="submit">CARGAR INSUMO</button>
     </form>
+</div>
 @endsection

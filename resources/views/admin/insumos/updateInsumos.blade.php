@@ -1,7 +1,9 @@
 @extends('admin.layout')
 @section('title', 'Update Insumo')
 @section('content')
-        <form action="{{route('updateinsumos1')}}" method="POST" class="formulary">
+    <div  class="formulary">
+        <h2>Editar Insumo</h2>
+        <form action="{{route('updateinsumos1')}}" method="POST">
             @csrf
                 <strong>NOMBRE:</strong>
                 <br>
@@ -54,4 +56,5 @@
                 <input type="hidden" name="id_insumos" value="{{$insumo[0]->id_insumos}}">
             <button class="botones" type="submit">ACTUALIZAR INSUMO</button>
         </form>
+    </div>
 @endsection

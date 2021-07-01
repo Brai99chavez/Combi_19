@@ -3,6 +3,7 @@
 @section('headerTitle', 'Modificar Ciudad')
 @section('content')
 <div class="formulary">    
+    <h2>Editar Ciudad</h2>
 <form action="{{route('updateciudadprocess')}}" method="POST" >
     @csrf
         @error('nombre')
@@ -16,8 +17,8 @@
         })
         </script>
         @enderror
-        <h2>nombre</h2>
-        <input name="nombre" type="text" value="{{$ciudades[0]->nombre}}">
+        <strong>nombre</strong><br>
+        <input name="nombre" type="text" value="{{$ciudades[0]->nombre}}"><br>
         @error('direccion')
         <script>
             Swal.fire({
@@ -29,8 +30,8 @@
         })
         </script>
         @enderror
-        <h2>direccion:</h2>
-        <input name="direccion" type="text" value="{{$ciudades[0]->direccion}}">
+        <strong>direccion:</strong><br>
+        <input name="direccion" type="text" value="{{$ciudades[0]->direccion}}"><br>
         @error('disponible')
         <script>
             Swal.fire({
@@ -42,8 +43,8 @@
         })
         </script>
         @enderror
-        <h2>disponible:</h2>
-        <select name="disponible" id="" value="{{$ciudades[0]->disponible}}">
+        <strong>disponible:</strong><br>
+        <select name="disponible" id="" value="{{$ciudades[0]->disponible}}"><br>   
             <option value="1">SI</option>
             <option value="0">NO</option>
         </select>

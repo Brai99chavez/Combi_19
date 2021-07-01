@@ -27,7 +27,7 @@ class AuthController extends Controller
             }elseif (session()->get('id_permiso') == 2) {
                 return redirect()->route('homeChofer');
             }elseif (session()->get('id_permiso') == 3) {
-                return redirect()->route('homeadmin');
+                return redirect()->route('Home_Reportes');
             }
 
         }else{
