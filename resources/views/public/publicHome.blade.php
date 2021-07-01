@@ -1,6 +1,6 @@
 @extends('public.publicLayout')
 
-@section('title','publicHome')
+@section('title','Combi 19')
 
 @section('navTitle','Public Home')
 
