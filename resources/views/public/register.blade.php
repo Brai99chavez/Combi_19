@@ -9,7 +9,7 @@
 
 <div class="formulary">
     
-<h2>Registro</h2>
+<h2>Registro Basic</h2>
 <form action="{{route('guardarRegistro')}}" method="POST" style="display: flex">
     <div>
         <br>
@@ -109,7 +109,7 @@
             <input type="password" name="contraseñavalidation" value="{{old('contraseñarepeat')}}" placeholder="password......">
         </strong>
         <br>
-        <button type="submit" class="botones"> Finalizar Registro</button>
+        <button type="submit" class="botones">Registrarse</button>
         <br>
         <button onclick=location.href="{{route('registerGolden')}}" type="reset" class="botones">Registro Golden</button>
     </div>

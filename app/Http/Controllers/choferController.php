@@ -104,23 +104,6 @@ class choferController extends Controller
 
    }
 
-   public function viajesFinalizados(){
-    $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
-    ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
-    ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
-    ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
-    ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
-    ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
-    ->select("viajes.id_viaje","viajes.fecha", "viajes.hora", 
-    "viajes.precio", "ciudades.nombre as origen", "c2.nombre as destino",
-     "combis.patente","combis.modelo","combis.color","combis.cant_asientos", "viajes.estado")
-    ->where("viajes.id_chofer", "=", session('id_usuario'))
-    ->where("viajes.estado","=","Finalizado" )
-    ->get();
-    return view('chofer.viajesFinalizados',compact('viajes'));
-      
-   }
-
    public function registrarSintomasCovid(Request $request){
     $id_pasajero = $request->id_usuario;
     $id_viaje = $request->id_viaje;
@@ -177,12 +160,18 @@ class choferController extends Controller
         $usuario->save();
         return 0;
    }
-
-
-
-
-
-
-
+   public function historialDeViajesChofer(){
+    $viajes = Viajes::join("usuarios","usuarios.id_usuario", "=", "viajes.id_chofer")
+    ->join("rutas", "rutas.id_ruta", "=", "viajes.id_ruta")
+    ->join("combis", "combis.id_combi", "=", "viajes.id_combi")
+    ->join("categorias", "categorias.id_categoria", "=", "combis.id_categoria")
+    ->join("ciudades", "ciudades.id_ciudad", "=", "rutas.id_ciudadOrigen")
+    ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
+    ->select("viajes.id_viaje","viajes.fecha", "viajes.hora", "ciudades.nombre as origen",
+     "c2.nombre as destino","combis.patente")
+    ->where("viajes.id_chofer", "=", session('id_usuario'))
+    ->where("viajes.estado","=","Finalizado" )
+    ->get();
+    return view('chofer.historialDeViajes', compact('viajes'));
+   }
 }
-

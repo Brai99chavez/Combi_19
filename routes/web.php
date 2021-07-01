@@ -13,7 +13,7 @@ use App\Http\Controllers\choferController;
 use App\Http\Controllers\ciudadesController;
 use App\Http\Controllers\empleadosController;
 use App\Http\Controllers\RegisterController;
-
+use App\Http\Controllers\reportesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,6 +139,22 @@ Route::post('update_combi_process',[CombisController::class,'updateCombiProcess'
 
 Route::post('delete_combi',[CombisController::class,'deleteCombi'])->name(('deleteCombi'));
 
+        //ADMIN - REPORTES
+Route::get('Home_Reportes', [reportesController::class ,'Home_Reportes'])->name('Home_Reportes');
+
+Route::get('ingresoIDViaje', [reportesController::class ,'idViajeReporte'])->name('ingresoIDViaje');
+
+Route::get('reportePasajerosViajeProcess', [reportesController::class ,'reportePasajerosViajeProcess'])->name('reportePasajerosViajeProcess');
+
+Route::get('reportePasajerosViaje', [reportesController::class ,'reportePasajerosViaje'])->name('reportePasajerosViaje');
+
+Route::get('ingresoPeriodo', [reportesController::class ,'ingresoPeriodo'])->name('ingresoPeriodo');
+
+Route::post('reportesViajesEnUnPeriodo', [reportesController::class ,'reportesViajesEnUnPeriodo'])->name('reportesViajesEnUnPeriodo');
+
+Route::get('reportesPasajerosCOVID', [reportesController::class ,'reportesPasajerosCOVID'])->name('reportesPasajerosCOVID');
+
+
 //CHOFER
 
 Route::get('homeChofer',[choferController::class,'homeChofer'])->name(('homeChofer'));
@@ -150,8 +166,6 @@ Route::post('updateChoferProcess',[choferController::class,'updateChoferProcess'
 Route::get('misViajesChofer',[choferController::class,'misViajesChofer'])->name(('misViajesChofer'));
 
 Route::get('listarPasajeros',[choferController::class,'listarPasajeros'])->name(('listarPasajeros'));
-
-Route::get('viajesFinalizados',[choferController::class,'viajesFinalizados'])->name(('viajesFinalizados'));
 
 Route::get('registrarSintomasCovid',[choferController::class,'registrarSintomasCovid'])->name(('registrarSintomasCovid'));
 
@@ -167,11 +181,7 @@ Route::get('venderPasaje',[choferController::class,'venderPasaje'])->name(('vend
 
 Route::post('venderPasajeProcess',[choferController::class,'venderPasajeProcess'])->name(('venderPasajeProcess'));
 
-
-
-
-
-
+Route::get('historialDeViajesChofer',[choferController::class,'historialDeViajesChofer'])->name(('historialDeViajesChofer'));
 
 
 //USUARIO
