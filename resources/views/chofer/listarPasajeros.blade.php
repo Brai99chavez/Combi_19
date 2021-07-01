@@ -20,11 +20,15 @@
                     <td>{{$pasajero->nombre}}</td>
                     <td>{{$pasajero->apellido}}</td> 
                     <td>{{$pasajero->dni}}</td>
-                    {{$cant = 0}}
+                    <div style="display: none">
+                        {{$cant = 0}}
+                    </div>
                     @foreach($pasajes as $pasaje)
                         @if($pasaje->id_usuario == $pasajero->id_usuario)   
-                            {{$cant=$cant+1}}
-                            {{$estado=$pasaje->estado}}
+                            <div style= "display: none">
+                                {{$cant=$cant+1}}
+                                {{$estado=$pasaje->estado}}
+                            </div>
                         @endif
                     @endforeach
                     <td>{{$cant}}</td>     
@@ -34,7 +38,8 @@
                                 @csrf
                                 <input type="hidden" name="id_usuario" value="{{$pasajero->id_usuario}}">
                                 <input type="hidden" name="id_viaje" value="{{$id_viaje}}">
-                                <button type="submit"><i class="fas fa-plus-square"></button>
+                                <button type="reset"><i class="fas fa-plus-square"></i></button>
+                                    
                             </form>
                         </td>    
                     @endif
