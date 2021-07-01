@@ -6,13 +6,11 @@
         
 @section('content')
   <div class="formulary">
-      <i>¿Sabias que actualmente en estas tiempos de pandemia somos la primer empresa que ofrece viajes a nivel nacional? 
-        Siempre cumpliendo con todos los protocolos de bioseguridad.</i>
     @if($comentarios->isNotEmpty())
         <i><strong><h2>Comentarios de nuestros clientes</h2></strong></i>
         @foreach($comentarios as $com)
             <hr>
-                <em>{{$com->nombre}} {{$com->apellido}} | {{$com->created_at}}</em>
+                <em><strong>{{$com->nombre}} {{$com->apellido}}</strong> | {{$com->created_at}}</em>
                 <br><br>
                 {{$com->descripcion}} 
                 <br><br>

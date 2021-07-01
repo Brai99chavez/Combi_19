@@ -5,8 +5,6 @@
 @endsection   
 @section('content')
     @if($viajes->isNotEmpty())
-        @foreach($viajes as $viaje)
-            <div class="formulary" style="width: 1200px">
                 <table>
                     <thead>
                         <tr>
@@ -16,10 +14,13 @@
                             <th>Origen</th>
                             <th>Destino</th>
                             <th>Precio</th>
+                            <th>Reembolso</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($viajes as $viaje)
                         <tr>
+                            
                             <td>{{$viaje->id_pasaje}}</td>
                             <td>{{$viaje->fecha}} </td> 
                             <td>{{$viaje->hora}}</td>
@@ -51,14 +52,17 @@
                             @else
                                 <td><em>Reembolso no disponible</em></td>
                             @endif
+                            @endforeach
                         </tr>
                     </tbody>
                 </table>
-            </div>   
-        @endforeach
+       
     @else
         <div class="formulary">
-            <em>¿Aún no haz comprado tu pasaje? Mira nuestros viajes disponibles...</em><br><br>
+            <div style="padding: 30px">
+                <strong>¿Aún no haz comprado tu pasaje? </strong> <br>
+                <strong>nuestros viajes disponibles...</strong><br><br>
+            </div>
             <a href="{{route('buscarViajesDisponibles')}}"><button class="botones">Comprar</button></a>
         </div>
     @endif

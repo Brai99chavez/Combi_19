@@ -114,8 +114,9 @@ use App\Models\Usuarios;
     @enderror
     <br> 
     <button type="submit" class="botones">Guardar Cambios</button>
+    
 </form>
-<a href="{{route('updateMembresiaCliente')}}"><button class="botones">Modificar Membresia</button></a>
+<button type="reset" onclick=location.href="{{route('updateMembresiaCliente')}}" class="botones">Modificar Membresia</button>
 </div>
 
 @error('permiso')
