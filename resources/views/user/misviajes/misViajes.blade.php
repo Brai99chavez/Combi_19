@@ -9,7 +9,8 @@
                     <thead>
                         <tr>
                             <th>N° Pasaje</th>
-                            <th>Fecha</th>
+                            <th>Fecha de Compra</th>
+                            <th>Fecha de Salida</th>
                             <th>Hora</th>
                             <th>Origen</th>
                             <th>Destino</th>
@@ -20,9 +21,9 @@
                     <tbody>
                         @foreach($viajes as $viaje)
                         <tr>
-                            
                             <td>{{$viaje->id_pasaje}}</td>
-                            <td>{{$viaje->fecha}} </td> 
+                            <td>{{$viaje->fechaCompra}}</td> 
+                            <td>{{$viaje->fecha}} </td>
                             <td>{{$viaje->hora}}</td>
                             <td>{{$viaje->origen}}</td> 
                             <td>{{$viaje->destino}}</td>
@@ -61,7 +62,7 @@
         <div class="formulary">
             <div style="padding: 30px">
                 <strong>¿Aún no haz comprado tu pasaje? </strong> <br>
-                <strong>nuestros viajes disponibles...</strong><br><br>
+                <strong>Mira nuestros viajes disponibles...</strong><br><br>
             </div>
             <a href="{{route('buscarViajesDisponibles')}}"><button class="botones">Comprar</button></a>
         </div>

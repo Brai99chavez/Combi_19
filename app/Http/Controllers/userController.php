@@ -147,7 +147,7 @@ class userController extends Controller
         ->join("ciudades as c2", "c2.id_ciudad", "=", "rutas.id_ciudadDestino")
         ->select("pasajes.id_pasaje","categorias.nombre as categoria","pasajes.precio",
          "ciudades.nombre as origen", "c2.nombre as destino","viajes.fecha",'viajes.hora','viajes.id_viaje',"pasajes.estado"
-         ,"pasajes.reembolsar")
+         ,"pasajes.reembolsar","pasajes.created_at as fechaCompra")
         ->where('pasajes.id_usuario',session('id_usuario'))
         ->where('pasajes.estado','<>',"Confirmado")
         ->where('pasajes.estado','<>',"Cancelado")
