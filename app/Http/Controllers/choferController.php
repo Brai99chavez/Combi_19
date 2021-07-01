@@ -103,11 +103,11 @@ class choferController extends Controller
               });
     })
     ->get();
-    $pasajes = 
+    $pasajes = Pasajes::where('id_viaje',$request->id_viaje)->get();
     $fecha = Viajes::where('id_viaje',$request->id_viaje)->select('fecha')->get();
     $id_viaje = $request->id_viaje;
-    return view('chofer.listarPasajeros',compact('pasajeros','fecha','id_viaje'));
-
+    return view('chofer.listarPasajeros',compact('pasajeros','fecha','id_viaje','pasajes'));
+    
    }
 
    public function registrarSintomasCovid(Request $request){
