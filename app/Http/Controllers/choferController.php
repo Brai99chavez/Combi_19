@@ -10,6 +10,7 @@ use App\Models\Sintomas;
 use App\Models\Usuarios;
 use App\Models\Viajes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class choferController extends Controller
 {
@@ -93,11 +94,16 @@ class choferController extends Controller
 
 
    public function listarPasajeros(Request $request){
-    $pasajeros = Usuarios::join("pasajes","pasajes.id_usuario", "=", "usuarios.id_usuario")
-    ->select( "usuarios.id_usuario","usuarios.nombre", "usuarios.apellido", 
-    "usuarios.dni","pasajes.estado")
-    ->where("pasajes.id_viaje","=", $request->id_viaje)
-    ->where("pasajes.estado","<>","Ausente")->get();
+    $pasajeros = Usuarios::whereExists(function ($query) use ($request) {
+        $query->select(DB::raw(1))
+              ->from('pasajes')
+              ->whereColumn( "pasajes.id_usuario","=", "usuarios.id_usuario")
+              ->when($request, function ($query, $request){
+                  return $query->where("pasajes.id_viaje","=", $request->id_viaje)->where("pasajes.estado","<>","Ausente");
+              });
+    })
+    ->get();
+    $pasajes = 
     $fecha = Viajes::where('id_viaje',$request->id_viaje)->select('fecha')->get();
     $id_viaje = $request->id_viaje;
     return view('chofer.listarPasajeros',compact('pasajeros','fecha','id_viaje'));

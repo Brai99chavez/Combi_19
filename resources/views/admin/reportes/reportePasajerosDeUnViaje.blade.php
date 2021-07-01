@@ -10,8 +10,6 @@
             <strong>Apellido: </strong>{{$pasajero->apellido}}<br>
             <strong>DNI: </strong>{{$pasajero->dni}}<br>
             <strong>Email: </strong>{{$pasajero->email}}<br>
-            <strong>Precio: </strong> ${{$pasajero->precio}}<br>
-            <strong>Estado: </strong> {{$pasajero->estado}}<br>
             <p>------------------------------------------------------</p>
             @endforeach
         </table>

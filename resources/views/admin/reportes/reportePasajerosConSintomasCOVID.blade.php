@@ -21,6 +21,8 @@
         @endforeach
     @else
     <h2>No se registran pasajeros con sintomas COVID</h2>
+    <br>
+    <a href="{{route('Home_Reportes')}}"><button>Volver a reportes</button></a>
     @endif
 </div>
 @endsection

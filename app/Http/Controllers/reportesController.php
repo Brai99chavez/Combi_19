@@ -27,9 +27,15 @@ class reportesController extends Controller
             "c2.nombre as destino","combis.patente","usuarios.nombre as chofer")
             ->where('viajes.id_viaje',$request->id_viaje)
             ->first();
-            $pasajeros = Usuarios::join('pasajes', 'pasajes.id_usuario', '=', 'usuarios.id_usuario')
-            ->where('pasajes.id_viaje',$request->id_viaje)->select('usuarios.nombre','usuarios.apellido',
-            'usuarios.dni','usuarios.email','pasajes.precio','pasajes.estado')->get();
+            $pasajeros = Usuarios::whereExists(function ($query) use ($request){
+                $query->select(DB::raw(1))
+                      ->from('pasajes')
+                      ->whereColumn( "pasajes.id_usuario","=", "usuarios.id_usuario")
+                      ->when($request, function ($query, $request){
+                          return $query->where("pasajes.id_viaje","=", $request->id_viaje);
+                      });
+            })
+            ->get();
             return view('admin.reportes.reportePasajerosDeUnViaje',compact('pasajeros', 'viaje'));
         }
         return redirect()->route('ingresoIDViaje')->withErrors(['error'=>'Viaje no registrado, volve a intentar']);
