@@ -3,11 +3,14 @@
 @section('headerTitle','Buscar Viaje')
 @section('content')
     <div class="formulary">
+        <h2>Periodo </h2>
         <form action="{{route('reportesViajesEnUnPeriodo')}}" method="POST" class="confirmar">
             @csrf
             <input type="hidden" name="fechaActual" value="{{date('Y-m-d')}}">
-            <em>Desde Fecha: <input type="date" name="desdeFecha" value="{{old('desdeFecha')}}"></em>
-            <em>Hasta Fecha: <input type="date" name="hastaFecha" value="{{old('hastaFecha')}}"></em>
+            <strong>Desde Fecha:</strong><br>
+            <input type="date" name="desdeFecha" value="{{old('desdeFecha')}}"><br>
+            <strong>Hasta Fecha:</strong><br>
+            <input type="date" name="hastaFecha" value="{{old('hastaFecha')}}"><br>
             <button type="submit">Generar Reporte</button>
         </form>
     </div>

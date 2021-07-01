@@ -5,7 +5,7 @@
 <div class="formulary">
     <h2>Ingrese el ID de Viaje</h2>
     <form action="{{route('reportePasajerosViajeProcess')}}" method="GET" class="confirmar">
-        <input type="number" name="id_viaje" value="{{old('id_viaje')}}">
+        <input type="number" name="id_viaje" value="{{old('id_viaje')}}"><br>
         <button type="submit">Generar Reporte</button>
     </form>
 </div>
