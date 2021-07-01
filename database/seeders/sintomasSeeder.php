@@ -15,35 +15,34 @@ class sintomasSeeder extends Seeder
     public function run()
     {
         $sin = new Sintomas();
-        $sin->nombre = "Fiebre alta";
+        $sin->nombre_sintoma = "Fiebre alta";
         $sin->save();
 
         $sin = new Sintomas();
-        $sin->nombre = "Dolor de cabeza";
+        $sin->nombre_sintoma = "Dolor de cabeza";
         $sin->save();
 
         $sin = new Sintomas();
-        $sin->nombre = "Tos seca";
+        $sin->nombre_sintoma = "Tos seca";
         $sin->save();
 
         $sin = new Sintomas();
-        $sin->nombre = "Dolor muscular";
+        $sin->nombre_sintoma = "Dolor muscular";
         $sin->save();
 
         $sin = new Sintomas();
-        $sin->nombre = "Perdida de gusto y/o olfato";
+        $sin->nombre_sintoma = "Perdida de gusto y/o olfato";
         $sin->save();
 
         $sin = new Sintomas();
-        $sin->nombre = "Dolor de garganta";
+        $sin->nombre_sintoma = "Dolor de garganta";
+        $sin->save();
+        $sin = new Sintomas();
+        $sin->nombre_sintoma = "Vomitos/Diarrea";
         $sin->save();
 
         $sin = new Sintomas();
-        $sin->nombre = "Vomitos/Diarrea";
-        $sin->save();
-
-        $sin = new Sintomas();
-        $sin->nombre = "Rinitis/Congestionamiento";
+        $sin->nombre_sintoma = "Rinitis/Congestionamiento";
         $sin->save();
     }
 }

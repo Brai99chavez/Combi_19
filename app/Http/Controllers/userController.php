@@ -52,7 +52,7 @@ class userController extends Controller
                 ->where('viajes.fecha',$request->fecha)
                 ->where('viajes.id_ruta',$ruta[0]->id_ruta)
                 ->where('viajes.estado',"Pendiente")
-                ->get();
+                ->get(); 
                 return view('user.buscarviaje.viajesDisponibles ',compact('viajes'));
             }
             return redirect()->route('buscarViajesDisponibles')->withErrors(['success' => 'No tenemos viajes disponibles para vos']);
@@ -156,7 +156,8 @@ class userController extends Controller
     }
     public function updateMembresia(){
         $golden = Membresias::where('id_membresia',1)->get();
-        return view('user.actualizarMembresia', compact('golden'));
+        $usuario = Usuarios::where('id_usuario',session('id_usuario'))->get();
+        return view('user.actualizarMembresia', compact('golden','usuario'));
     }
     public function processingMembresiaUpdateGolden(clienteMembresiaRequest $request){
         Usuarios::where('id_usuario',session('id_usuario'))->update(['id_membresia' => 1, 'tarjeta' => $request->tarjeta,

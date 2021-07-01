@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Buscar Viaje')
-@section('headerTitle','Buscar Viaje')
+@section('title', 'Reportes')
+@section('headerTitle','Reportes')
 @section('content')
     <div class="formulary">
         <h2>Reportes</h2>
