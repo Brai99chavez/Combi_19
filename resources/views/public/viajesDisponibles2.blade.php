@@ -4,7 +4,7 @@
 <h1>Viajes Disponibles</h1>
 @endsection
 @section('content')
-<div class="formulary">
+
     <table>
         <thead>
             <tr>
@@ -15,6 +15,7 @@
                 <th>Destino</th>
                 <th>Precio</th>
                 <th>Pasajes disponibles</th>
+                <th>comprar</th>
             </tr>
         </thead>
         <tbody>           
@@ -50,8 +51,6 @@
             @endif
         </tbody>
     </table>
-</div>
-<h3><strong>Registrate y compra tu primer pasaje</strong></h3>
-<a href="{{route('/')}}"><button class="botones">Volver</button></a>
+
 @endsection
 
