@@ -15,7 +15,7 @@ class SintomasTable extends Migration
     {
         Schema::create('sintomas', function (Blueprint $table) {
             $table->bigIncrements('id_sintoma');
-            $table->string('nombre');
+            $table->string('nombre_sintoma');
             $table->timestamps();
         });
     }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RegistrosCOVID;
 use App\Models\Usuarios;
 use App\Models\Viajes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class reportesController extends Controller
 {
@@ -62,10 +64,17 @@ class reportesController extends Controller
        }
 
        public function reportesPasajerosCOVID(){
-        return $pasajeros = Usuarios::join('registros_covid','registros_covid.id_usuario','=','usuarios.id_usuario')
-        ->join('sintomas','sintomas.id_sintoma','=','registros_covid.id_sintoma')
+        $pasajeros = Usuarios::whereExists(function ($query){
+        $query->select(DB::raw(1))
+            ->from('registros_covid')
+            ->whereColumn("usuarios.id_usuario","=","registros_covid.id_usuario");
+        })
+        ->select('id_usuario','nombre','apellido','dni','email')
         ->get();
-        return view('admin.reportes.reportePasajerosConSintomasCOVID', compact('pasajeros'));
+        $sintomas = RegistrosCOVID::join('sintomas','sintomas.id_sintoma','=','registros_covid.id_sintoma')
+        ->select('sintomas.nombre_sintoma','registros_covid.id_usuario')
+        ->get();
+        return view('admin.reportes.reportePasajerosConSintomasCOVID', compact('pasajeros','sintomas'));
        }
 }
 

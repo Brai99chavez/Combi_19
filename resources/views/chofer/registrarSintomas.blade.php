@@ -12,7 +12,7 @@
             <ul>
                 <strong><i><small>En caso de no presentar sintomas selecciona unicamente "Cargar Registro"</small></i></strong><br><br>
                 @foreach($sintomas as $sintoma)
-                    <li style="list-style-type: none">{{$sintoma->nombre}}<input type="checkbox" name="sintomas[]"value="{{$sintoma->id_sintoma}}"></li>     
+                    <li style="list-style-type: none">{{$sintoma->nombre_sintoma}}<input type="checkbox" name="sintomas[]"value="{{$sintoma->id_sintoma}}"></li>     
                     <br>
                 @endforeach
             </ul>
