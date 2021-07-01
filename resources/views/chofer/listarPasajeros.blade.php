@@ -33,7 +33,7 @@
                                 @csrf
                                 <input type="hidden" name="id_usuario" value="{{$pasajero->id_usuario}}">
                                 <input type="hidden" name="id_viaje" value="{{$id_viaje}}">
-                                <button type="submit"><i class="fas fa-edit"></button>
+                                <button type="submit"><i class="fas fa-plus-square"></button>
                             </form>
                         </td>    
                     @endif
