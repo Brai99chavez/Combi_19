@@ -7,7 +7,7 @@
     <div class="formulary">
         <p><strong>Origen: </strong>{{$viaje[0]->origen}}</p>
         <p><strong>Destino: </strong>{{$viaje[0]->destino}}</p>
-        @if(session('id_membresia')==2)
+        @if(session('id_membresia')==1)
             <p><strong>Precio: </strong>${{$viaje[0]->precio}}</p>
             <p><strong>Con Descuento del {{$golden[0]->descuento}}% : </strong>${{$precioConDescuento}}</p>
         @else
@@ -20,7 +20,7 @@
         <hr>
         <h2>Ingrese la cantidad de pasajes que desea comprar</h2>
         <form action="{{route('crearPago')}}" method="GET">
-            @if(session('id_membresia')==2)
+            @if(session('id_membresia')==1)
                 <input type="hidden" value="{{$precioConDescuento}}" name="precioConDescuento">   
             @else
                 <input type="hidden" value="{{$viaje[0]->precio}}" name="precio">
