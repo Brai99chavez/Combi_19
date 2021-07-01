@@ -18,19 +18,19 @@
             <strong>
                 Número de tarjeta 
                 <br>
-                <input type="text" placeholder="16 digitos" name="tarjeta">
+                <input type="text" placeholder="16 digitos" name="tarjeta" value="">
             </strong>
             <br><br>
             <strong>
                 Vencimiento 
                 <br>
-                <input type="month" name="fechaVenc">
+                <input type="month" name="fechaVenc" value="">
             </strong>
             <br><br>
             <strong>
                 Codigo de Seguridad - CVV
                 <br>
-                <input type="text" placeholder="3 digitos detras de la tarjeta" name="codigo">
+                <input type="text" placeholder="3 digitos detras de la tarjeta" name="codigo" value="">
             </strong>
             <br>
             <button type="submit" class="botones">Modificar Membresia</button>
@@ -54,19 +54,19 @@
             <strong>
                 Número de tarjeta 
                 <br>
-                <input type="text" placeholder="16 digitos" name="tarjeta">
+                <input type="text" placeholder="16 digitos" name="tarjeta"  value="{{$usuario[0]->tarjeta}}" >
             </strong>
             <br><br>
             <strong>
                 Vencimiento 
                 <br>
-                <input type="month" name="fechaVenc">
+                <input type="month" name="fechaVenc"  value="{{$usuario[0]->fechaVenc}}" >
             </strong>
             <br><br>
             <strong>
                 Codigo de Seguridad - CVV
                 <br>
-                <input type="text" placeholder="3 digitos detras de la tarjeta" name="codigo">
+                <input type="text" placeholder="3 digitos detras de la tarjeta" name="codigo"  value="{{$usuario[0]->codigo}}" >
             </strong>
             <br>
             <button type="submit" class="botones">Actualizar Tarjeta</button>
