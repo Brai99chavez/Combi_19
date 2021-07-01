@@ -2,7 +2,7 @@
 @section('title', 'Mis Pasajes')
 @section('headerTitle')
 <h1>Mis Pasajes</h1>
-@endsection   
+@endsection
 @section('content')
     @if($viajes->isNotEmpty())
                 <table>
@@ -75,33 +75,31 @@
         confirmButtonColor: '#105671',
         confirmButtonText: 'ok'
     })
-    </script>
-    @enderror
+
+</script>
+@enderror
 @endsection
 @section('js')
-    <script>
-        $('.reembolsar-pasaje').submit (function (e) {
+<script>
+    $('.reembolsar-pasaje').submit(function (e) {
 
-            e.preventDefault();
+        e.preventDefault();
 
-            Swal.fire({
-        title: '¿Estas seguro que quiere cancelar el pasaje?',
-        text: "¡No podras revertir esto!",
-        icon: 'warning',
-        iconColor: '#105671',
-        showCancelButton: true,
-        confirmButtonColor: '#105671',
-        confirmButtonText: 'Si, reembolsar',
-        cancelButtonText: 'Me arrepenti'
+        Swal.fire({
+            title: '¿Estas seguro que quiere cancelar el pasaje?',
+            text: "¡No podras revertir esto!",
+            icon: 'warning',
+            iconColor: '#105671',
+            showCancelButton: true,
+            confirmButtonColor: '#105671',
+            confirmButtonText: 'Si, reembolsar',
+            cancelButtonText: 'Me arrepenti'
         }).then((result) => {
-        if (result.isConfirmed){
-            this.submit();
-        }
+            if (result.isConfirmed) {
+                this.submit();
+            }
         })
-        });
-    </script>
+    });
+
+</script>
 @endsection
-
-
-
-

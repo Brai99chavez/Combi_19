@@ -105,7 +105,7 @@ class userController extends Controller
             $precio = $request->precio * $request->cantPasajesCompra;
             $precioindiv = $request->precio;
         }
-        if(session('id_membresia')==1)
+        if(session('id_membresia')==2)
             return view('user.pagarviaje.crearPago', compact('id_viaje','cantPasajesCompra','precio','precioindiv'));
         else{
             $numero = Usuarios::where('id_usuario',session('id_usuario'))->select('tarjeta')->get();
