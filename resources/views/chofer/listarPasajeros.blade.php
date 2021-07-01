@@ -12,6 +12,7 @@
                 <th>Apellido</th>
                 <th>DNI</th>
                 <th>Pasajes Comprados</th>
+                <th>Estado</th>
                 <th>Registrar Sintomas</th>
             </thead>
             <tbody>
@@ -31,15 +32,15 @@
                             </div>
                         @endif
                     @endforeach
-                    <td>{{$cant}}</td>     
+                    <td>{{$cant}}</td>
+                    <td>{{$estado}}</td>     
                     @if($estado == "Pendiente" && $fecha[0]->fecha == date('Y-m-d'))
                         <td>
                             <form action="{{route('registrarSintomasCovid')}}" method="GET">
                                 @csrf
                                 <input type="hidden" name="id_usuario" value="{{$pasajero->id_usuario}}">
                                 <input type="hidden" name="id_viaje" value="{{$id_viaje}}">
-                                <button type="reset"><i class="fas fa-plus-square"></i></button>
-                                    
+                                <button type="submit"><i class="fas fa-plus-square"></i></button>
                             </form>
                         </td>    
                     @endif

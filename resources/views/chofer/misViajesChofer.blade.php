@@ -29,7 +29,6 @@
         <strong> modelo:</strong> {{$viaje->modelo}}<br>
         <strong> color:</strong> {{$viaje->color}}<br>
         <strong> cantAsientos:</strong> {{$viaje->cant_asientos}}
-
         <br> <br>
         <strong>ESTADO:</strong> {{$viaje->estado}}
         <strong>PASAJES DISPONIBLES:</strong> {{$viaje->cantPasajes}}
@@ -81,7 +80,7 @@
 
 @else
 <div class="formulary">
-    <strong><em>No tiene ningun viaje asignado</em></strong>
+    <h2><em>No tiene ningun viaje asignado</em></h2>
 </div>
 @endif
 

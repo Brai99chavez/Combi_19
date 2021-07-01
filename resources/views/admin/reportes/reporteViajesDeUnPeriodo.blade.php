@@ -19,6 +19,7 @@
                 </thead>
                 <tbody>
                     @foreach($viajes as $viaje)
+                        <tr>
                         <td>{{$viaje->id_viaje}}</td>
                         <td>{{$viaje->chofer}}</td>
                         <td>{{$viaje->patente}}</td>
@@ -28,6 +29,7 @@
                         <td>{{$viaje->destino}}</td>
                         <td>${{$viaje->precio}}</td>
                         <td>{{$viaje->cant_asientos- $viaje->cantPasajes}}</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

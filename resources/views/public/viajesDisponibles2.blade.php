@@ -50,8 +50,8 @@
             @endif
         </tbody>
     </table>
-</div>
-<h3><strong>Registrate y compra tu primer pasaje</strong></h3>
+<h3>Registrate y compra tu primer pasaje</h3>
 <a href="{{route('/')}}"><button class="botones">Volver</button></a>
+</div>
 @endsection
 
