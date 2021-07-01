@@ -6,12 +6,12 @@ nav {
 nav .mainMenu {
     display: flex;
     list-style: none;
-    
+    margin-top: auto;
+    margin-bottom: auto;
 }
+
 nav .mainMenu li a {
-    display: inline-block;
     padding: 15px;
-    margin: 25px;
     text-decoration: none;
     color: var(--navfont);
     font-size: 1.5rem;

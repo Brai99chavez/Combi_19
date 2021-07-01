@@ -16,8 +16,8 @@
         })
         </script>
         @enderror
-        <strong>nombre</strong><br>
-        <input name="nombre" type="text" value="{{$ciudades[0]->nombre}}"><br>
+        <h2>nombre</h2>
+        <input name="nombre" type="text" value="{{$ciudades[0]->nombre}}">
         @error('direccion')
         <script>
             Swal.fire({
@@ -29,8 +29,8 @@
         })
         </script>
         @enderror
-        <strong>direccion:</strong><br>
-        <input name="direccion" type="text" value="{{$ciudades[0]->direccion}}"><br>
+        <h2>direccion:</h2>
+        <input name="direccion" type="text" value="{{$ciudades[0]->direccion}}">
         @error('disponible')
         <script>
             Swal.fire({
@@ -42,12 +42,12 @@
         })
         </script>
         @enderror
-        <strong>disponible:</strong><br>
+        <h2>disponible:</h2>
         <select name="disponible" id="" value="{{$ciudades[0]->disponible}}">
             <option value="1">SI</option>
             <option value="0">NO</option>
         </select>
-
+        <br>
         <input type="hidden" name="id_ciudad" value="{{$ciudades[0]->id_ciudad}}">
         <button class="botones" type="submit">Modificar Ciudad</button>
     </form>

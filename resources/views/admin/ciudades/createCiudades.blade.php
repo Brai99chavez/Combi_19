@@ -2,31 +2,34 @@
 @section('title','Registro Ciudad')
 @section('headerTitle', 'Registro Ciudad')
 @section('content')
-<div class="formulary">    
-<form action="{{route('createciudadprocess')}}" method="POST" >
-    @csrf
+<div class="formulary">
+    <h2>Agregar Ciudad</h2>
+    <form action="{{route('createciudadprocess')}}" method="POST">
+        @csrf
         @error('nombre')
-            <script>
-                Swal.fire({
+        <script>
+            Swal.fire({
                 title: '<em>{{$message}}</em>',
                 icon: 'error',
                 iconColor: '#105671',
                 confirmButtonColor: '#105671',
                 confirmButtonText: 'ok'
             })
-            </script>
+
+        </script>
         @enderror
         <strong>Nombre</strong><br>
-        <input name="nombre" type="text" ><br>
+        <input name="nombre" type="text"><br>
         @error('direccion')
         <script>
             Swal.fire({
-            title: '<em>{{$message}}</em>',
-            icon: 'error',
-            iconColor: '#105671',
-            confirmButtonColor: '#105671',
-            confirmButtonText: 'ok'
-        })
+                title: '<em>{{$message}}</em>',
+                icon: 'error',
+                iconColor: '#105671',
+                confirmButtonColor: '#105671',
+                confirmButtonText: 'ok'
+            })
+
         </script>
         @enderror
         <strong>Direccion</strong><br>
@@ -34,12 +37,13 @@
         @error('disponible')
         <script>
             Swal.fire({
-            title: '<em>{{$message}}</em>',
-            icon: 'error',
-            iconColor: '#105671',
-            confirmButtonColor: '#105671',
-            confirmButtonText: 'ok'
-        })
+                title: '<em>{{$message}}</em>',
+                icon: 'error',
+                iconColor: '#105671',
+                confirmButtonColor: '#105671',
+                confirmButtonText: 'ok'
+            })
+
         </script>
         @enderror
         <strong>Disponible</strong><br>
