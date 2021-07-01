@@ -1,0 +1,40 @@
+.reports {
+    background: rgba(255, 255, 255, 0.603);
+    border-radius: 20px;
+    padding: 20px;
+    color: var(--primaryColor);
+    height: max-content;
+    width: 40vh;
+    margin: auto;
+}
+
+.reports h2{
+    text-align: center;
+    margin: 20px;
+    color: var(--primaryColor);
+}
+
+.reports ul li a{
+    border: 2px solid var(--primaryColor);
+    border-radius: 20px;
+    margin-top: 20px;
+    padding: 5px;
+    text-decoration: none;
+    color: var(--primaryColor);
+    
+}
+
+.reports ul li a:hover{
+    background: var(--primaryColor);
+    color: var(--font);
+    
+}
+
+.reports ul li {
+    margin-top: 20px;
+}
+
+.reports ul {
+    list-style: none;
+    text-align: center;
+}

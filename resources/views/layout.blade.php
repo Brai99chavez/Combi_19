@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../resources/css/style.css">
     <link rel="stylesheet" href="../resources/css/navbar.css">
     <link rel="stylesheet" href="../resources/css/formularys.css">
+    <link rel="stylesheet" href="../resources/css/reports.css">
+    <link rel="stylesheet" href="../resources/css/table.css">
     <script src="../resources/js/navbar.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
