@@ -4,7 +4,6 @@
 <h1>Historial de Viajes</h1>
 @endsection   
 @section('content')
-    <div class="formulary">
         @if($viajes->isNotEmpty())
         <table>
             <thead>
@@ -29,5 +28,4 @@
         @else
             <em><h2>Sin Viajes Asignados</h2></em>
         @endif
-    </div>
 @endsection

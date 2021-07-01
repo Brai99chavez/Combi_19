@@ -5,7 +5,6 @@
 @endsection   
 @section('content')
 
-<div>
     @if($pasajeros->isNotEmpty())
         <table>
             <thead>
@@ -44,7 +43,5 @@
             <a href=""><button type="submit" class="botones" style="width: 150px">Cancelar Viaje</button></a>
         @endif
     @endif
-    <a href="{{route('misViajesChofer')}}"><button>Volver</button></a>
-</div>
 
 @endsection
