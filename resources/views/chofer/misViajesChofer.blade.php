@@ -19,7 +19,7 @@
 @if($viajes->isNotEmpty())
 
 <div class="formulary" style="width: 800px">
-    @foreach($viajes as $viaje)
+@foreach($viajes as $viaje)
     <h2>DETALLES DEL VIAJE</h2>
         <strong>Fecha:</strong>{{$viaje->fecha}}  <br>
         <strong>Hora:</strong> {{$viaje->hora}}<br>
@@ -34,7 +34,7 @@
         <strong>PASAJES DISPONIBLES:</strong> {{$viaje->cantPasajes}}
     @if($viaje->fecha == date('Y-m-d'))
         @if($viaje->estado == "Pendiente")
-        <div style="display: flex">
+
             <form action="{{route('iniciarViaje')}}" method="GET" class="confirmar">
                 @csrf
                 <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
@@ -45,39 +45,35 @@
                 <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
                 <button type="submit" class="botones" style="width: 150px">Cancelar Viaje</button>
             </form>
-        </div>
-       <div style="display: flex">
-        @if($viaje->cantPasajes > 0)
-        <form action="{{route('venderPasaje')}}" method="GET">
-            <input type="hidden" name="precio" value="{{$viaje->precio}}">
-            <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
-            <button type="submit" class="botones" style="width: 150px">Vender Pasaje</button>
-        </form>
-        @else
-        <strong><em>Pasajes Agotados</em></strong>
-        @endif
-    @else
-        @if($viaje->estado <> "Cancelado")
-            <form action="{{route('finalizarViaje')}}" method="GET" class="confirmar">
-                @csrf
+
+            @if($viaje->cantPasajes > 0)
+            <form action="{{route('venderPasaje')}}" method="GET">
+                <input type="hidden" name="precio" value="{{$viaje->precio}}">
                 <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
-                <button type="submit" class="botones" style="width: 150px">Finalizar Viaje</button>
+                <button type="submit" class="botones" style="width: 150px">Vender Pasaje</button>
             </form>
-        @endif
-       </div>
+            @else
+            <strong><em>Pasajes Agotados</em></strong>
+            @endif
+        @else
+            @if($viaje->estado <> "Cancelado")
+                <form action="{{route('finalizarViaje')}}" method="GET" class="confirmar">
+                    @csrf
+                    <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
+                    <button type="submit" class="botones" style="width: 150px">Finalizar Viaje</button>
+                </form>
+            @endif
+
         @endif
     @endif
-        <form action="{{route('listarPasajeros')}}" method="GET">
-            @csrf
-            <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
-            <button type="submit" class="botones" style="width: 150px">Lista de pasajeros</button>
-        </form>
-       
-</div>
-
-
+    <form action="{{route('listarPasajeros')}}" method="GET">
+        @csrf
+        <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
+        <button type="submit" class="botones" style="width: 150px">Lista de pasajeros</button>
+    </form>
+    <hr>
 @endforeach
-
+</div>
 @else
 <div class="formulary">
     <h2><em>No tiene ningun viaje asignado</em></h2>
