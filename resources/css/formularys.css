@@ -3,8 +3,10 @@
     background: rgba(255, 255, 255, 0.603);
     max-width: 120vh;
     min-width: 30vh;
-    border-radius: 10px;
     margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
     vertical-align: middle;
 }
 
@@ -14,6 +16,19 @@
     margin: 20px;
 
     text-align: center;
+}
+
+.formulary select{
+    text-align: center;
+    margin: 1em;
+    background: var(--primaryColor);
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    border-bottom: 2px solid var(--primaryColor);
+    width: 70%;
+    color: var(--font);
 }
 
 
@@ -26,6 +41,19 @@
 }
 
 .formulary input[type="text"]{
+    text-align: center;
+    margin: 1em;
+    background: var(--primaryColor);
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    border-bottom: 2px solid var(--primaryColor);
+    width: 70%;
+    color: var(--font);
+}
+
+.formulary input[type="time"]{
     text-align: center;
     margin: 1em;
     background: var(--primaryColor);
@@ -78,6 +106,19 @@
 }
 
 .formulary input[type="month"]{
+    
+    margin: 1em;
+    background: var(--primaryColor);
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    border-bottom: 2px solid var(--primaryColor);
+    width: 70%;
+    color: var(--font);
+}
+
+.formulary input[type="date"]{
     
     margin: 1em;
     background: var(--primaryColor);
