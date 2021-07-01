@@ -5,7 +5,6 @@
 @endsection   
 @section('content')
 
-<div>
     @if($pasajeros->isNotEmpty())
         <table>
             <thead>
@@ -35,7 +34,7 @@
                                 @csrf
                                 <input type="hidden" name="id_usuario" value="{{$pasajero->id_usuario}}">
                                 <input type="hidden" name="id_viaje" value="{{$id_viaje}}">
-                                <button type="submit"><i class="fas fa-edit"></button>
+                                <button type="submit"><i class="fas fa-plus-square"></button>
                             </form>
                         </td>    
                     @endif
@@ -49,7 +48,5 @@
             <a href=""><button type="submit" class="botones" style="width: 150px">Cancelar Viaje</button></a>
         @endif
     @endif
-    <a href="{{route('misViajesChofer')}}"><button>Volver</button></a>
-</div>
 
 @endsection

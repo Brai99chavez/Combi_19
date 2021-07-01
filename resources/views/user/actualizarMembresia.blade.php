@@ -40,7 +40,8 @@
     <div class="formulary">
         <h2>Membresia actual: GOLDEN</h2>
         <ul>
-            <li><p>Beneficios actuales: {{$golden[0]->descuento}}% de descuento en la compra de pasajes</p></li>
+            <strong>Beneficios actuales:</strong>
+            <p> {{$golden[0]->descuento}}% de descuento en la compra de pasajes</p>
         </ul>
         <form action="{{route('processingMembresiaUpdateBasic')}}" method="GET" class="dar-baja">
             @csrf
