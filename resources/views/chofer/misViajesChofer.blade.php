@@ -17,8 +17,9 @@
 </script>
 @enderror
 @if($viajes->isNotEmpty())
-@foreach($viajes as $viaje)
+
 <div class="formulary" style="width: 800px">
+    @foreach($viajes as $viaje)
     <h2>DETALLES DEL VIAJE</h2>
         <strong>Fecha:</strong>{{$viaje->fecha}}  <br>
         <strong>Hora:</strong> {{$viaje->hora}}<br>
@@ -72,9 +73,12 @@
             <input type="hidden" name="id_viaje" value="{{$viaje->id_viaje}}">
             <button type="submit" class="botones" style="width: 150px">Lista de pasajeros</button>
         </form>
+       
 </div>
-<p>------------------------------------------------------------------------------------------------------------------------------</p>
+
+
 @endforeach
+
 @else
 <div class="formulary">
     <strong><em>No tiene ningun viaje asignado</em></strong>

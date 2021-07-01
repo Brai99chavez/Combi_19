@@ -8,113 +8,116 @@
 <div class="formulary">
     <h2>Crear Viaje</h2>
 
-    <form action="{{route('createviajeprocess')}}" method="POST" style="display: flex">
+    <form action="{{route('createviajeprocess')}}" method="POST" >
 
         @csrf
         <input type="hidden" name="fecha" value="{{$fecha}}">
-        <div style="margin: auto">
-            <strong>
-                CHOFER
-                @if($choferes->count()>0)
-                <select name="id_chofer">
-                    @foreach($choferes as $chofer)
-                    @if($chofer->id_permiso == 2)
-                    <option value="{{$chofer->id_usuario}}">
-                        {{$chofer->nombre}}
-                    </option>
-                    @endif
-                    @endforeach
-                </select>
-                @else
-                <script>
-                    Swal.fire({
-                        title: 'No hay choferes disponibles',
-                        icon: 'success',
-                        iconColor: '#105671',
-                        confirmButtonColor: '#105671',
-                        confirmButtonText: 'ok'
-                    })
-
-                </script>
-                <select name="id_chofer">
-                    <option value="">NO HAY CHOFERES DISPONIBLES</option>
-                </select>
-                @endif
-            </strong>
-            <br>
-            <strong>
-                COMBIS
-                <select name="id_combi">
-                    @if($combis->count()>0)
-                    @foreach($combis as $combi)
-                    <option value="{{$combi->id_combi}}">
-                        {{$combi->patente}}
-                    </option>
-                    @endforeach
+        <div style="display: flex">
+            <div >
+                <strong>
+                    CHOFER
+                    @if($choferes->count()>0)
+                    <select name="id_chofer">
+                        @foreach($choferes as $chofer)
+                        @if($chofer->id_permiso == 2)
+                        <option value="{{$chofer->id_usuario}}">
+                            {{$chofer->nombre}}
+                        </option>
+                        @endif
+                        @endforeach
+                    </select>
                     @else
                     <script>
                         Swal.fire({
-                            title: 'No hay combis disponibles',
+                            title: 'No hay choferes disponibles',
                             icon: 'success',
                             iconColor: '#105671',
                             confirmButtonColor: '#105671',
                             confirmButtonText: 'ok'
                         })
-
+    
                     </script>
+                    <select name="id_chofer">
+                        <option value="">NO HAY CHOFERES DISPONIBLES</option>
+                    </select>
                     @endif
-                </select>
-            </strong>
-            <strong>
+                </strong>
                 <br>
-                HORA
-                <input type="time" name="hora">
-            </strong>
+                <strong>
+                    COMBIS
+                    <select name="id_combi">
+                        @if($combis->count()>0)
+                        @foreach($combis as $combi)
+                        <option value="{{$combi->id_combi}}">
+                            {{$combi->patente}}
+                        </option>
+                        @endforeach
+                        @else
+                        <script>
+                            Swal.fire({
+                                title: 'No hay combis disponibles',
+                                icon: 'success',
+                                iconColor: '#105671',
+                                confirmButtonColor: '#105671',
+                                confirmButtonText: 'ok'
+                            })
+    
+                        </script>
+                        @endif
+                    </select>
+                </strong>
+                <strong>
+                    <br>
+                    HORA
+                    <input type="time" name="hora">
+                </strong>
+            </div>
+            <div style="margin: auto">
+                <strong>
+                    PRECIO
+                    <input type="text" name="precio" autocomplete="off">
+                </strong>
+                <br>
+                <strong>
+                    ORIGEN
+                    <select name="origen">
+                        @if($ciudades->count()>0)
+                        @foreach($ciudades as $ciudad1)
+                        <option value="{{$ciudad1->id_ciudad}}">
+                            {{$ciudad1->nombre}}
+                        </option>
+                        @endforeach
+                        @else
+                        <script>
+                            Swal.fire({
+                                title: '<em>No hay ciudades disponibles</em>',
+                                icon: 'success',
+                                iconColor: '#105671',
+                                confirmButtonColor: '#105671',
+                                confirmButtonText: 'ok'
+                            })
+    
+                        </script>
+                        @endif
+                    </select>
+                </strong>
+                <br>
+                <strong>
+                    DESTINO
+                    <select name="destino">
+                        @foreach($ciudades as $ciudad2)
+                        <option value="{{$ciudad2->id_ciudad}}">
+                            {{$ciudad2->nombre}}
+                        </option>
+                        @endforeach
+                    </select>
+                </strong>
+                <br>
+            </div>
         </div>
-        <div style="margin: auto">
-            <strong>
-                PRECIO
-                <input type="text" name="precio" autocomplete="off">
-            </strong>
-            <br>
-            <strong>
-                ORIGEN
-                <select name="origen">
-                    @if($ciudades->count()>0)
-                    @foreach($ciudades as $ciudad1)
-                    <option value="{{$ciudad1->id_ciudad}}">
-                        {{$ciudad1->nombre}}
-                    </option>
-                    @endforeach
-                    @else
-                    <script>
-                        Swal.fire({
-                            title: '<em>No hay ciudades disponibles</em>',
-                            icon: 'success',
-                            iconColor: '#105671',
-                            confirmButtonColor: '#105671',
-                            confirmButtonText: 'ok'
-                        })
-
-                    </script>
-                    @endif
-                </select>
-            </strong>
-            <br>
-            <strong>
-                DESTINO
-                <select name="destino">
-                    @foreach($ciudades as $ciudad2)
-                    <option value="{{$ciudad2->id_ciudad}}">
-                        {{$ciudad2->nombre}}
-                    </option>
-                    @endforeach
-                </select>
-            </strong>
-            <br>
-        </div>
+        <button type="submit" class="botones"> Cargar viaje</button>
     </form>
-    <button type="submit" class="botones"> Cargar viaje</button>
+
 </div>
 @error('id_chofer')
 <script>
