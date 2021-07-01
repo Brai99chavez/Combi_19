@@ -4,7 +4,7 @@
 @section('content')
 <div class="formulary">
     @foreach($membresias as $membresia)
-            <h2>Nombre:</h2>
+            <h2>Nombre:</h2>php artisan migrate:fres --seed
             {{$membresia->nombre}}
             <h2>Descuento:</h2>
             {{$membresia->descuento}}%
