@@ -17,6 +17,7 @@
 <table>
     <thead>
         <tr>
+            <th>ID Viaje</th>
             <th>Chofer</th>
             <th>Patente</th>
             <th>Categoria</th>
@@ -35,6 +36,7 @@
         @if($viajes->isNotEmpty())
             @foreach($viajes as $viaje)
         <tr>
+            <td>{{$viaje->id_viaje}}</td>
             <td>{{$viaje->chofer}}</td>
             <td>{{$viaje->patente}}</td>
             <td>{{$viaje->categoria}}</td>

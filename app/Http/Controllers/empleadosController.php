@@ -39,19 +39,18 @@ class empleadosController extends Controller
 
     public function saveEmp(Request $request){
         $request->validate([
-            'nombre'=>'required|max:40',
-            'apellido'=>'required|max:40',
-            'dni' => 'required|numeric|max:10',
+            'nombre'=>'required',
+            'apellido'=>'required',
+            'dni' => 'required|lt:999999999',
             'email' => 'required|email',
-            'contraseña' => 'required'
-        ],['required' => 'Los campos no pueden estar vacios','nombre.max' => 'El nombre debe tener menos de 40 caracteres',
-        'apellido.max' => 'El apellido debe tener menos de 40 caracteres', 'dni.max' => 'DNI invalido' ]);
+            'contraseña' => 'required',
+        ],['required' => 'Los campos no pueden estar vacios','dni.lt' => 'DNI invalido' ]);
         Usuarios::where('id_usuario',$request->id_usuario)->update(["nombre"=> $request->nombre,
         "apellido" => $request->apellido,"contraseña" => $request->contraseña]);
         if($this->newsEmailorDNI($request)){
             if($this->updateEmailDNI($request)==0){
                 if(session('id_permiso')==3){
-                    return redirect()->route('homeEmp')->withErrors(['sucess'=>'Error, DNI o email ya registrados']);
+                    return redirect()->route('homeEmp')->withErrors(['error'=>'Error, DNI o email ya registrados']);
                 }else{
                     return redirect()->route('editarPerfilCliente')->withErrors(['sucess'=>'Error, DNI o email ya registrados']); 
                 }

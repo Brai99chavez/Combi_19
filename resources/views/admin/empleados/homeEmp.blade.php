@@ -4,6 +4,17 @@
 
 @section('headerTitle', 'Empleados')
 @section('content')
+@error('error')
+    <script>
+        Swal.fire({
+        title: '<em>{{$message}}</em>',
+        icon: 'error',
+        iconColor: '#105671',
+        confirmButtonColor: '#105671',
+        confirmButtonText: 'ok'
+    })
+    </script>
+@enderror
 @error('sucess')
     <script>
         Swal.fire({
