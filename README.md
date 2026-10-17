@@ -1,62 +1,45 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Combi 19
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web para una empresa de viajes en combi durante la pandemia de COVID-19.
 
-## About Laravel
+## Qué es
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Un proyecto en equipo de 2021 para una empresa ficticia de traslados en combi. Tiene tres tipos de usuario: pasajero, chofer y administrador.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Qué hace
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Búsqueda de viajes por origen, destino y fecha, y registro con membresía común o Golden (20 % de descuento).
+- **Pasajeros:** compra de pasajes con tarjeta, mis viajes, historial, comentarios, devoluciones y cambio de membresía.
+- **Choferes:** iniciar, terminar o cancelar viajes, ver la lista de pasajeros, vender en el momento y registrar síntomas de COVID (cancela el pasaje y lo marca para devolver la plata).
+- **Administración:** ciudades, rutas, viajes, combis, insumos, empleados y membresías.
+- **Reportes:** pasajeros por viaje, viajes entre fechas y pasajeros con síntomas.
 
-## Learning Laravel
+## Tecnologías
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+PHP, Laravel 8, Blade y MySQL.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Equipo
 
-## Laravel Sponsors
+Braian Chavez, [@Tonyraz18](https://github.com/Tonyraz18) y [@marceloMolinaCari](https://github.com/marceloMolinaCari).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Cómo correrlo
 
-### Premium Partners
+Necesitás PHP 7.3 o más, Composer y MySQL.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+```bash
+git clone https://github.com/Brai99chavez/Combi_19.git
+cd Combi_19
+composer install
+cp .env.example .env
+php artisan key:generate
+```
 
-## Contributing
+Creá una base MySQL llamada `combi_19` (o cambiá `DB_DATABASE` en `.env`) y cargá las tablas con datos de ejemplo:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+php artisan migrate --seed
+```
 
-## Code of Conduct
+Los estilos usan rutas relativas: abrilo desde Apache (por ejemplo, con XAMPP) en `http://localhost/Combi_19/public/`. Con `php artisan serve` también anda, pero sin estilos.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Usuarios de prueba:** administrador `brai@gmail.com` / `brai123`, chofer `tony@gmail.com` / `tony123`, pasajero `tomas@gmail.com` / `tomas123`.
